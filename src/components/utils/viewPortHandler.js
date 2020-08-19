@@ -21,7 +21,6 @@ export const ViewportProvider = ({ children }) => {
   /* Now we are dealing with a context instead of a Hook, so instead
      of returning the width and height we store the values in the
      value of the Provider */
-  console.log(children);
   return (
     <viewportContext.Provider value={{ width, height }}>
       {children}

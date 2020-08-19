@@ -8,11 +8,6 @@ const ProductListing = (props) => {
       <Product />
       <Product />
       <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
     </div>
   );
 };

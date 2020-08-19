@@ -1,13 +1,21 @@
-import React, { Component } from "react";
+import React, { Component, useState, useCallback } from "react";
 import { FaOpencart, FaUser, FaChevronDown, FaPhoneAlt } from "react-icons/fa";
 import { BsHeart, BsSearch } from "react-icons/bs";
 import { MdMenu } from "react-icons/md";
 import "./header.scss";
 import NavBar from "./navbar/navbar";
+import { Fade } from "react-bootstrap";
 import { useViewportHook } from "../utils/viewPortHandler";
 import { desktopRes } from "../../viewPortBreakpoints";
+import MobileSearchbar from "./navbar/mobileSearchBar";
 const Header = (props) => {
   const { width } = useViewportHook();
+
+  const [isSearchOpen, setSearchOpen] = useState(false);
+  const toggleSearch = useCallback(() => {
+    console.log(isSearchOpen);
+    setSearchOpen(!isSearchOpen);
+  });
   return (
     <div>
       <div className="top-header">
@@ -57,12 +65,13 @@ const Header = (props) => {
         )}
         {desktopRes > width && (
           <div className="nav-icons">
-            <BsSearch size={25} />
+            <BsSearch onClick={toggleSearch} size={25} />
             <MdMenu size={30} />
           </div>
         )}
       </div>
-      <NavBar />
+      {desktopRes < width && <NavBar />}
+      <MobileSearchbar isOpen={isSearchOpen} closeSearch={toggleSearch} />
     </div>
   );
 };
