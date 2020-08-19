@@ -1,0 +1,89 @@
+@import "../../assets/styles/breakpoints";
+.product {
+  width: 25%;
+  height: 400px;
+  box-sizing: border-box;
+  border: 1px solid #eee;
+  padding: 30px 10px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  overflow: hidden;
+  .product-img {
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: center;
+    img {
+      height: 200px;
+    }
+  }
+
+  .product-info {
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    // border: 1px solid red;
+    align-items: center;
+
+    .prod-name {
+      //   border: 1px solid red;
+      white-space: nowrap;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .prod-author,
+    .prod-publisher {
+      font-size: 0.9em;
+      text-align: center;
+      color: #555;
+      padding: 0;
+      margin: 5px 0;
+      white-space: nowrap;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .prices {
+      font-size: 1.1em;
+      .price {
+        color: green;
+        // font-weight: bold;
+      }
+      .actual-price {
+        margin: 0 5px;
+        font-weight: lighter;
+        text-decoration: line-through;
+        color: #999;
+      }
+      .discount {
+        font-size: 0.72em;
+        padding: 2px 2px;
+        color: white;
+        border-radius: 3px;
+        background-color: maroon;
+      }
+    }
+    // width: 100%;
+  }
+}
+
+@media only screen and (max-width: $breakpoint-desktop) {
+  .product {
+    width: 33%;
+  }
+}
+
+@media only screen and (max-width: $breakpoint-tab) {
+  .product {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: $breakpoint-mobile) {
+  .product {
+    width: 100%;
+  }
+}
