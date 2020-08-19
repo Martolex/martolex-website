@@ -1,0 +1,16 @@
+.footer-link {
+  //   text-decoration: underline;
+  margin: 10px 0;
+  transition: 0.5s;
+  color: lightgray;
+  &:hover {
+    text-decoration: underline;
+    color: white;
+    margin-left: 10px;
+  }
+}
+
+.bg-dark {
+  background-color: black !important;
+  color: lightgray !important;
+}
