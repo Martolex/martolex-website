@@ -2,12 +2,10 @@ import React from "react";
 import { Container, Form, Row, Button } from "react-bootstrap";
 import { MdClose } from "react-icons/md";
 import "./mobileSearchBar.scss";
+import OverLay from "../../utils/overLay";
 const MobileSearchbar = (props) => {
   return (
-    <Container
-      className="overlay"
-      style={{ display: props.isOpen ? "block" : "none" }}
-    >
+    <OverLay style={{ display: props.isOpen ? "block" : "none" }}>
       <Row className="justify-content-end mr-2">
         <MdClose onClick={props.closeSearch} size={40} color="white" />
       </Row>
@@ -23,7 +21,7 @@ const MobileSearchbar = (props) => {
           SEARCH
         </Button>
       </Row>
-    </Container>
+    </OverLay>
   );
 };
 

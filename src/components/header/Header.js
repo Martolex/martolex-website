@@ -8,13 +8,17 @@ import { Fade } from "react-bootstrap";
 import { useViewportHook } from "../utils/viewPortHandler";
 import { desktopRes } from "../../viewPortBreakpoints";
 import MobileSearchbar from "./navbar/mobileSearchBar";
+import NavBarMobile from "./navbar/navBarMobile";
 const Header = (props) => {
   const { width } = useViewportHook();
 
   const [isSearchOpen, setSearchOpen] = useState(false);
+  const [isMenuopen, setMenuOpen] = useState(false);
   const toggleSearch = useCallback(() => {
-    console.log(isSearchOpen);
     setSearchOpen(!isSearchOpen);
+  });
+  const togglemenu = useCallback(() => {
+    setMenuOpen(!isMenuopen);
   });
   return (
     <div>
@@ -66,12 +70,13 @@ const Header = (props) => {
         {desktopRes > width && (
           <div className="nav-icons">
             <BsSearch onClick={toggleSearch} size={25} />
-            <MdMenu size={30} />
+            <MdMenu onClick={togglemenu} size={30} />
           </div>
         )}
       </div>
       {desktopRes < width && <NavBar />}
       <MobileSearchbar isOpen={isSearchOpen} closeSearch={toggleSearch} />
+      <NavBarMobile isOpen={isMenuopen} closeMenu={togglemenu} />
     </div>
   );
 };
