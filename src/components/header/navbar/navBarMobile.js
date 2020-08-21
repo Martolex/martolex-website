@@ -10,12 +10,25 @@ import {
 import { FiArrowLeft } from "react-icons/fi";
 import OverLay from "../../utils/overLay";
 const NavBarMobile = (props) => {
+  const animation = props.isOpen
+    ? { visibility: "visible", opacity: 1 }
+    : { visibility: "hidden", opacity: 0 };
+
+  const menuAnimation = props.isOpen
+    ? { visibility: "visible", left: 0 }
+    : { visibility: "hidden", left: -500 };
   return (
-    <OverLay
-      close={props.closeMenu}
-      style={{ padding: 0, display: props.isOpen ? "block" : "none" }}
-    >
-      <Col style={{ overflowY: "scroll" }} className="bg-light h-100" xs={8}>
+    <OverLay close={props.closeMenu} style={{ padding: 0, ...animation }}>
+      <Col
+        style={{
+          overflowY: "scroll",
+          transition: "all 500ms ease",
+          position: "absolute",
+          ...menuAnimation,
+        }}
+        className="bg-light h-100"
+        xs={8}
+      >
         <Row className="p-2">
           <FiArrowLeft size={30} onClick={props.closeMenu} />
         </Row>

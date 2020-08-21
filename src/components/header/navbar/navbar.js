@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import "./navBar.scss";
 import { FaUser } from "react-icons/fa";
 const Navbar = (props) => {
+  const [isMenuopen, setMenuOpen] = useState(false);
+  const togglemenu = useCallback(() => {
+    setMenuOpen(!isMenuopen);
+  });
   return (
     <div>
       <ul className="navbar">
         <li>home</li>
-        <li>
-          <SubMenu />
+        <li onClick={togglemenu}>
+          {isMenuopen && <SubMenu />}
           Books
         </li>
         <li>how it works</li>

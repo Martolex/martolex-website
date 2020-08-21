@@ -5,7 +5,13 @@ import "./mobileSearchBar.scss";
 import OverLay from "../../utils/overLay";
 const MobileSearchbar = (props) => {
   return (
-    <OverLay style={{ display: props.isOpen ? "block" : "none" }}>
+    <OverLay
+      style={
+        props.isOpen
+          ? { visibility: "visible", opacity: 1, top: 0 }
+          : { visibility: "hidden", opacity: 0, top: "100vh" }
+      }
+    >
       <Row className="justify-content-end mr-2">
         <MdClose onClick={props.closeSearch} size={40} color="white" />
       </Row>
@@ -17,7 +23,13 @@ const MobileSearchbar = (props) => {
         />
       </Row>
       <Row className="mx-1">
-        <Button block size="lg" className="text-light">
+        <Button
+          block
+          onClick={props.closeSearch}
+          size="lg"
+          style={{ fontSize: "0.9em" }}
+          className="text-light"
+        >
           SEARCH
         </Button>
       </Row>

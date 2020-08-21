@@ -9,16 +9,22 @@ import { useViewportHook } from "../utils/viewPortHandler";
 import { desktopRes } from "../../viewPortBreakpoints";
 import MobileSearchbar from "./navbar/mobileSearchBar";
 import NavBarMobile from "./navbar/navBarMobile";
+import BottomNavbarMobile from "./navbar/BottomNavbarMobile";
+import Login from "../LoginComponent/Login";
 const Header = (props) => {
   const { width } = useViewportHook();
 
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [isMenuopen, setMenuOpen] = useState(false);
+  const [isLoginOpen, setLoginOpen] = useState(false);
   const toggleSearch = useCallback(() => {
     setSearchOpen(!isSearchOpen);
   });
   const togglemenu = useCallback(() => {
     setMenuOpen(!isMenuopen);
+  });
+  const toggleLogin = useCallback(() => {
+    setLoginOpen(!isLoginOpen);
   });
   return (
     <div>
@@ -47,7 +53,7 @@ const Header = (props) => {
 
         {desktopRes < width && (
           <div className="userButtons">
-            <div className="item">
+            <div className="item" onClick={toggleLogin}>
               <FaUser size={20} />
               <p>Login/register</p>
             </div>
@@ -73,10 +79,13 @@ const Header = (props) => {
             <MdMenu onClick={togglemenu} size={30} />
           </div>
         )}
+        {desktopRes > width && <BottomNavbarMobile openLogin={toggleLogin} />}
       </div>
       {desktopRes < width && <NavBar />}
+
       <MobileSearchbar isOpen={isSearchOpen} closeSearch={toggleSearch} />
       <NavBarMobile isOpen={isMenuopen} closeMenu={togglemenu} />
+      {<Login closeLogin={toggleLogin} isOpen={isLoginOpen} />}
     </div>
   );
 };
