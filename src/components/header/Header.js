@@ -11,6 +11,7 @@ import MobileSearchbar from "./navbar/mobileSearchBar";
 import NavBarMobile from "./navbar/navBarMobile";
 import BottomNavbarMobile from "./navbar/BottomNavbarMobile";
 import Login from "../LoginComponent/Login";
+import Cart from "../Cart/Cart";
 const Header = (props) => {
   const { width } = useViewportHook();
 
@@ -86,6 +87,7 @@ const Header = (props) => {
       <MobileSearchbar isOpen={isSearchOpen} closeSearch={toggleSearch} />
       <NavBarMobile isOpen={isMenuopen} closeMenu={togglemenu} />
       {<Login closeLogin={toggleLogin} isOpen={isLoginOpen} />}
+      <Cart isOpen={true} />
     </div>
   );
 };
