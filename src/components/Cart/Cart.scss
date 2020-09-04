@@ -1,0 +1,20 @@
+@import "../../assets/styles/breakpoints";
+
+.details-div {
+  font-size: 0.9em;
+  border-bottom: 1px solid #bbb;
+  padding: 10px;
+  box-sizing: border-box;
+  .details-row {
+    display: flex;
+    padding: 2px 0;
+    justify-content: space-between;
+    font-weight: bold;
+  }
+}
+
+@media only screen and (min-width: $breakpoint-desktop) {
+  .details-div {
+    font-size: 1.1em;
+  }
+}

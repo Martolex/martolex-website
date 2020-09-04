@@ -18,6 +18,7 @@ const Header = (props) => {
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [isMenuopen, setMenuOpen] = useState(false);
   const [isLoginOpen, setLoginOpen] = useState(false);
+  const [isCartOpen, setCartOpen] = useState(false);
   const toggleSearch = useCallback(() => {
     setSearchOpen(!isSearchOpen);
   });
@@ -26,6 +27,9 @@ const Header = (props) => {
   });
   const toggleLogin = useCallback(() => {
     setLoginOpen(!isLoginOpen);
+  });
+  const toggleCart = useCallback(() => {
+    setCartOpen(!isCartOpen);
   });
   return (
     <div>
@@ -80,14 +84,16 @@ const Header = (props) => {
             <MdMenu onClick={togglemenu} size={30} />
           </div>
         )}
-        {desktopRes > width && <BottomNavbarMobile openLogin={toggleLogin} />}
+        {desktopRes > width && (
+          <BottomNavbarMobile openLogin={toggleLogin} openCart={toggleCart} />
+        )}
       </div>
       {desktopRes < width && <NavBar />}
 
       <MobileSearchbar isOpen={isSearchOpen} closeSearch={toggleSearch} />
       <NavBarMobile isOpen={isMenuopen} closeMenu={togglemenu} />
       {<Login closeLogin={toggleLogin} isOpen={isLoginOpen} />}
-      <Cart isOpen={true} />
+      <Cart isOpen={isCartOpen} closeCart={toggleCart} />
     </div>
   );
 };

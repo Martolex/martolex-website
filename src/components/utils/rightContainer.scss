@@ -1,6 +1,15 @@
+@import "../../assets/styles/breakpoints";
+
 .right-container {
   position: absolute;
   right: 0;
+  overflow-y: scroll;
+  z-index: 10;
+  // &::-webkit-scrollbar {
+  //   display: none; /* Safari and Chrome */
+  // }
+  overflow-x: hidden;
+  height: calc(100vh - 50px);
   //   padding: 0;
   transition: all 500ms ease;
   .top-label {
@@ -19,5 +28,11 @@
     cursor: pointer;
     border: 1px solid black;
     box-sizing: border-box;
+  }
+}
+
+@media only screen and (min-width: $breakpoint-desktop) {
+  .right-container {
+    height: 100vh;
   }
 }

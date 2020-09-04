@@ -16,7 +16,7 @@ const BottomNavbarMobile = (props) => {
           <FaRegHeart size={25} />
           <p>Wislist</p>
         </Col>
-        <Col className="justify-content-center" xs={3}>
+        <Col className="justify-content-center" xs={3} onClick={props.openCart}>
           <FiShoppingCart size={25} />
           <p>Cart</p>
         </Col>
