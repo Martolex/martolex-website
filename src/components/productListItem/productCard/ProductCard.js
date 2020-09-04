@@ -1,8 +1,8 @@
 import React from "react";
 import ReactStars from "react-stars";
-import "./productListItem.scss";
+import "./ProductCard.scss";
 
-const Product = (props) => {
+const ProductCard = (props) => {
   return (
     <div className="product">
       <div className="product-img">
@@ -31,4 +31,4 @@ const Product = (props) => {
   );
 };
 
-export default Product;
+export default ProductCard;

@@ -1,13 +1,17 @@
 import React from "react";
 import "./productListing.scss";
-import Product from "../productListItem/productListLitem";
+import ProductCard from "../productListItem/ProductListItem/ProductListItem";
 
 const ProductListing = (props) => {
   return (
     <div className="productListing">
-      <Product />
-      <Product />
-      <Product />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
     </div>
   );
 };
