@@ -1,6 +1,6 @@
 import React from "react";
 import "./productListing.scss";
-import ProductCard from "../productListItem/ProductListItem/ProductListItem";
+import ProductCard from "../productListItem/productCard/ProductCard";
 
 const ProductListing = (props) => {
   return (

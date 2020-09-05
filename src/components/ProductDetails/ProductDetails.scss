@@ -1,0 +1,51 @@
+@import "../../assets/styles/breakpoints";
+
+.carouselContainer {
+  border: 1px solid red;
+  max-height: 500px;
+}
+
+.sub-head {
+  color: "#888";
+  padding-left: 10px;
+  b {
+    color: var(--success);
+  }
+}
+
+.prod-name {
+  font-size: 2rem;
+}
+
+.amount {
+  font-size: 1.5em;
+  span {
+    color: var(--success);
+    font-weight: bold;
+  }
+  margin: 0;
+}
+.row-header-box {
+  border-bottom: 1px solid #bbb;
+  margin-bottom: 20px;
+  .row-header {
+    text-align: center;
+    // border: 1px solid red;
+    width: 100%;
+    padding-bottom: 20;
+    text-decoration: underline;
+    text-decoration-color: var(--primary-color);
+  }
+}
+@media only screen and (max-width: $breakpoint-desktop) {
+  .prod-name {
+    font-size: 1.5em;
+  }
+
+  .sub-head {
+    font-size: 0.9em;
+  }
+  .amount {
+    font-size: 1.2em;
+  }
+}

@@ -10,12 +10,15 @@ import {
   BsChevronRight,
   BsChevronBarRight,
 } from "react-icons/bs";
+import { desktopRes } from "../../viewPortBreakpoints";
+import { useViewportHook } from "../utils/viewPortHandler";
 const ProductSearchResults = (props) => {
+  const { width } = useViewportHook();
   return (
     <Container fluid>
       <Row className="pt-3 pb-5">
         <Col md={3}>
-          <Card style={{ border: "none" }}>
+          <Card style={{ border: "none" }} className="mb-2">
             <Card.Header
               style={{ borderRadius: "2px" }}
               className="text-center bg-primary text-dark font-weight-bold"
@@ -40,10 +43,12 @@ const ProductSearchResults = (props) => {
         </Col>
         <Col md={9} className="px-4">
           <Row className="w-100 mb-4" className="pagination-selector">
-            <Col md={2} className="text-dark">
-              <BsGrid3X3GapFill className="mr-1 buttons" size={20} />
-              <BsList className="mr-1 buttons" size={25} />
-            </Col>
+            {desktopRes < width && (
+              <Col md={2} className="text-dark">
+                <BsGrid3X3GapFill className="mr-1 buttons" size={20} />
+                <BsList className="mr-1 buttons" size={25} />
+              </Col>
+            )}
             <Col md={10} className="pagination-header">
               Showing 1 to 6 (1 Pages)
             </Col>

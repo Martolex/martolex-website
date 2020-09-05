@@ -6,12 +6,13 @@ import { ViewportProvider } from "./components/utils/viewPortHandler";
 import ProductListing from "./components/productListing/productListing";
 import Footer from "./components/Footer/Footer";
 import ProductSearchResults from "./components/productSearchResults/ProductSearchresults";
+import ProductDetails from "./components/ProductDetails/ProductDetails";
 function App() {
   return (
     <ViewportProvider>
       <div className="App">
         <Header />
-        <ProductSearchResults />
+        <ProductDetails />
         <Footer />
       </div>
     </ViewportProvider>

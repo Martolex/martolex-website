@@ -1,7 +1,7 @@
 @import "../../../assets/styles/breakpoints";
 .product {
   width: 25%;
-  height: 400px;
+  // height: 400px;
   box-sizing: border-box;
   border: 1px solid #eee;
   padding: 30px 10px;
@@ -28,6 +28,7 @@
 
     .prod-name {
       //   border: 1px solid red;
+      font-size: 1.3em;
       white-space: nowrap;
       width: 100%;
       overflow: hidden;

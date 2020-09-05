@@ -66,7 +66,7 @@ const Header = (props) => {
               <BsHeart size={20} />
               <p>WishList</p>
             </div>
-            <div className="item cart">
+            <div className="item cart" onClick={toggleCart}>
               <FaOpencart size={40} color="#3ac6bf" />
               <div className="label-div">
                 <span>Shopping Cart</span>
