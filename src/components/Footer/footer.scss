@@ -1,3 +1,5 @@
+@import "../../assets/styles/breakpoints";
+
 .footer-link {
   //   text-decoration: underline;
   margin: 10px 0;
@@ -9,8 +11,23 @@
     margin-left: 10px;
   }
 }
+.social {
+  width: 100%;
+  h2 {
+    font-size: 2.4em;
+  }
+  margin-left: 0;
+}
 
 .bg-dark {
   background-color: black !important;
   color: lightgray !important;
+}
+
+@media only screen and (max-width: $breakpoint-desktop) {
+  .social {
+    h2 {
+      font-size: 1.4em;
+    }
+  }
 }
