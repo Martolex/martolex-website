@@ -16,12 +16,16 @@ const BottomNavbarMobile = (props) => {
           <FaRegHeart size={25} />
           <p>Wislist</p>
         </Col>
-        <Col className="justify-content-center" xs={3} onClick={props.openCart}>
+        <Col
+          className="justify-content-center"
+          xs={3}
+          onClick={props.isLoggedIn ? props.openCart : props.openLogin}
+        >
           <FiShoppingCart size={25} />
           <p>Cart</p>
         </Col>
         <Col
-          onClick={props.openLogin}
+          onClick={props.isLoggedIn ? props.openDashboard : props.openLogin}
           className="justify-content-center"
           xs={3}
         >

@@ -5,9 +5,19 @@ import { Container, Col, Row, Form, Button, Spinner } from "react-bootstrap";
 import OverLay from "../utils/overLay";
 import "./Login.scss";
 import RightContainer from "../utils/RightContainer";
+import { loginUser } from "../../redux/actions/authActions";
+import { connect } from "react-redux";
 const Login = (props) => {
   const [validated, setValidated] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setpassword] = useState("");
+
+  React.useEffect(() => {
+    if (props.auth == true) {
+      props.closeLogin();
+    }
+  }, [props.auth]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -15,9 +25,12 @@ const Login = (props) => {
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
-      setLoading(true);
+      props.login(email, password);
+      console.log(props.auth);
+      if (props.auth) {
+        props.closeLogin();
+      }
     }
-    setValidated(true);
   };
 
   return (
@@ -33,18 +46,18 @@ const Login = (props) => {
         onSubmit={handleSubmit}
       >
         <Form.Group controlId="validationCustom01">
-          <Form.Label>Mobile Number</Form.Label>
+          <Form.Label>Registered Email Id</Form.Label>
           <Form.Control
             required
-            type="tel"
-            minLength={10}
-            pattern="[987][0-9]+"
-            maxLength={10}
-            placeholder="enter your registered mobile "
+            type="email"
+            onChange={(event) => {
+              setEmail(event.target.value);
+            }}
+            placeholder="enter your registered email ID "
           />
 
           <Form.Control.Feedback type="invalid">
-            Enter valid Mobile number
+            Enter valid Email
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="validationCustom01">
@@ -52,19 +65,23 @@ const Login = (props) => {
           <Form.Control
             required
             type="password"
+            onChange={(event) => {
+              setpassword(event.target.value);
+            }}
             placeholder="enter your password "
           />
 
           <Form.Control.Feedback type="invalid">
-            Enter valid Mobile number
+            Enter valid Password
           </Form.Control.Feedback>
         </Form.Group>
+        {props.error && <p class="text-danger">{props.error}</p>}
         <Button className="text-light" block type="submit">
           LOGIN
         </Button>
       </Form>
 
-      {isLoading && (
+      {props.isLoading && (
         <Container className="loading-container">
           <Spinner animation="border" variant="primary" />
         </Container>
@@ -72,5 +89,15 @@ const Login = (props) => {
     </RightContainer>
   );
 };
+const mapDispatchToProps = (dispatch) => ({
+  login: (email, password) => {
+    dispatch(loginUser(email, password));
+  },
+});
 
-export default Login;
+const mapStateToProps = (state) => ({
+  isLoading: state.user.isLoading,
+  error: state.user.error,
+  auth: state.user.auth,
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

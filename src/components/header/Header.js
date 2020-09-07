@@ -12,6 +12,7 @@ import NavBarMobile from "./navbar/navBarMobile";
 import BottomNavbarMobile from "./navbar/BottomNavbarMobile";
 import Login from "../LoginComponent/Login";
 import Cart from "../Cart/Cart";
+import { connect } from "react-redux";
 const Header = (props) => {
   const { width } = useViewportHook();
 
@@ -31,6 +32,8 @@ const Header = (props) => {
   const toggleCart = useCallback(() => {
     setCartOpen(!isCartOpen);
   });
+
+  const redirectToDashBoard = () => {};
   return (
     <div>
       <div className="top-header">
@@ -58,15 +61,25 @@ const Header = (props) => {
 
         {desktopRes < width && (
           <div className="userButtons">
-            <div className="item" onClick={toggleLogin}>
+            <div
+              className="item"
+              onClick={!props.isLoggedIn ? toggleLogin : redirectToDashBoard}
+            >
               <FaUser size={20} />
-              <p>Login/register</p>
+              <p>
+                {props.isLoggedIn
+                  ? `Hello,${props.profile.name}`
+                  : `Login/register`}
+              </p>
             </div>
             <div className="item">
               <BsHeart size={20} />
               <p>WishList</p>
             </div>
-            <div className="item cart" onClick={toggleCart}>
+            <div
+              className="item cart"
+              onClick={props.isLoggedIn ? toggleCart : toggleLogin}
+            >
               <FaOpencart size={40} color="#3ac6bf" />
               <div className="label-div">
                 <span>Shopping Cart</span>
@@ -85,7 +98,12 @@ const Header = (props) => {
           </div>
         )}
         {desktopRes > width && (
-          <BottomNavbarMobile openLogin={toggleLogin} openCart={toggleCart} />
+          <BottomNavbarMobile
+            isLoggedIn={props.isLoggedIn}
+            openLogin={toggleLogin}
+            openCart={toggleCart}
+            openDashBoard={redirectToDashBoard}
+          />
         )}
       </div>
       {desktopRes < width && <NavBar />}
@@ -98,4 +116,9 @@ const Header = (props) => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.user.auth,
+  profile: state.user.profile,
+});
+
+export default connect(mapStateToProps)(Header);

@@ -9,7 +9,9 @@ import {
 } from "react-bootstrap";
 import { FiArrowLeft } from "react-icons/fi";
 import OverLay from "../../utils/overLay";
-const NavBarMobile = (props) => {
+import { connect } from "react-redux";
+import { buildSubCatUrl, buildCatUrl } from "../../../utils/buildUrl";
+const NavBarMobile = ({ categories, ...props }) => {
   const animation = props.isOpen
     ? { visibility: "visible", opacity: 1 }
     : { visibility: "hidden", opacity: 0 };
@@ -17,6 +19,7 @@ const NavBarMobile = (props) => {
   const menuAnimation = props.isOpen
     ? { visibility: "visible", left: 0 }
     : { visibility: "hidden", left: -500 };
+  console.log(categories);
   return (
     <OverLay close={props.closeMenu} style={{ padding: 0, ...animation }}>
       <Col
@@ -44,13 +47,46 @@ const NavBarMobile = (props) => {
               </Accordion.Toggle>
               <Accordion.Collapse eventKey="1">
                 <ListGroup>
-                  <Accordion>
+                  {categories.map((category) =>
+                    category.subcategories.length > 0 ? (
+                      <Accordion>
+                        <Accordion.Toggle as={ListGroup.Item} eventKey="1">
+                          {category.name.toUpperCase()}
+                        </Accordion.Toggle>
+                        <Accordion.Collapse eventKey="1">
+                          <ListGroup>
+                            {category.subcategories.map((subcategory) => (
+                              <ListGroup.Item
+                                as="a"
+                                href={buildSubCatUrl(
+                                  category.id,
+                                  subcategory.id
+                                )}
+                                className="pl-5"
+                              >
+                                {subcategory.name.toUpperCase()}
+                              </ListGroup.Item>
+                            ))}
+                          </ListGroup>
+                        </Accordion.Collapse>
+                      </Accordion>
+                    ) : (
+                      <ListGroup.Item
+                        as="a"
+                        href={buildCatUrl(category.id)}
+                        className="pl-4"
+                      >
+                        {category.name.toUpperCase()}
+                      </ListGroup.Item>
+                    )
+                  )}
+                  {/* <Accordion>
                     <Accordion.Toggle as={ListGroup.Item} eventKey="1">
                       CATEGORY 1
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey="1">
                       <ListGroup>
-                        <ListGroup.Item className="pl-5">
+                        <ListGroup.Item as="a" href="/1" className="pl-5">
                           SUB CATEGORY 1
                         </ListGroup.Item>
                         <ListGroup.Item className="pl-5">
@@ -64,10 +100,11 @@ const NavBarMobile = (props) => {
                         </ListGroup.Item>
                       </ListGroup>
                     </Accordion.Collapse>
-                  </Accordion>
-                  <ListGroup.Item className="pl-4">CATEGORY 2</ListGroup.Item>
+                  </Accordion> */}
+
+                  {/* <ListGroup.Item className="pl-4">CATEGORY 2</ListGroup.Item>
                   <ListGroup.Item className="pl-4">CATEGORY 3</ListGroup.Item>
-                  <ListGroup.Item className="pl-4">CATEGORY 4</ListGroup.Item>
+                  <ListGroup.Item className="pl-4">CATEGORY 4</ListGroup.Item> */}
                 </ListGroup>
               </Accordion.Collapse>
             </Accordion>
@@ -95,4 +132,8 @@ const NavBarMobile = (props) => {
   );
 };
 
-export default NavBarMobile;
+const mapStateToProps = (state) => ({
+  categories: state.categories,
+});
+
+export default connect(mapStateToProps)(NavBarMobile);

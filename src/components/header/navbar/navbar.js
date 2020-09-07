@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import "./navBar.scss";
 import { FaUser } from "react-icons/fa";
+import SubMenu from "./SubMenu";
 const Navbar = (props) => {
   const [isMenuopen, setMenuOpen] = useState(false);
   const togglemenu = useCallback(() => {
@@ -25,33 +26,6 @@ const Navbar = (props) => {
         </li>
       </ul>
     </div>
-  );
-};
-
-const SubMenu = (props) => {
-  return (
-    <ul className="submenu">
-      <li>
-        <span>item1</span>
-        <ul>
-          <li>subitem1</li>
-          <li>subitem1</li>
-          <li>subitem1</li>
-          <li>subitem1</li>
-        </ul>
-      </li>
-      <li>
-        <span>item1</span>
-        <ul>
-          <li>subitem1</li>
-          <li>subitem1</li>
-          <li>subitem1</li>
-        </ul>
-      </li>
-      <li>
-        <span>item1</span>
-      </li>
-    </ul>
   );
 };
 
