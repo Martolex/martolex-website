@@ -8,8 +8,11 @@ const ProductListing = ({ displayType, ...props }) => {
   // };
   console.log(displayType);
   return (
-    <div style={{ minHeight: "200px" }} className="productListing">
-      {props?.products?.length > 0 ? (
+    <div
+      style={{ minHeight: "200px", ...props.style }}
+      className="productListing"
+    >
+      {props.products.length > 0 ? (
         props.products.map((product) =>
           displayType === "grid" ? (
             <ProductCard product={product} />
@@ -17,9 +20,9 @@ const ProductListing = ({ displayType, ...props }) => {
             <ProductRow product={product} />
           )
         )
-      ) : (
+      ) : !props.isLoading ? (
         <h1 style={{ textAlign: "center" }}>No more products</h1>
-      )}
+      ) : null}
     </div>
   );
 };

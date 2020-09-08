@@ -27,7 +27,9 @@ const ProductCard = ({ product }) => {
         <p className="prod-description">
           <b style={{ fontSize: "1.1em" }}>description:</b>{" "}
           {product.description
-            ? product.description.substring(200)
+            ? product.description.length > 200
+              ? product.description.substring(0, 200) + "..."
+              : product.description
             : "Not Available"}
         </p>
         <ReactStars

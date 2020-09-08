@@ -15,34 +15,47 @@ import { FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import QuantityChooser from "../utils/QuantityChooser";
 import ProductListing from "../productListing/productListing";
 import { get } from "../../utils/requests";
-import { productDetailsApi } from "../../utils/endpoints";
+import { productDetailsApi, subCategorySearchApi } from "../../utils/endpoints";
 import OverLayLoader from "../utils/OverlayLoader";
 import OverLay from "../utils/overLay";
 import { buildCatUrl, buildSubCatUrl } from "../../utils/buildUrl";
+import { desktopRes } from "../../viewPortBreakpoints";
+import { useViewportHook } from "../utils/viewPortHandler";
 const ProductDetails = (props) => {
+  const { width: viewPortWidth } = useViewportHook();
   const [product, setProduct] = React.useState({});
+  const [similarproducts, setsimilarproducts] = React.useState([]);
   const [isLoading, setLoading] = React.useState(true);
+  const [similarLoading, setSimilarLoading] = React.useState(true);
   const [plan, setPlan] = React.useState({});
   React.useEffect(() => {
     async function getData() {
       try {
-        setLoading(true);
         const [product] = await get(
           productDetailsApi(props.match.params.bookId),
           false
         );
         setProduct(product);
+        setPlan({ plan: "oneMonth", rent: product.rent.oneMonth, qty: 1 });
         setLoading(false);
-        console.log(product);
-        setPlan({ plan: "oneMonth", rent: product.rent.oneMonth });
-      } catch (err) {}
+        const [similarproducts] = await get(
+          subCategorySearchApi(product.subCat.category.id, product.subCat.id)
+        );
+        setsimilarproducts(similarproducts.books);
+        setSimilarLoading(false);
+        console.log(similarproducts);
+      } catch (err) {
+        console.log(err);
+      }
     }
 
     getData();
   }, []);
 
   const changePlan = ({ target: { value } }) =>
-    setPlan({ plan: value, rent: product.rent[value] });
+    setPlan({ ...plan, plan: value, rent: product.rent[value] });
+  const modifyQuantity = (qty) => setPlan({ ...plan, qty });
+
   return isLoading ? (
     <OverLay>
       <OverLayLoader />
@@ -113,7 +126,11 @@ const ProductDetails = (props) => {
             <p className="mr-4">
               <b>Quantity</b>
             </p>
-            <QuantityChooser />
+            <QuantityChooser
+              onChange={modifyQuantity}
+              initialQuantity={1}
+              maxQuantity={product.quantity}
+            />
           </Row>
           <Row className="w-100 py-2">
             <Col md={6}>
@@ -178,7 +195,13 @@ const ProductDetails = (props) => {
         <Row className="w-100 pb-2 row-header-box">
           <h2 className="row-header">RELATED PRODUCTS</h2>
         </Row>
-        <ProductListing />
+
+        <ProductListing
+          style={{ padding: "0 20px" }}
+          displayType={viewPortWidth < desktopRes ? "grid" : "list"}
+          isLoading={similarLoading}
+          products={similarproducts}
+        />
       </Row>
     </Container>
   );

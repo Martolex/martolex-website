@@ -94,7 +94,11 @@ const ProductsPaginator = (props) => {
         </Col>
       </Row>
       {isLoading && <OverlayLoader />}
-      <ProductListing products={products} displayType={displayType} />
+      <ProductListing
+        isLoading={isLoading}
+        products={products}
+        displayType={displayType}
+      />
       <Row className="pagination justify-content-center mt-3 p-0">
         <Col md={3} className="p-0 m-0">
           <Row className="p-0 m-0">
