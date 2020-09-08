@@ -4,3 +4,5 @@ export const buildSubCatUrl = (catId, subCatId) => {
 export const buildCatUrl = (catId) => {
   return `/cat/${catId}/`;
 };
+
+export const buildBookDetailsUrl = (bookId) => `/books/${bookId}`;

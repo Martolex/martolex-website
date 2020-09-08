@@ -4,27 +4,31 @@ import "./ProductListItem.scss";
 import { Row, Col, Image, Button } from "react-bootstrap";
 import { FiShoppingCart } from "react-icons/fi";
 import { FaRegHeart } from "react-icons/fa";
+import { buildBookDetailsUrl } from "../../../utils/buildUrl";
 
-const ProductCard = (props) => {
+const ProductCard = ({ product }) => {
+  const { oneMonth, mrp } = product.rent;
+  const discount = ((mrp - oneMonth) / mrp) * 100;
   return (
-    <Row className="product">
+    <Row className="product-card">
       <Col md={2} className="product-img">
-        <Image src="/book1.png" />
+        <Image src={product.images[0]?.url || "/book1.png"} />
       </Col>
       <Col className="pt-1 pl-2" md={7}>
-        <a className="prod-name">
-          A Textbook Of Data Communication And Networks
+        <a href={buildBookDetailsUrl(product.id)} className="prod-name">
+          {product.name}
         </a>
         <p className="prod-author">
-          <b>Author:</b> Dr. Sanjay Sharma
+          <b>Author:</b> {product.author}
         </p>
         <p className="prod-publisher">
-          <b>Publisher:</b> SK Kataria and sons
+          <b>Publisher:</b> {product.publisher}
         </p>
         <p className="prod-description">
-          <b style={{ fontSize: "1.1em" }}>description:</b> Graduate Aptitude
-          Test in Engineering (GATE) is apparently the toughest examination for
-          engineering students.
+          <b style={{ fontSize: "1.1em" }}>description:</b>{" "}
+          {product.description
+            ? product.description.substring(200)
+            : "Not Available"}
         </p>
         <ReactStars
           className="ratings"
@@ -38,9 +42,9 @@ const ProductCard = (props) => {
       <Col md={3} className="right-block">
         <Row>
           <div className="prices">
-            <span className="price">&#8377;299/-</span>
-            <span className="actual-price">&#8377;299/-</span>
-            <p className="discount">Save 63%</p>
+            <span className="price">&#8377;{product.rent.oneMonth}/-</span>
+            <span className="actual-price">&#8377;{product.rent.mrp}/-</span>
+            <p className="discount">Save {discount}%</p>
           </div>
         </Row>
         <Row className="w-100 mt-1">

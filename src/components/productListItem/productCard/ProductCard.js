@@ -1,19 +1,22 @@
 import React from "react";
 import ReactStars from "react-stars";
 import "./ProductCard.scss";
+import { buildBookDetailsUrl } from "../../../utils/buildUrl";
 
-const ProductCard = (props) => {
+const ProductCard = ({ product }) => {
+  const { oneMonth, mrp } = product.rent;
+  const discount = ((mrp - oneMonth) / mrp) * 100;
   return (
     <div className="product">
       <div className="product-img">
-        <img src="/book1.png"></img>
+        <img src={product.images[0]?.url || "/book1.png"}></img>
       </div>
       <div className="product-info">
-        <a className="prod-name">
-          A Textbook Of Data Communication And Networks
+        <a href={buildBookDetailsUrl(product.id)} className="prod-name">
+          {product.name}
         </a>
-        <p className="prod-author">Author: Dr. Sanjay Sharma</p>
-        <p className="prod-publisher">Publisher: SK Kataria and sons</p>
+        <p className="prod-author">Author: {product.author}</p>
+        <p className="prod-publisher">Publisher: {product.publisher}</p>
         <ReactStars
           count={5}
           half={false}
@@ -22,9 +25,9 @@ const ProductCard = (props) => {
           color2={"#ffd700"}
         />
         <div className="prices">
-          <span className="price">&#8377;299/-</span>
-          <span className="actual-price">&#8377;299/-</span>
-          <span className="discount">save 63%</span>
+          <span className="price">&#8377;{product.rent.oneMonth}/-</span>
+          <span className="actual-price">&#8377;{product.rent.mrp}/-</span>
+          <span className="discount">save {discount.toFixed(0)}%</span>
         </div>
       </div>
     </div>

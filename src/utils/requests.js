@@ -22,7 +22,7 @@ export const get = (api, isAuthorized = true, params = {}, headers = {}) => {
       .then((res) => res.json())
       .then((res) => {
         if (res.code == 1) {
-          resolve(res.data);
+          resolve([res.data, res.pagination]);
         } else {
           reject(res.message);
         }
@@ -51,7 +51,7 @@ export const post = (api, isAuthorized = true, body = {}, headers = {}) => {
       .then((res) => {
         console.log(res);
         if (res.code == 1) {
-          resolve(res.data);
+          resolve([res.data, res.pagination]);
         } else {
           reject(res.message);
         }

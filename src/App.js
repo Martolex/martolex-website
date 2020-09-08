@@ -11,11 +11,14 @@ import { Provider, connect } from "react-redux";
 import { FetchCategories } from "./redux/actions/CategoriesActions";
 import store from "./redux";
 import Start from "./start";
+import { BrowserRouter } from "react-router-dom";
 function App({ props }) {
   return (
-    <Provider store={store}>
-      <Start />
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <Start />
+      </Provider>
+    </BrowserRouter>
   );
 }
 
