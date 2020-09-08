@@ -9,45 +9,90 @@ import {
   Container,
   Carousel,
   Form,
+  Breadcrumb,
 } from "react-bootstrap";
-import { FiShoppingCart } from "react-icons/fi";
 import { FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import QuantityChooser from "../utils/QuantityChooser";
 import ProductListing from "../productListing/productListing";
+import { get } from "../../utils/requests";
+import { productDetailsApi } from "../../utils/endpoints";
+import OverLayLoader from "../utils/OverlayLoader";
+import OverLay from "../utils/overLay";
+import { buildCatUrl, buildSubCatUrl } from "../../utils/buildUrl";
+const ProductDetails = (props) => {
+  const [product, setProduct] = React.useState({});
+  const [isLoading, setLoading] = React.useState(true);
+  const [plan, setPlan] = React.useState({});
+  React.useEffect(() => {
+    async function getData() {
+      try {
+        setLoading(true);
+        const [product] = await get(
+          productDetailsApi(props.match.params.bookId),
+          false
+        );
+        setProduct(product);
+        setLoading(false);
+        console.log(product);
+        setPlan({ plan: "oneMonth", rent: product.rent.oneMonth });
+      } catch (err) {}
+    }
 
-const productDetails = (props) => {
-  return (
+    getData();
+  }, []);
+
+  const changePlan = ({ target: { value } }) =>
+    setPlan({ plan: value, rent: product.rent[value] });
+  return isLoading ? (
+    <OverLay>
+      <OverLayLoader />
+    </OverLay>
+  ) : (
     <Container fluid>
       <Row>
         <Col
           className="p-4 carouselContainer d-flex justify-content-center"
           md={4}
         >
-          <Carousel className="w-75">
-            <Carousel.Item>
-              <img className="d-block w-100 " src="/book1.png" />
-            </Carousel.Item>
-            <Carousel.Item>
-              <img className="d-block w-100 " src="/book1.png" />
-            </Carousel.Item>
+          <Carousel className="w-75 imgcarousel">
+            {product.images.map((img, idx) => (
+              <Carousel.Item>
+                <img className="d-block w-100 " src={img.url} />
+              </Carousel.Item>
+            ))}
             <Carousel.Item>
               <img className="d-block w-100 " src="/book1.png" />
             </Carousel.Item>
           </Carousel>
         </Col>
         <Col md={8} className="py-4 ">
-          <h3 className="prod-name">Chemistry For JEE Main, 2E</h3>
+          <Breadcrumb className="prod-breadcrumb">
+            <Breadcrumb.Item href={buildCatUrl(product.subCat.category.id)}>
+              {product.subCat.category.name}
+            </Breadcrumb.Item>
+            <Breadcrumb.Item
+              href={buildSubCatUrl(
+                product.subCat.category.id,
+                product.subCat.id
+              )}
+            >
+              {product.subCat.name}
+            </Breadcrumb.Item>
+            <Breadcrumb.Item active>{product.name}</Breadcrumb.Item>
+          </Breadcrumb>
+          <h3 className="prod-name">{product.name}</h3>
           <p className="sub-head">
-            Author: <b className="val">Seema Saini , K. S. Saini</b>
+            Author: <b className="val">{product.author}</b>
           </p>
           <p className="sub-head">
-            Publication:<b className="val"> Cengage Learning India Pvt. Ltd.</b>
+            Publication:<b className="val"> {product.publisher}</b>
           </p>
           <p className="sub-head">
-            Book Edition: <b className="val">2nd edition</b>
+            Book Edition:{" "}
+            <b className="val">{product.edition || "Not available"}</b>
           </p>
           <p className="sub-head">
-            Book ISBN: <b className="val">9789353501372</b>
+            Book ISBN: <b className="val">{product.isbn}</b>
           </p>
           <p className="sub-head">
             Availability: <b className="val">In Stock</b>
@@ -74,24 +119,36 @@ const productDetails = (props) => {
             <Col md={6}>
               <Form className="w-100">
                 <Form.Label>Rental Period</Form.Label>
-                <Form.Control as="select" size="lg" custom>
-                  <option>1 Month</option>
-                  <option>2 Months</option>
-                  <option>3 months</option>
-                  <option>6 months</option>
-                  <option>9 months</option>
+                <Form.Control
+                  as="select"
+                  size="lg"
+                  custom
+                  onChange={changePlan}
+                >
+                  <option value="oneMonth">1 Month</option>
+                  <option value="threeMonth">3 Months</option>
+                  <option value="sixMonth">6 months</option>
+                  <option value="nineMonth">9 months</option>
+                  <option value="twelveMonth">12 months</option>
                 </Form.Control>
               </Form>
             </Col>
           </Row>
           <p className="amount">
-            Rental Amount : <span>₹350.00</span>
+            Rental Amount : <span>₹{plan.rent}</span>
           </p>
           <p className="amount">
-            Amount You Pay Now: <span>₹ 985.00</span>
+            Amount You Pay Now:{" "}
+            <span>₹ {plan.rent + product.rent.deposit}</span>
           </p>
           <p className="amount">
-            Your Savings: <span>64.47 %</span>
+            Your Savings:{" "}
+            <span>
+              {((product.rent.mrp - (plan.rent + product.rent.deposit)) /
+                product.rent.mrp) *
+                100}
+              %
+            </span>
           </p>
           <Row className="my-4">
             <Col md={3} className="py-2">
@@ -109,18 +166,14 @@ const productDetails = (props) => {
           </Row>
         </Col>
       </Row>
-      <Row className="mb-3">
-        <Row className="w-100 pb-2 row-header-box">
-          <h2 className="row-header">DESCRIPTION</h2>
+      {product.description && (
+        <Row className="mb-3">
+          <Row className="w-100 pb-2 row-header-box">
+            <h2 className="row-header">DESCRIPTION</h2>
+          </Row>
+          <Col className="px-4">{product.description}</Col>
         </Row>
-        <Col className="px-4">
-          A series for chemistry for JEE Main books , a Cengage Exam Crack
-          Series product, has been designed in keeping with the needs and
-          expectations of students appearing for JEE Main. Its coherent
-          presentation and compatibility with the latest prescribed syllabus and
-          pattern of JEE will prove extremely useful to JEE aspirants.
-        </Col>
-      </Row>
+      )}
       <Row>
         <Row className="w-100 pb-2 row-header-box">
           <h2 className="row-header">RELATED PRODUCTS</h2>
@@ -131,4 +184,4 @@ const productDetails = (props) => {
   );
 };
 
-export default productDetails;
+export default ProductDetails;

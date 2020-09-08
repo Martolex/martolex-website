@@ -3,6 +3,11 @@
 .carouselContainer {
   // border: 1px solid red;
   max-height: 500px;
+  .imgcarousel {
+    img {
+      max-height: 450px;
+    }
+  }
 }
 
 .sub-head {
@@ -37,6 +42,9 @@
     text-decoration-color: var(--primary-color);
   }
 }
+.prod-breadcrumb {
+  max-width: 75%;
+}
 @media only screen and (max-width: $breakpoint-desktop) {
   .prod-name {
     font-size: 1.5em;
@@ -47,5 +55,17 @@
   }
   .amount {
     font-size: 1.2em;
+  }
+  .carouselContainer {
+    // border: 1px solid red;
+    max-height: 330px;
+    .imgcarousel {
+      img {
+        max-height: 300px;
+      }
+    }
+  }
+  .prod-breadcrumb {
+    max-width: 100%;
   }
 }
