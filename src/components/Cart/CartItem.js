@@ -4,7 +4,10 @@ import { Row, Image, Col, Button } from "react-bootstrap";
 import { MdClose } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
 import QuantityChooser from "../utils/QuantityChooser";
-import { modifyCartItemQuantity } from "../../redux/actions/CartActions";
+import {
+  modifyCartItemQuantity,
+  removeFromCart,
+} from "../../redux/actions/CartActions";
 import { connect } from "react-redux";
 
 const CartItem = ({ item, ...props }) => {
@@ -42,7 +45,11 @@ const CartItem = ({ item, ...props }) => {
             />
           </Col>
           <Col className="m-0 p-0 button" xs={4}>
-            <Button className="remove-btn" variant="danger">
+            <Button
+              onClick={() => props.remove(item.BookId)}
+              className="remove-btn"
+              variant="danger"
+            >
               <FaTrash />
             </Button>
           </Col>
@@ -56,6 +63,7 @@ const mapDispatchToProps = (dispatch) => ({
   updateQty: (bookid, plan, qty) => {
     dispatch(modifyCartItemQuantity(bookid, plan, qty));
   },
+  remove: (bookId) => dispatch(removeFromCart(bookId)),
 });
 
 export default connect(null, mapDispatchToProps)(CartItem);

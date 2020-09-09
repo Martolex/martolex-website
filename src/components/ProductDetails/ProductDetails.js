@@ -21,6 +21,9 @@ import OverLay from "../utils/overLay";
 import { buildCatUrl, buildSubCatUrl } from "../../utils/buildUrl";
 import { desktopRes } from "../../viewPortBreakpoints";
 import { useViewportHook } from "../utils/viewPortHandler";
+import { connect } from "react-redux";
+import checkItemInCart from "../../utils/checkItemInCart";
+import { addToCart } from "../../redux/actions/CartActions";
 const ProductDetails = (props) => {
   const { width: viewPortWidth } = useViewportHook();
   const [product, setProduct] = React.useState({});
@@ -55,7 +58,7 @@ const ProductDetails = (props) => {
   const changePlan = ({ target: { value } }) =>
     setPlan({ ...plan, plan: value, rent: product.rent[value] });
   const modifyQuantity = (qty) => setPlan({ ...plan, qty });
-
+  console.log(props.isPresentInCart);
   return isLoading ? (
     <OverLay>
       <OverLayLoader />
@@ -168,13 +171,19 @@ const ProductDetails = (props) => {
             </span>
           </p>
           <Row className="my-4">
-            <Col md={3} className="py-2">
-              <Button block size="lg" variant="success">
+            <Col md={4} className="py-2">
+              <Button
+                disabled={props.isPresentInCart}
+                onClick={() => props.addToCart(product.id, plan.plan, plan.qty)}
+                block
+                size="lg"
+                variant="success"
+              >
                 <FaShoppingCart className="mr-2" size={20} />
-                ADD TO CART
+                {props.isPresentInCart ? "ITEM IN CART" : "ADD TO CART"}
               </Button>
             </Col>
-            <Col md={3} className="py-2">
+            <Col md={4} className="py-2">
               <Button block size="lg" variant="warning">
                 <FaRegHeart className="mr-2" size={20} />
                 ADD TO WISHLIST
@@ -207,4 +216,17 @@ const ProductDetails = (props) => {
   );
 };
 
-export default ProductDetails;
+const mapStateToProps = (state, ownProps) => ({
+  isPresentInCart: checkItemInCart(
+    state.cart.items,
+    ownProps.match.params.bookId
+  ),
+});
+
+const mapDispatchToprops = (dispatch, ownProps) => ({
+  addToCart: (bookId, plan, qty) => {
+    dispatch(addToCart(bookId, plan, qty));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToprops)(ProductDetails);

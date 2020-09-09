@@ -1,8 +1,12 @@
 import { SET_LOADING, FINISH_LOADING } from "../actions/LoadingActions";
 
-const { SYNC_CART, UPDATE_QUANTITY } = require("../actions/CartActions");
+const {
+  SYNC_CART,
+  UPDATE_QUANTITY,
+  ADD_TO_CART,
+} = require("../actions/CartActions");
 
-const initialState = { loading: false, items: [] };
+const initialState = { loading: false, items: [], hydrated: false };
 
 const updateItem = (items, bookId, qty) => {
   const item = items.find((item) => item.book.id === bookId);
@@ -11,6 +15,10 @@ const updateItem = (items, bookId, qty) => {
   }
 
   return [...items];
+};
+
+const removeItem = (bookId, items) => {
+  return items.filter((item) => item.BookId != bookId);
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -25,6 +33,12 @@ const cartReducer = (state = initialState, action) => {
         : state;
     case "SYNC_CART":
       return { loading: false, items: [...action.payload] };
+    case "ADD_TO_CART":
+      return {
+        ...state,
+        items: [...state.items, action.payload],
+        hydrated: true,
+      };
     case "UPDATE_QUANTITY":
       return {
         ...state,
@@ -34,6 +48,8 @@ const cartReducer = (state = initialState, action) => {
           action.payload.quantity
         ),
       };
+    case "REMOVE_FROM_CART":
+      return { ...state, items: [...removeItem(action.payload, state.items)] };
     default:
       return state;
   }

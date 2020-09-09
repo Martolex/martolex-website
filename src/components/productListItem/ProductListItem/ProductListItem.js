@@ -5,8 +5,11 @@ import { Row, Col, Image, Button } from "react-bootstrap";
 import { FiShoppingCart } from "react-icons/fi";
 import { FaRegHeart } from "react-icons/fa";
 import { buildBookDetailsUrl } from "../../../utils/buildUrl";
+import { connect } from "react-redux";
+import checkItemInCart from "../../../utils/checkItemInCart";
+import { addToCart } from "../../../redux/actions/CartActions";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, ...props }) => {
   const { oneMonth, mrp } = product.rent;
   const discount = ((mrp - oneMonth) / mrp) * 100;
   return (
@@ -50,9 +53,16 @@ const ProductCard = ({ product }) => {
           </div>
         </Row>
         <Row className="w-100 mt-1">
-          <Button variant="success" block>
+          <Button
+            onClick={() => {
+              props.addToCart(product.id, "oneMonth", 1);
+            }}
+            disabled={props.isPresentInCart}
+            variant="success"
+            block
+          >
             <FiShoppingCart className="mr-1" size={20} />
-            ADD TO CART
+            {props.isPresentInCart ? "ITEM IN CART" : "ADD TO CART"}
           </Button>
           <Button variant="warning" block>
             <FaRegHeart className="mr-1" size={20} />
@@ -64,4 +74,14 @@ const ProductCard = ({ product }) => {
   );
 };
 
-export default ProductCard;
+const mapStateToProps = (state, ownProps) => ({
+  isPresentInCart: checkItemInCart(state.cart.items, ownProps.product.id),
+});
+
+const mapDispatchToprops = (dispatch, ownProps) => ({
+  addToCart: (bookId, plan, qty) => {
+    dispatch(addToCart(bookId, plan, qty));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToprops)(ProductCard);

@@ -11,11 +11,28 @@ import { FetchCategories } from "./redux/actions/CategoriesActions";
 import productDetails from "./components/ProductDetails/ProductDetails";
 import Home from "./components/Home/Home";
 import SignUp from "./components/auth/signUp";
-function start(props) {
+import { Collapse } from "react-bootstrap";
+import Toast from "./components/utils/Toast";
+
+function Start(props) {
   props.getCategories();
+  const [cartToastShow, setCarToastShow] = React.useState(false);
+  const [newCartLength, setNewCartLength] = React.useState(0);
+  React.useEffect(() => {
+    props.cartHydrated &&
+      props.cartLength > newCartLength &&
+      setCarToastShow(true);
+    setNewCartLength(props.cartLength);
+  }, [props.cartLength]);
   return (
     <ViewportProvider>
       <div className="App">
+        <Toast
+          isVisible={cartToastShow}
+          onClose={() => setCarToastShow(false)}
+          header="added"
+          body="Item Added To cart"
+        />
         <Header />
         <Switch>
           <Route exact path="/" component={Home} />
@@ -47,5 +64,9 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(FetchCategories());
   },
 });
+const mapStateToProps = (state) => ({
+  cartLength: state.cart.items.length,
+  cartHydrated: state.cart.hydrated,
+});
 
-export default connect(null, mapDispatchToProps)(start);
+export default connect(mapStateToProps, mapDispatchToProps)(Start);

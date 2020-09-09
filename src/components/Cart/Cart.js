@@ -6,6 +6,7 @@ import CartItem from "./CartItem";
 import { getCart } from "../../redux/actions/CartActions";
 import { connect } from "react-redux";
 import OverlayLoader from "../utils/OverlayLoader";
+import cartStatsCalculator from "../../utils/cartStats";
 
 const Cart = (props) => {
   React.useEffect(() => {
@@ -19,19 +20,7 @@ const Cart = (props) => {
     rentalAmount: 0,
   });
   React.useEffect(() => {
-    const cartStats = props.cart.reduce(
-      (prev, curr) => {
-        const currBookPrice =
-          curr.qty * (curr.book.rent[curr.plan] + curr.book.rent.deposit);
-        const currBookRent = curr.qty * curr.book.rent[curr.plan];
-        return {
-          totalAmount: prev.totalAmount + currBookPrice,
-          rentalAmount: prev.rentalAmount + currBookRent,
-        };
-      },
-      { totalAmount: 0, rentalAmount: 0 }
-    );
-    setCartStats(cartStats);
+    setCartStats(cartStatsCalculator(props.cart));
   }, [props.cart]);
   console.log(props.cart);
   return (

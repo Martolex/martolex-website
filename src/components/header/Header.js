@@ -13,6 +13,7 @@ import BottomNavbarMobile from "./navbar/BottomNavbarMobile";
 import Login from "../auth/Login";
 import Cart from "../Cart/Cart";
 import { connect } from "react-redux";
+import cartStats from "../../utils/cartStats";
 const Header = (props) => {
   const { width } = useViewportHook();
 
@@ -84,7 +85,7 @@ const Header = (props) => {
               <div className="label-div">
                 <span>Shopping Cart</span>
                 <div className="cart-amount">
-                  <span>Rs. 0.00</span>
+                  <span>Rs. {props.cartStats.totalAmount.toFixed(2)}</span>
                   <FaChevronDown />
                 </div>
               </div>
@@ -119,6 +120,7 @@ const Header = (props) => {
 const mapStateToProps = (state) => ({
   isLoggedIn: state.user.auth,
   profile: state.user.profile,
+  cartStats: cartStats(state.cart.items),
 });
 
 export default connect(mapStateToProps)(Header);
