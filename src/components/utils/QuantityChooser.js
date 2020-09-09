@@ -1,10 +1,15 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import "./QuantityChooser.scss";
-const QuantityChooser = ({ maxQuantity, onChange, initialQuantity }) => {
+const QuantityChooser = ({
+  maxQuantity,
+  onChange,
+  initialQuantity,
+  currentQuantity,
+}) => {
   const [qty, setQty] = React.useState(null);
   React.useEffect(() => {
-    setQty(initialQuantity);
+    setQty(currentQuantity || initialQuantity);
   }, []);
   const increment = () => {
     if (qty < maxQuantity) {

@@ -4,26 +4,42 @@ import { Row, Image, Col, Button } from "react-bootstrap";
 import { MdClose } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
 import QuantityChooser from "../utils/QuantityChooser";
+import { modifyCartItemQuantity } from "../../redux/actions/CartActions";
+import { connect } from "react-redux";
 
-const CartItem = (props) => {
+const CartItem = ({ item, ...props }) => {
+  console.log(item);
   return (
     <Row className="item-container">
       <Col className="imgDiv" xs={4}>
-        <Image className="img" src="/book1.png" />
+        <Image
+          className="img"
+          src={
+            item.book.images.length > 0 ? item.book.images[0].url : "/book1.png"
+          }
+        />
       </Col>
       <Col className="book-description">
         {/* <MdClose className=''/>s */}
-        <p className="bookname ">
-          A TextBook of Data Communication and networks
-        </p>
+        <p className="bookname ">{item.book.name}</p>
         <p className="mt-0">
-          1 x <span className="text-primary cost">Rs. 295/-</span>
+          {item.qty} x
+          <span className="text-primary cost">
+            Rs. {item.book.rent[item.plan] + item.book.rent.deposit}/-
+          </span>
         </p>
-        <p>Plan: 1 month plan</p>
-        <p>Rent: Rs.225/-</p>
+        <p>Plan: {item.plan}</p>
+        <p>Rent: Rs.{item.book.rent[item.plan]}/-</p>
         <Row className="buttons-div">
           <Col className="m-0 p-0 button" xs={8}>
-            <QuantityChooser />
+            <QuantityChooser
+              initialQuantity={1}
+              maxQuantity={item.book.quantity}
+              currentQuantity={item.qty}
+              onChange={(newQuantity) => {
+                props.updateQty(item.book.id, item.plan, newQuantity);
+              }}
+            />
           </Col>
           <Col className="m-0 p-0 button" xs={4}>
             <Button className="remove-btn" variant="danger">
@@ -36,4 +52,10 @@ const CartItem = (props) => {
   );
 };
 
-export default CartItem;
+const mapDispatchToProps = (dispatch) => ({
+  updateQty: (bookid, plan, qty) => {
+    dispatch(modifyCartItemQuantity(bookid, plan, qty));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(CartItem);

@@ -6,7 +6,7 @@ const authReducer = (state = {}, action) => {
     case "LOGIN":
       return action.payload;
     case "SET_LOADING":
-      return action.payload.type == type ? { isLoading: true } : {};
+      return action.payload.type == type ? { isLoading: true } : state;
     case "FINISH_LOADING":
       return action.payload.type == type
         ? { ...state, isLoading: false }

@@ -5,29 +5,56 @@ import RightContainer from "../utils/RightContainer";
 import CartItem from "./CartItem";
 import { getCart } from "../../redux/actions/CartActions";
 import { connect } from "react-redux";
+import OverlayLoader from "../utils/OverlayLoader";
 
 const Cart = (props) => {
   React.useEffect(() => {
-    props.syncCart();
-  }, []);
+    if (props.isAuth) {
+      props.syncCart();
+    }
+  }, [props.isAuth]);
+
+  const [cartStats, setCartStats] = React.useState({
+    totalAmount: 0,
+    rentalAmount: 0,
+  });
+  React.useEffect(() => {
+    const cartStats = props.cart.reduce(
+      (prev, curr) => {
+        const currBookPrice =
+          curr.qty * (curr.book.rent[curr.plan] + curr.book.rent.deposit);
+        const currBookRent = curr.qty * curr.book.rent[curr.plan];
+        return {
+          totalAmount: prev.totalAmount + currBookPrice,
+          rentalAmount: prev.rentalAmount + currBookRent,
+        };
+      },
+      { totalAmount: 0, rentalAmount: 0 }
+    );
+    setCartStats(cartStats);
+  }, [props.cart]);
+  console.log(props.cart);
   return (
     <RightContainer close={props.closeCart} title="Cart" isOpen={props.isOpen}>
-      <CartItem />
-      <CartItem />
-      <CartItem />
-      <CartItem />
+      {props.cart.map((cartItem) => (
+        <CartItem item={{ ...cartItem }} />
+      ))}
+      {props.isLoading && <OverlayLoader />}
+
       <div className="details-div">
         <Row className="details-row">
           <span>Amount you pay now:</span>
-          <span className="text-primary">Rs.780/-</span>
+          <span className="text-primary">Rs.{cartStats.totalAmount}/-</span>
         </Row>
         <Row className="details-row">
           <span>Rental Amount:</span>
-          <span className="text-primary">Rs. 780/-</span>
+          <span className="text-primary">Rs. {cartStats.rentalAmount}/-</span>
         </Row>
         <Row className="details-row">
           <span>Amount refunded:</span>
-          <span className="text-primary">Rs. 780/-</span>
+          <span className="text-primary">
+            Rs. {cartStats.totalAmount - cartStats.rentalAmount}/-
+          </span>
         </Row>
       </div>
       <Button className="my-3" block>
@@ -37,7 +64,12 @@ const Cart = (props) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  isAuth: state.user.auth,
+  cart: state.cart.items,
+  isLoading: state.cart.loading,
+});
 const mapDispatchToProps = (dispatch) => ({
   syncCart: () => dispatch(getCart()),
 });
-export default connect(null, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
