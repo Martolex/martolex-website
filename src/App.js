@@ -9,14 +9,18 @@ import ProductSearchResults from "./components/productSearchResults/ProductSearc
 import ProductDetails from "./components/ProductDetails/ProductDetails";
 import { Provider, connect } from "react-redux";
 import { FetchCategories } from "./redux/actions/CategoriesActions";
-import store from "./redux";
+import { store, persistor } from "./redux";
+import { PersistGate } from "redux-persist/integration/react";
+
 import Start from "./start";
 import { BrowserRouter } from "react-router-dom";
 function App({ props }) {
   return (
     <BrowserRouter>
       <Provider store={store}>
-        <Start />
+        <PersistGate loading={null} persistor={persistor}>
+          <Start />
+        </PersistGate>
       </Provider>
     </BrowserRouter>
   );

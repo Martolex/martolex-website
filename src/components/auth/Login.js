@@ -7,6 +7,7 @@ import "./Login.scss";
 import RightContainer from "../utils/RightContainer";
 import { loginUser } from "../../redux/actions/authActions";
 import { connect } from "react-redux";
+import { getCart } from "../../redux/actions/CartActions";
 const Login = (props) => {
   const [validated, setValidated] = useState(false);
   const [isLoading, setLoading] = useState(false);
@@ -26,6 +27,7 @@ const Login = (props) => {
       event.stopPropagation();
     } else {
       props.login(email, password);
+      props.syncCart();
       console.log(props.auth);
       if (props.auth) {
         props.closeLogin();
@@ -95,6 +97,9 @@ const Login = (props) => {
 const mapDispatchToProps = (dispatch) => ({
   login: (email, password) => {
     dispatch(loginUser(email, password));
+  },
+  syncCart: () => {
+    dispatch(getCart());
   },
 });
 

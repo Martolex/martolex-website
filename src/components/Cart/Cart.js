@@ -3,8 +3,13 @@ import "./Cart.scss";
 import { Row, Col, Button } from "react-bootstrap";
 import RightContainer from "../utils/RightContainer";
 import CartItem from "./CartItem";
+import { getCart } from "../../redux/actions/CartActions";
+import { connect } from "react-redux";
 
 const Cart = (props) => {
+  React.useEffect(() => {
+    props.syncCart();
+  }, []);
   return (
     <RightContainer close={props.closeCart} title="Cart" isOpen={props.isOpen}>
       <CartItem />
@@ -32,4 +37,7 @@ const Cart = (props) => {
   );
 };
 
-export default Cart;
+const mapDispatchToProps = (dispatch) => ({
+  syncCart: () => dispatch(getCart()),
+});
+export default connect(null, mapDispatchToProps)(Cart);

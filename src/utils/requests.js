@@ -1,4 +1,4 @@
-import store from "../redux";
+import { store } from "../redux";
 export const get = (api, isAuthorized = true, params = {}, headers = {}) => {
   return new Promise((resolve, reject) => {
     const allHeaders = {
@@ -6,7 +6,8 @@ export const get = (api, isAuthorized = true, params = {}, headers = {}) => {
       ...headers,
     };
     if (isAuthorized) {
-      allHeaders.Authorization = store.getState().user.token;
+      console.log(store.getState().user.token);
+      allHeaders.Authorization = `bearer ${store.getState().user.token}`;
     }
     let url = api + "?";
     for (let param in params) {
@@ -16,6 +17,7 @@ export const get = (api, isAuthorized = true, params = {}, headers = {}) => {
     const options = {
       method: "GET",
       headers: allHeaders,
+      credentials: "include",
     };
     fetch(url, options)
       .then((res) => res.json())
@@ -37,12 +39,13 @@ export const post = (api, isAuthorized = true, body = {}, headers = {}) => {
     ...headers,
   };
   if (isAuthorized) {
-    allHeaders.Authorization = store.getState().user.token;
+    allHeaders.Authorization = `bearer ${store.getState().user.token}`;
   }
   return new Promise((resolve, reject) => {
     const options = {
       method: "POST",
       headers: allHeaders,
+      credentials: "include",
       body: JSON.stringify(body),
     };
     fetch(api, options)

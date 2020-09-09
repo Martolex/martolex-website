@@ -110,7 +110,7 @@ const Header = (props) => {
 
       <MobileSearchbar isOpen={isSearchOpen} closeSearch={toggleSearch} />
       <NavBarMobile isOpen={isMenuopen} closeMenu={togglemenu} />
-      {<Login closeLogin={toggleLogin} isOpen={isLoginOpen} />}
+      {<Login closeLogin={() => setLoginOpen(false)} isOpen={isLoginOpen} />}
       <Cart isOpen={isCartOpen} closeCart={toggleCart} />
     </div>
   );

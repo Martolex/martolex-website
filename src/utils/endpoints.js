@@ -7,3 +7,5 @@ export const subCategorySearchApi = (catId, subCatId) =>
   `${backendApi}books/cat/${catId}/subCat/${subCatId}`;
 
 export const productDetailsApi = (bookId) => `${backendApi}books/${bookId}`;
+
+export const getCartItemsApi = `${backendApi}user/cart`;
