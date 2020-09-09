@@ -60,7 +60,7 @@ const Login = (props) => {
             Enter valid Email
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group controlId="validationCustom01">
+        <Form.Group controlId="validationCustom02">
           <Form.Label>Password</Form.Label>
           <Form.Control
             required
@@ -78,6 +78,9 @@ const Login = (props) => {
         {props.error && <p class="text-danger">{props.error}</p>}
         <Button className="text-light" block type="submit">
           LOGIN
+        </Button>
+        <Button variant="link" as="a" href="/signup" block>
+          SIGN UP
         </Button>
       </Form>
 

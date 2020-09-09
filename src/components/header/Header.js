@@ -10,7 +10,7 @@ import { desktopRes } from "../../viewPortBreakpoints";
 import MobileSearchbar from "./navbar/mobileSearchBar";
 import NavBarMobile from "./navbar/navBarMobile";
 import BottomNavbarMobile from "./navbar/BottomNavbarMobile";
-import Login from "../LoginComponent/Login";
+import Login from "../auth/Login";
 import Cart from "../Cart/Cart";
 import { connect } from "react-redux";
 const Header = (props) => {

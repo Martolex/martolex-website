@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import { FetchCategories } from "./redux/actions/CategoriesActions";
 import productDetails from "./components/ProductDetails/ProductDetails";
 import Home from "./components/Home/Home";
+import SignUp from "./components/auth/signUp";
 function start(props) {
   props.getCategories();
   return (
@@ -18,6 +19,7 @@ function start(props) {
         <Header />
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/signUp" component={SignUp} />
           <Route exact path="/details" component={productDetails} />
           <Route
             path="/cat/:catId/subCat/:subCatId"

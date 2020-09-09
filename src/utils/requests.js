@@ -1,4 +1,3 @@
-import axios from "axios";
 import store from "../redux";
 export const get = (api, isAuthorized = true, params = {}, headers = {}) => {
   return new Promise((resolve, reject) => {

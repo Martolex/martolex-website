@@ -197,7 +197,7 @@ const ProductDetails = (props) => {
         </Row>
 
         <ProductListing
-          style={{ padding: "0 20px" }}
+          style={{ padding: viewPortWidth < desktopRes ? "0 20px" : "0 10%" }}
           displayType={viewPortWidth < desktopRes ? "grid" : "list"}
           isLoading={similarLoading}
           products={similarproducts}
