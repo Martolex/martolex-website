@@ -13,6 +13,8 @@ import Home from "./components/Home/Home";
 import SignUp from "./components/auth/signUp";
 import { Collapse } from "react-bootstrap";
 import Toast from "./components/utils/Toast";
+import CheckoutScreen from "./components/Cart/checkoutScreen";
+import PrivateRoute from "./components/utils/PrivateRoute";
 
 function Start(props) {
   props.getCategories();
@@ -33,11 +35,18 @@ function Start(props) {
           header="added"
           body="Item Added To cart"
         />
+
         <Header />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/signUp" component={SignUp} />
           <Route exact path="/details" component={productDetails} />
+          <PrivateRoute exact path="/checkout">
+            <CheckoutScreen />
+          </PrivateRoute>
+          <PrivateRoute exact path="/profile">
+            <h1>profile screen</h1>
+          </PrivateRoute>
           <Route
             path="/cat/:catId/subCat/:subCatId"
             component={(props) => <ProductSearchResults {...props} isSubCat />}

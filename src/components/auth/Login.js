@@ -42,48 +42,64 @@ const Login = (props) => {
       close={props.closeLogin}
     >
       <Form
-        className="p-3"
+        className="p-3 w-100"
         noValidate
         validated={validated}
         onSubmit={handleSubmit}
       >
-        <Form.Group controlId="validationCustom01">
-          <Form.Label>Registered Email Id</Form.Label>
-          <Form.Control
-            required
-            type="email"
-            onChange={(event) => {
-              setEmail(event.target.value);
-            }}
-            placeholder="enter your registered email ID "
-          />
+        <Row>
+          <Col>
+            <Form.Group controlId="validationCustom01">
+              <Form.Label>Registered Email Id</Form.Label>
+              <Form.Control
+                required
+                type="email"
+                onChange={(event) => {
+                  setEmail(event.target.value);
+                }}
+                placeholder="enter your registered email ID "
+              />
 
-          <Form.Control.Feedback type="invalid">
-            Enter valid Email
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group controlId="validationCustom02">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            required
-            type="password"
-            onChange={(event) => {
-              setpassword(event.target.value);
-            }}
-            placeholder="enter your password "
-          />
+              <Form.Control.Feedback type="invalid">
+                Enter valid Email
+              </Form.Control.Feedback>
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Form.Group controlId="validationCustom02">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                required
+                type="password"
+                onChange={(event) => {
+                  setpassword(event.target.value);
+                }}
+                placeholder="enter your password "
+              />
 
-          <Form.Control.Feedback type="invalid">
-            Enter valid Password
-          </Form.Control.Feedback>
-        </Form.Group>
+              <Form.Control.Feedback type="invalid">
+                Enter valid Password
+              </Form.Control.Feedback>
+            </Form.Group>
+          </Col>
+        </Row>
         {props.error && <p class="text-danger">{props.error}</p>}
-        <Button className="text-light" block type="submit">
-          LOGIN
-        </Button>
-        <Button variant="link" as="a" href="/signup" block>
-          SIGN UP
-        </Button>
+        <Row>
+          <Col>
+            <Button className="text-light" block type="submit">
+              LOGIN
+            </Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Button variant="link" as="a" href="/signup" block>
+              SIGN UP
+            </Button>
+          </Col>
+        </Row>
       </Form>
 
       {props.isLoading && (
