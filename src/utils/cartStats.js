@@ -7,9 +7,10 @@ const cartStats = (cart = []) => {
       return {
         totalAmount: prev.totalAmount + currBookPrice,
         rentalAmount: prev.rentalAmount + currBookRent,
+        totalMrp: prev.totalMrp + curr.qty * curr.book.rent.mrp,
       };
     },
-    { totalAmount: 0, rentalAmount: 0 }
+    { totalAmount: 0, rentalAmount: 0, totalMrp: 0 }
   );
 };
 

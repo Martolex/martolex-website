@@ -1,7 +1,17 @@
 import React from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "./checkoutScreen.scss";
-const CheckoutScreen = (props) => {
+import { connect } from "react-redux";
+import cartStats from "../../utils/cartStats";
+import {
+  mapPlanToText,
+  getDeliveryDate,
+  getDeliveryCost,
+} from "./checkoutUtils";
+
+const CheckoutScreen = ({ cart, ...props }) => {
+  const checkoutStats = cartStats(cart);
+  const deliveryCharges = getDeliveryCost();
   return (
     <Container className="checkout-page" fluid className="p-0">
       <Row className="w-100 m-0 bg-dark text-white">
@@ -10,11 +20,7 @@ const CheckoutScreen = (props) => {
         </Col>
       </Row>
       <Row className="px-2 w-100 m-0 my-3 checkout-page">
-        <Col
-          md={{ span: 7, order: 1 }}
-          xs={{ order: 2 }}
-          className="shipping h-50"
-        >
+        <Col md={{ span: 7 }} className="shipping h-50">
           <Row>
             <Col>
               <h1 className="text-dark">BILLING / SHIPPING ADDRESS</h1>
@@ -140,11 +146,7 @@ const CheckoutScreen = (props) => {
             </Form>
           </Row>
         </Col>
-        <Col
-          md={{ span: 5, order: 2 }}
-          xs={{ order: 1, span: 12 }}
-          className="order-details bg-light mt-3 pt-2 "
-        >
+        <Col md={{ span: 5 }} className="order-details bg-light mt-3 pt-2 ">
           <Row>
             <Col>
               <h3 className="text-center">YOUR ORDER</h3>
@@ -159,25 +161,27 @@ const CheckoutScreen = (props) => {
               TOTAL
             </Col>
           </Row>
-          <Row className="item">
-            <Col xs={9} md={9}>
-              <p className="text-primary">VLSI Circuit Design X 1</p>
-              <p className="text-primary">[ 1 Month Plan = ₹ 110]</p>
-            </Col>
-            <Col className="total" xs={3} md={3}>
-              &#8377; 235/-
-            </Col>
-          </Row>
+          {cart.map((cartItem) => (
+            <Row className="item" key={cartItem.BookId}>
+              <Col xs={9} md={9}>
+                <p className="text-primary">
+                  {cartItem.book.name} X {cartItem.qty}
+                </p>
+                <p className="text-primary">{`[ ${mapPlanToText(
+                  cartItem.plan
+                )} = ₹ ${cartItem.book.rent[cartItem.plan]}]`}</p>
+              </Col>
+              <Col className="total" xs={3} md={3}>
+                &#8377;
+                {` ${
+                  (cartItem.book.rent[cartItem.plan] +
+                    cartItem.book.rent.deposit) *
+                  cartItem.qty
+                }/-`}
+              </Col>
+            </Row>
+          ))}
 
-          <Row className="item">
-            <Col xs={9} md={9}>
-              <p className="text-primary">VLSI Circuit Design X 1</p>
-              <p className="text-primary">[ 1 Month Plan = ₹ 110]</p>
-            </Col>
-            <Col className="total" xs={3} md={3}>
-              &#8377; 235/-
-            </Col>
-          </Row>
           <hr />
 
           <Row className="">
@@ -185,7 +189,7 @@ const CheckoutScreen = (props) => {
               <b>Total Rental Amount</b>
             </Col>
             <Col className="total" xs={3} md={3}>
-              &#8377; 300/-
+              &#8377; {`${checkoutStats.rentalAmount}/-`}
             </Col>
           </Row>
           <hr />
@@ -194,7 +198,7 @@ const CheckoutScreen = (props) => {
               <b>Amount You pay now</b>
             </Col>
             <Col className="total" xs={3} md={3}>
-              &#8377; 300/-
+              &#8377; {`${checkoutStats.totalAmount}/-`}
             </Col>
           </Row>
           <hr />
@@ -203,7 +207,8 @@ const CheckoutScreen = (props) => {
               <b>Amount Amount Refunded On Return of Books</b>
             </Col>
             <Col className="total" xs={3} md={3}>
-              &#8377; 300/-
+              &#8377;{" "}
+              {`${checkoutStats.totalAmount - checkoutStats.rentalAmount}/-`}
             </Col>
           </Row>
           <hr />
@@ -213,7 +218,12 @@ const CheckoutScreen = (props) => {
             </Col>
             <Col className="total" xs={6} md={4}>
               <div className="bg-success text-center text-light font-weight-bold p-2">
-                &#8377; 300/- ( 50.27% )
+                &#8377;{" "}
+                {`${checkoutStats.totalMrp - checkoutStats.rentalAmount}/- (${(
+                  ((checkoutStats.totalMrp - checkoutStats.rentalAmount) /
+                    checkoutStats.totalMrp) *
+                  100
+                ).toFixed(2)})%`}
               </div>
             </Col>
           </Row>
@@ -227,7 +237,11 @@ const CheckoutScreen = (props) => {
               <b>Delivery Shipping</b>
             </Col>
             <Col xs={5} md={4}>
-              &#8377; 70/-
+              {`${
+                deliveryCharges.forward != 0
+                  ? "₹ " + deliveryCharges.forward + "/-"
+                  : " Free Delivery"
+              }`}
             </Col>
           </Row>
           <Row className="mb-1">
@@ -235,7 +249,11 @@ const CheckoutScreen = (props) => {
               <b>Return Shipping</b>
             </Col>
             <Col xs={5} md={4}>
-              Free Shipping
+              {`${
+                deliveryCharges.return != 0
+                  ? "₹ " + deliveryCharges.return + "/-"
+                  : " Free Delivery"
+              }`}
             </Col>
           </Row>
           <Row className="mb-1">
@@ -243,7 +261,7 @@ const CheckoutScreen = (props) => {
               <b>Expected Delivery</b>
             </Col>
             <Col xs={5} md={4}>
-              16 - 20 Sep 2020
+              {getDeliveryDate()}
             </Col>
           </Row>
 
@@ -253,7 +271,13 @@ const CheckoutScreen = (props) => {
               <h4>Grand Total</h4>
             </Col>
             <Col className="total" xs={5} md={3}>
-              <h4>&#8377; 1050/-</h4>
+              <h4>
+                &#8377;{" "}
+                {checkoutStats.totalAmount +
+                  deliveryCharges.forward +
+                  deliveryCharges.return}
+                /-
+              </h4>
             </Col>
           </Row>
 
@@ -294,4 +318,5 @@ const CheckoutScreen = (props) => {
   );
 };
 
-export default CheckoutScreen;
+const mapStateToProps = (state) => ({ cart: state.cart.items });
+export default connect(mapStateToProps)(CheckoutScreen);

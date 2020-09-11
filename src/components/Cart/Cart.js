@@ -7,6 +7,7 @@ import { getCart } from "../../redux/actions/CartActions";
 import { connect } from "react-redux";
 import OverlayLoader from "../utils/OverlayLoader";
 import cartStatsCalculator from "../../utils/cartStats";
+import { Link } from "react-router-dom";
 
 const Cart = (props) => {
   React.useEffect(() => {
@@ -53,9 +54,11 @@ const Cart = (props) => {
           </div>
           <Row>
             <Col className="px-4 w-100 m-0">
-              <Button className="my-3 " block>
-                CHECKOUT
-              </Button>
+              <Link className="btn-link" to="/checkout">
+                <Button onClick={props.closeCart} className="my-3 " block>
+                  CHECKOUT
+                </Button>
+              </Link>
             </Col>
           </Row>
         </div>
