@@ -4,7 +4,7 @@ import "./overlayLoader.scss";
 import { Container, Spinner } from "react-bootstrap";
 const overlayLoader = (props) => {
   return (
-    <Container className="loading-container">
+    <Container className="loading-container bg-light" style={{ zIndex: 100 }}>
       <Spinner animation="border" variant="primary" />
     </Container>
   );

@@ -25,7 +25,9 @@ const BottomNavbarMobile = (props) => {
           <p>Cart</p>
         </Col>
         <Col
-          onClick={props.isLoggedIn ? props.openDashboard : props.openLogin}
+          onClick={() =>
+            props.isLoggedIn ? props.openDashBoard() : props.openLogin()
+          }
           className="justify-content-center"
           xs={3}
         >

@@ -80,31 +80,6 @@ const NavBarMobile = ({ categories, ...props }) => {
                       </ListGroup.Item>
                     )
                   )}
-                  {/* <Accordion>
-                    <Accordion.Toggle as={ListGroup.Item} eventKey="1">
-                      CATEGORY 1
-                    </Accordion.Toggle>
-                    <Accordion.Collapse eventKey="1">
-                      <ListGroup>
-                        <ListGroup.Item as="a" href="/1" className="pl-5">
-                          SUB CATEGORY 1
-                        </ListGroup.Item>
-                        <ListGroup.Item className="pl-5">
-                          SUB CATEGORY 1
-                        </ListGroup.Item>
-                        <ListGroup.Item className="pl-5">
-                          SUB CATEGORY 1
-                        </ListGroup.Item>
-                        <ListGroup.Item className="pl-5">
-                          SUB CATEGORY 1
-                        </ListGroup.Item>
-                      </ListGroup>
-                    </Accordion.Collapse>
-                  </Accordion> */}
-
-                  {/* <ListGroup.Item className="pl-4">CATEGORY 2</ListGroup.Item>
-                  <ListGroup.Item className="pl-4">CATEGORY 3</ListGroup.Item>
-                  <ListGroup.Item className="pl-4">CATEGORY 4</ListGroup.Item> */}
                 </ListGroup>
               </Accordion.Collapse>
             </Accordion>
@@ -121,9 +96,6 @@ const NavBarMobile = ({ categories, ...props }) => {
             </ListGroup.Item>
             <ListGroup.Item href="/notFound" action>
               DIDN'T FIND YOUR BOOK
-            </ListGroup.Item>
-            <ListGroup.Item href="/login" action>
-              LOGIN / SIGNUP
             </ListGroup.Item>
           </ListGroup>
         </Row>

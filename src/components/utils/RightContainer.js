@@ -17,18 +17,18 @@ const RightContainer = (props) => {
   return (
     <OverLay style={animation}>
       <Col
-        style={menuAnimation}
-        className="bg-white h-100 right-container"
+        style={{ ...menuAnimation }}
+        className={`bg-white p-0 h-100 right-container ${props.className}`}
         md={3}
         sm={4}
         xs={9}
       >
-        <Row onClick={props.close} className="back-arrow">
+        <Row onClick={props.close} className="back-arrow w-100 m-0">
           <FiArrowRight size={30} color="white" />
         </Row>
 
-        <Row className="top-label text-light">{props.title}</Row>
-        {props.children}
+        <Row className="top-label text-light w-100 m-0">{props.title}</Row>
+        <Row className="w-100 m-0">{props.children}</Row>
       </Col>
     </OverLay>
   );

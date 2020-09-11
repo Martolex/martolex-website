@@ -1,6 +1,6 @@
 import React from "react";
 import "./Cart.scss";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Image } from "react-bootstrap";
 import RightContainer from "../utils/RightContainer";
 import CartItem from "./CartItem";
 import { getCart } from "../../redux/actions/CartActions";
@@ -25,30 +25,46 @@ const Cart = (props) => {
   console.log(props.cart);
   return (
     <RightContainer close={props.closeCart} title="Cart" isOpen={props.isOpen}>
-      {props.cart.map((cartItem) => (
-        <CartItem item={{ ...cartItem }} />
-      ))}
       {props.isLoading && <OverlayLoader />}
 
-      <div className="details-div">
-        <Row className="details-row">
-          <span>Amount you pay now:</span>
-          <span className="text-primary">Rs.{cartStats.totalAmount}/-</span>
+      {props.cart.length > 0 ? (
+        <div>
+          {props.cart.map((cartItem) => (
+            <CartItem item={{ ...cartItem }} />
+          ))}
+
+          <div className="details-div w-100 m-0">
+            <Row className="details-row  w-100 m-0">
+              <span>Amount you pay now:</span>
+              <span className="text-primary">Rs.{cartStats.totalAmount}/-</span>
+            </Row>
+            <Row className="details-row w-100 m-0">
+              <span>Rental Amount:</span>
+              <span className="text-primary">
+                Rs. {cartStats.rentalAmount}/-
+              </span>
+            </Row>
+            <Row className="details-row w-100 m-0">
+              <span>Amount refunded:</span>
+              <span className="text-primary">
+                Rs. {cartStats.totalAmount - cartStats.rentalAmount}/-
+              </span>
+            </Row>
+          </div>
+          <Row>
+            <Col className="px-4 w-100 m-0">
+              <Button className="my-3 " block>
+                CHECKOUT
+              </Button>
+            </Col>
+          </Row>
+        </div>
+      ) : (
+        <Row className="empty-cart px-3">
+          <Image className="w-100" src="/empty-cart.svg" />
+          <p>Looks Like your cart is empty</p>
         </Row>
-        <Row className="details-row">
-          <span>Rental Amount:</span>
-          <span className="text-primary">Rs. {cartStats.rentalAmount}/-</span>
-        </Row>
-        <Row className="details-row">
-          <span>Amount refunded:</span>
-          <span className="text-primary">
-            Rs. {cartStats.totalAmount - cartStats.rentalAmount}/-
-          </span>
-        </Row>
-      </div>
-      <Button className="my-3" block>
-        CHECKOUT
-      </Button>
+      )}
     </RightContainer>
   );
 };

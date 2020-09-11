@@ -34,7 +34,10 @@ const Header = (props) => {
     setCartOpen(!isCartOpen);
   });
 
-  const redirectToDashBoard = () => {};
+  const redirectToDashBoard = () => {
+    console.log("clicked");
+    window.location.href = "/profile";
+  };
   return (
     <div>
       <div className="top-header">
@@ -107,7 +110,11 @@ const Header = (props) => {
           />
         )}
       </div>
-      {desktopRes < width && <NavBar />}
+      {desktopRes < width && (
+        <NavBar
+          openDashBoard={!props.isLoggedIn ? toggleLogin : redirectToDashBoard}
+        />
+      )}
 
       <MobileSearchbar isOpen={isSearchOpen} closeSearch={toggleSearch} />
       <NavBarMobile isOpen={isMenuopen} closeMenu={togglemenu} />

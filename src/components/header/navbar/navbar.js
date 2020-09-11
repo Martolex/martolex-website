@@ -20,7 +20,7 @@ const Navbar = (props) => {
         <li>contact us</li>
         <li>About us</li>
         <li>didn't find your book</li>
-        <li>
+        <li onClick={props.openDashBoard}>
           <FaUser />
           my account
         </li>
