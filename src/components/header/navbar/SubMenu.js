@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { buildSubCatUrl, buildCatUrl } from "../../../utils/buildUrl";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 const SubMenu = ({ categories }) => {
   console.log("--------------------");
   console.log(categories);
@@ -13,12 +14,12 @@ const SubMenu = ({ categories }) => {
           </a>
           <ul>
             {category.subcategories.map((subCategory) => (
-              <a
+              <Link
                 key={subCategory.id}
-                href={buildSubCatUrl(category.id, subCategory.id)}
+                to={buildSubCatUrl(category.id, subCategory.id)}
               >
                 <li>{subCategory.name}</li>
-              </a>
+              </Link>
             ))}
           </ul>
         </li>

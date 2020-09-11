@@ -17,9 +17,9 @@ import CheckoutScreen from "./components/Cart/checkoutScreen";
 import PrivateRoute from "./components/utils/PrivateRoute";
 
 function Start(props) {
-  props.getCategories();
   const [cartToastShow, setCarToastShow] = React.useState(false);
   const [newCartLength, setNewCartLength] = React.useState(0);
+  React.useEffect(() => props.getCategories(), []);
   React.useEffect(() => {
     props.cartHydrated &&
       props.cartLength > newCartLength &&

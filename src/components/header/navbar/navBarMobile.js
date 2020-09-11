@@ -7,6 +7,7 @@ import {
   Accordion,
   Card,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
 import OverLay from "../../utils/overLay";
 import { connect } from "react-redux";
@@ -56,28 +57,30 @@ const NavBarMobile = ({ categories, ...props }) => {
                         <Accordion.Collapse eventKey="1">
                           <ListGroup>
                             {category.subcategories.map((subcategory) => (
-                              <ListGroup.Item
-                                as="a"
-                                href={buildSubCatUrl(
-                                  category.id,
-                                  subcategory.id
-                                )}
-                                className="pl-5"
+                              <Link
+                                to={buildSubCatUrl(category.id, subcategory.id)}
+                                className="text-dark btn-link"
                               >
-                                {subcategory.name.toUpperCase()}
-                              </ListGroup.Item>
+                                <ListGroup.Item
+                                  className="text-dark"
+                                  className="pl-5"
+                                >
+                                  {subcategory.name.toUpperCase()}
+                                </ListGroup.Item>
+                              </Link>
                             ))}
                           </ListGroup>
                         </Accordion.Collapse>
                       </Accordion>
                     ) : (
-                      <ListGroup.Item
-                        as="a"
-                        href={buildCatUrl(category.id)}
-                        className="pl-4"
+                      <Link
+                        to={buildCatUrl(category.id)}
+                        className="text-dark btn-link"
                       >
-                        {category.name.toUpperCase()}
-                      </ListGroup.Item>
+                        <ListGroup.Item className="pl-4">
+                          {category.name.toUpperCase()}
+                        </ListGroup.Item>
+                      </Link>
                     )
                   )}
                 </ListGroup>
