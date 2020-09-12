@@ -23,7 +23,6 @@ const Cart = (props) => {
   React.useEffect(() => {
     setCartStats(cartStatsCalculator(props.cart));
   }, [props.cart]);
-  console.log(props.cart);
   return (
     <RightContainer close={props.closeCart} title="Cart" isOpen={props.isOpen}>
       {props.isLoading && <OverlayLoader />}
@@ -31,7 +30,7 @@ const Cart = (props) => {
       {props.cart.length > 0 ? (
         <div>
           {props.cart.map((cartItem) => (
-            <CartItem item={{ ...cartItem }} />
+            <CartItem key={cartItem.BookId} item={{ ...cartItem }} />
           ))}
 
           <div className="details-div w-100 m-0">

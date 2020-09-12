@@ -2,7 +2,6 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Header from "./components/header/Header";
 import { ViewportProvider } from "./components/utils/viewPortHandler";
-import ProductListing from "./components/productListing/productListing";
 import Footer from "./components/Footer/Footer";
 import ProductSearchResults from "./components/productSearchResults/ProductSearchresults";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
@@ -11,7 +10,6 @@ import { FetchCategories } from "./redux/actions/CategoriesActions";
 import productDetails from "./components/ProductDetails/ProductDetails";
 import Home from "./components/Home/Home";
 import SignUp from "./components/auth/signUp";
-import { Collapse } from "react-bootstrap";
 import Toast from "./components/utils/Toast";
 import CheckoutScreen from "./components/Cart/checkoutScreen";
 import PrivateRoute from "./components/utils/PrivateRoute";
@@ -44,9 +42,7 @@ function Start(props) {
           <PrivateRoute exact path="/checkout">
             <CheckoutScreen />
           </PrivateRoute>
-          <PrivateRoute exact path="/profile">
-            <h1>profile screen</h1>
-          </PrivateRoute>
+          <PrivateRoute exact path="/profile"></PrivateRoute>
           <Route
             path="/cat/:catId/subCat/:subCatId"
             component={(props) => <ProductSearchResults {...props} isSubCat />}

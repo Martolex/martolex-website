@@ -11,7 +11,6 @@ import {
 import { connect } from "react-redux";
 
 const CartItem = ({ item, ...props }) => {
-  console.log(item);
   return (
     <Row className="item-container w-100 m-0">
       <Col className="imgDiv" xs={4}>

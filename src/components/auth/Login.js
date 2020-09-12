@@ -28,7 +28,6 @@ const Login = (props) => {
     } else {
       props.login(email, password);
       props.syncCart();
-      console.log(props.auth);
       if (props.auth) {
         props.closeLogin();
       }

@@ -46,7 +46,6 @@ const ProductDetails = (props) => {
         );
         setsimilarproducts(similarproducts.books);
         setSimilarLoading(false);
-        console.log(similarproducts);
       } catch (err) {
         console.log(err);
       }
@@ -58,7 +57,6 @@ const ProductDetails = (props) => {
   const changePlan = ({ target: { value } }) =>
     setPlan({ ...plan, plan: value, rent: product.rent[value] });
   const modifyQuantity = (qty) => setPlan({ ...plan, qty });
-  console.log(props.isPresentInCart);
   return isLoading ? (
     <OverLay>
       <OverLayLoader />
@@ -72,7 +70,7 @@ const ProductDetails = (props) => {
         >
           <Carousel className="w-75 imgcarousel">
             {product.images.map((img, idx) => (
-              <Carousel.Item>
+              <Carousel.Item key={idx}>
                 <img className="d-block w-100 " src={img.url} />
               </Carousel.Item>
             ))}

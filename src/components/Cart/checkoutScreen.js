@@ -11,7 +11,6 @@ import {
   getDeliveryDate,
   getDeliveryCost,
 } from "./checkoutUtils";
-import { MdEdit } from "react-icons/md";
 import AddressCards from "./AddressCards";
 
 const CheckoutScreen = ({ cart, user, ...props }) => {
@@ -103,7 +102,6 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
       setNewAddress(false);
     }
   }, [props.addresses]);
-  // console.log(details);
   const checkoutStats = cartStats(cart);
   const deliveryCharges = getDeliveryCost();
   return (

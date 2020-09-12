@@ -6,7 +6,6 @@ export const get = (api, isAuthorized = true, params = {}, headers = {}) => {
       ...headers,
     };
     if (isAuthorized) {
-      console.log(store.getState().user.token);
       allHeaders.Authorization = `bearer ${store.getState().user.token}`;
     }
     let url = api + "?";
@@ -51,7 +50,6 @@ export const post = (api, isAuthorized = true, body = {}, headers = {}) => {
     fetch(api, options)
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         if (res.code == 1) {
           resolve([res.data, res.pagination]);
         } else {
@@ -86,7 +84,6 @@ export const deleteCall = (
     fetch(api, options)
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         if (res.code == 1) {
           resolve([res.data, res.pagination]);
         } else {

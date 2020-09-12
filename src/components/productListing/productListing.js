@@ -6,7 +6,6 @@ const ProductListing = ({ displayType, ...props }) => {
   // const Product = (props) => {
   //   return displayType == "grid" ? <ProductCard /> : <ProductRow />;
   // };
-  console.log(displayType);
   return (
     <div
       style={{ minHeight: "200px", ...props.style }}
@@ -15,9 +14,9 @@ const ProductListing = ({ displayType, ...props }) => {
       {props.products.length > 0 ? (
         props.products.map((product) =>
           displayType === "grid" ? (
-            <ProductCard product={product} />
+            <ProductCard key={product.id} product={product} />
           ) : (
-            <ProductRow product={product} />
+            <ProductRow key={product.id} product={product} />
           )
         )
       ) : !props.isLoading ? (

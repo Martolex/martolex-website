@@ -35,7 +35,6 @@ const Header = (props) => {
   });
 
   const redirectToDashBoard = () => {
-    console.log("clicked");
     window.location.href = "/profile";
   };
   return (

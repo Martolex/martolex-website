@@ -4,7 +4,6 @@ import { MdEdit } from "react-icons/md";
 import "./addressCards.scss";
 const AddressCards = (props) => {
   const [activecard, setActiveCard] = React.useState(undefined);
-  const cards = [1, 2, 3, 4];
   const onCardSelect = (id) => () => {
     setActiveCard(id);
     props.handleAddressSelectError();

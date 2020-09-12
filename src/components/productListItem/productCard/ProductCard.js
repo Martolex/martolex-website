@@ -9,7 +9,10 @@ const ProductCard = ({ product }) => {
   return (
     <div className="product">
       <div className="product-img">
-        <img src={product.images[0]?.url || "/book1.png"}></img>
+        <img
+          alt={`${product.name} cover image}`}
+          src={product.images[0]?.url || "/book1.png"}
+        ></img>
       </div>
       <div className="product-info">
         <a href={buildBookDetailsUrl(product.id)} className="prod-name">

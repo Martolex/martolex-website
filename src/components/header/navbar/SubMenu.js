@@ -3,8 +3,6 @@ import { buildSubCatUrl, buildCatUrl } from "../../../utils/buildUrl";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 const SubMenu = ({ categories }) => {
-  console.log("--------------------");
-  console.log(categories);
   return (
     <ul className="submenu">
       {categories.map((category) => (

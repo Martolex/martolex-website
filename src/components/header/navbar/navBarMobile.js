@@ -20,7 +20,6 @@ const NavBarMobile = ({ categories, ...props }) => {
   const menuAnimation = props.isOpen
     ? { visibility: "visible", left: 0 }
     : { visibility: "hidden", left: -500 };
-  console.log(categories);
   return (
     <OverLay close={props.closeMenu} style={{ padding: 0, ...animation }}>
       <Col
@@ -50,7 +49,7 @@ const NavBarMobile = ({ categories, ...props }) => {
                 <ListGroup>
                   {categories.map((category) =>
                     category.subcategories.length > 0 ? (
-                      <Accordion>
+                      <Accordion key={category.id}>
                         <Accordion.Toggle as={ListGroup.Item} eventKey="1">
                           {category.name.toUpperCase()}
                         </Accordion.Toggle>
@@ -60,6 +59,7 @@ const NavBarMobile = ({ categories, ...props }) => {
                               <Link
                                 to={buildSubCatUrl(category.id, subcategory.id)}
                                 className="text-dark btn-link"
+                                key={subcategory.id}
                               >
                                 <ListGroup.Item
                                   className="text-dark"
