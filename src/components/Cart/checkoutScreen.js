@@ -1,8 +1,11 @@
 import React from "react";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import "./checkoutScreen.scss";
+import OverLay from "../utils/overLay";
+import OverLayLoader from "../utils/OverlayLoader";
 import { connect } from "react-redux";
 import cartStats from "../../utils/cartStats";
+import { fetchAddresses } from "../../redux/actions/addressActions";
 import {
   mapPlanToText,
   getDeliveryDate,
@@ -84,6 +87,7 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
   const handleCodTransaction = () => {};
 
   React.useEffect(() => {
+    props.syncAddresses();
     setDetails({
       ...details,
       name: user.name,
@@ -91,11 +95,24 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
       phone: user.phoneNo,
     });
   }, []);
+
+  React.useEffect(() => {
+    if (props.addresses.length == 0) {
+      setNewAddress(true);
+    } else {
+      setNewAddress(false);
+    }
+  }, [props.addresses]);
   // console.log(details);
   const checkoutStats = cartStats(cart);
   const deliveryCharges = getDeliveryCost();
   return (
     <Container className="checkout-page" fluid className="p-0">
+      {props.isLoading && (
+        <OverLay>
+          <OverLayLoader style={{ position: "absolute", top: "45vh" }} />
+        </OverLay>
+      )}
       <Form
         noValidate
         validated={validated}
@@ -307,10 +324,13 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
                 </Row>
                 <AddressCards
                   addressError={details.errors.addressError}
-                  addresses={[1, 2, 3, 4]}
+                  addresses={props.addresses}
                   onSelect={onAddressSelect}
                   handleAddressSelectError={handleAddressSelectError}
-                  addNewAddress={() => setNewAddress(true)}
+                  addNewAddress={() => {
+                    setNewAddress(true);
+                    setValidated(false);
+                  }}
                 />
               </div>
             )}
@@ -526,5 +546,10 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
 const mapStateToProps = (state) => ({
   cart: state.cart.items,
   user: state.user.profile,
+  isLoading: state.addresses.loading,
+  addresses: state.addresses.items,
 });
-export default connect(mapStateToProps)(CheckoutScreen);
+const mapDispatchToProps = (dispatch) => ({
+  syncAddresses: () => dispatch(fetchAddresses()),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutScreen);

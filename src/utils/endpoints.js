@@ -8,6 +8,9 @@ export const subCategorySearchApi = (catId, subCatId) =>
 
 export const productDetailsApi = (bookId) => `${backendApi}books/${bookId}`;
 
-export const cartApi = `${backendApi}user/cart`;
+const userApi = `${backendApi}user`;
+export const cartApi = `${userApi}/cart`;
 
 export const updateCartQuantityApi = `${cartApi}/modifyQty`;
+
+export const UserAddressesApi = `${userApi}/profile/addresses`;
