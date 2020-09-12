@@ -8,34 +8,76 @@ import {
   getDeliveryDate,
   getDeliveryCost,
 } from "./checkoutUtils";
+import { MdEdit } from "react-icons/md";
+import AddressCards from "./AddressCards";
 
 const CheckoutScreen = ({ cart, user, ...props }) => {
   const [details, setDetails] = React.useState({
     errors: { termsError: false },
   });
+  const [newAddress, setNewAddress] = React.useState(false);
   const [validated, setValidated] = React.useState(false);
+
+  const onAddressSelect = (id) => {
+    setDetails({ ...details, addressId: id });
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
     console.log(details.type);
-    if (form.checkValidity() === false || details.termsAgreed == false) {
-      if (!details.termsAgreed) {
-        setDetails({ errors: { termsError: true } });
+    if (!!details.addressId) {
+      if (details.termsAgreed) {
+        handleTransaction(details);
+      } else {
+        setDetails({
+          ...details,
+          errors: { ...details.errors, termsError: true },
+        });
+        event.stopPropagation();
       }
-      event.stopPropagation();
     } else {
-      switch (details.type) {
-        case "online":
-          handleOnlineTransaction();
-          break;
-        case "COD":
-          handleCodTransaction();
-          break;
-        default:
-          Alert("something went wrong");
+      if (!newAddress) {
+        setDetails({
+          ...details,
+          errors: { ...details.errors, addressError: true },
+        });
+        alert("Please select an address");
+      } else {
+        if (form.checkValidity() === false || details.termsAgreed == false) {
+          if (!details.termsAgreed) {
+            setDetails({
+              ...details,
+              errors: { ...details.errors, termsError: true },
+            });
+          }
+          event.stopPropagation();
+        } else {
+          handleTransaction(details);
+        }
       }
     }
+
     setValidated(true);
+  };
+
+  const handleAddressSelectError = () =>
+    setDetails({
+      ...details,
+      errors: { ...details.errors, addressError: false },
+    });
+
+  const handleTransaction = (details) => {
+    console.log("handling...");
+    switch (details.type) {
+      case "online":
+        handleOnlineTransaction();
+        break;
+      case "COD":
+        handleCodTransaction();
+        break;
+      default:
+        Alert("something went wrong");
+    }
   };
 
   const handleOnlineTransaction = () => {};
@@ -49,6 +91,7 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
       phone: user.phoneNo,
     });
   }, []);
+  // console.log(details);
   const checkoutStats = cartStats(cart);
   const deliveryCharges = getDeliveryCost();
   return (
@@ -75,179 +118,202 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
               </Col>
             </Row>
 
-            <Row>
-              <Col xs={12} md={6}>
-                <Form.Group controlId="full-name">
-                  <Form.Label>Full Name*</Form.Label>
-                  <Form.Control
-                    required
-                    type="text"
-                    value={details.name}
-                    onChange={(event) => {
-                      setDetails({ ...details, name: event.target.value });
-                    }}
-                    placeholder="full Name"
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Name is required
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group controlId="Mobile-Number">
-                  <Form.Label>Mobile Number</Form.Label>
-                  <Form.Control
-                    required
-                    type="tel"
-                    value={details.phone}
-                    minLength={10}
-                    maxLength={10}
-                    onChange={(event) => {
-                      setDetails({ ...details, mobile: event.target.value });
-                    }}
-                    placeholder="Mobile Number"
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Enter valid mobile number
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Group controlId="address-line1">
-                  <Form.Label>Address line 1*</Form.Label>
-                  <Form.Control
-                    required
-                    type="text"
-                    onChange={(event) => {
-                      setDetails({
-                        ...details,
-                        addLine1: event.target.value,
-                      });
-                    }}
-                    placeholder="Address line 1"
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    address is required
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Group controlId="address-line2">
-                  <Form.Label>Address line 2*</Form.Label>
-                  <Form.Control
-                    required
-                    type="text"
-                    onChange={(event) => {
-                      setDetails({
-                        ...details,
-                        addLine2: event.target.value,
-                      });
-                    }}
-                    placeholder="Address line 2"
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Address is required
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={12} md={6}>
-                <Form.Group controlId="town">
-                  <Form.Label>town / city*</Form.Label>
-                  <Form.Control
-                    required
-                    type="text"
-                    minLength={3}
-                    pattern="[a-zA-Z]+"
-                    onChange={(event) => {
-                      setDetails({ ...details, city: event.target.value });
-                    }}
-                    placeholder="Town / city"
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Enter valid city name
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group controlId="state">
-                  <Form.Label>State*</Form.Label>
-                  <Form.Control
-                    required
-                    type="text"
-                    pattern="[a-zA-Z]+"
-                    onChange={(event) => {
-                      setDetails({ ...details, state: event.target.value });
-                    }}
-                    placeholder="state"
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Enter valid state name
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={12} md={6}>
-                <Form.Group controlId="pincode">
-                  <Form.Label>PIN Code*</Form.Label>
-                  <Form.Control
-                    required
-                    type="text"
-                    maxLength={6}
-                    minlength={6}
-                    pattern="[1-9][0-9]+"
-                    onChange={(event) => {
-                      setDetails({ ...details, pincode: event.target.value });
-                    }}
-                    placeholder="PIN Code"
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Enter valid Pincode
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group controlId="email">
-                  <Form.Label>Email ID</Form.Label>
-                  <Form.Control
-                    required
-                    value={details.email}
-                    type="text"
-                    onChange={(event) => {
-                      setDetails({ ...details, email: event.target.value });
-                    }}
-                    placeholder="Email ID"
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Enter valid Email
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Group controlId="order-notes">
-                  <Form.Label>Order notes</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows="3"
-                    placeholder="Notes about your order, e.g. special notes for delivery."
-                    onChange={(event) => {
-                      setDetails({
-                        ...details,
-                        orderNotes: event.target.value,
-                      });
-                    }}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
+            {newAddress ? (
+              <div>
+                <Row>
+                  <Col xs={12} md={6}>
+                    <Form.Group controlId="full-name">
+                      <Form.Label>Full Name*</Form.Label>
+                      <Form.Control
+                        required
+                        type="text"
+                        value={details.name}
+                        onChange={(event) => {
+                          setDetails({ ...details, name: event.target.value });
+                        }}
+                        placeholder="full Name"
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Name is required
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group controlId="Mobile-Number">
+                      <Form.Label>Mobile Number</Form.Label>
+                      <Form.Control
+                        required
+                        type="tel"
+                        value={details.phone}
+                        minLength={10}
+                        maxLength={10}
+                        onChange={(event) => {
+                          setDetails({
+                            ...details,
+                            mobile: event.target.value,
+                          });
+                        }}
+                        placeholder="Mobile Number"
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Enter valid mobile number
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Form.Group controlId="address-line1">
+                      <Form.Label>Address line 1*</Form.Label>
+                      <Form.Control
+                        required
+                        type="text"
+                        onChange={(event) => {
+                          setDetails({
+                            ...details,
+                            addLine1: event.target.value,
+                          });
+                        }}
+                        placeholder="Address line 1"
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        address is required
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Form.Group controlId="address-line2">
+                      <Form.Label>Address line 2*</Form.Label>
+                      <Form.Control
+                        required
+                        type="text"
+                        onChange={(event) => {
+                          setDetails({
+                            ...details,
+                            addLine2: event.target.value,
+                          });
+                        }}
+                        placeholder="Address line 2"
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Address is required
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12} md={6}>
+                    <Form.Group controlId="town">
+                      <Form.Label>town / city*</Form.Label>
+                      <Form.Control
+                        required
+                        type="text"
+                        minLength={3}
+                        pattern="[a-zA-Z]+"
+                        onChange={(event) => {
+                          setDetails({ ...details, city: event.target.value });
+                        }}
+                        placeholder="Town / city"
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Enter valid city name
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group controlId="state">
+                      <Form.Label>State*</Form.Label>
+                      <Form.Control
+                        required
+                        type="text"
+                        pattern="[a-zA-Z]+"
+                        onChange={(event) => {
+                          setDetails({ ...details, state: event.target.value });
+                        }}
+                        placeholder="state"
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Enter valid state name
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12} md={6}>
+                    <Form.Group controlId="pincode">
+                      <Form.Label>PIN Code*</Form.Label>
+                      <Form.Control
+                        required
+                        type="text"
+                        maxLength={6}
+                        minLength={6}
+                        pattern="[1-9][0-9]+"
+                        onChange={(event) => {
+                          setDetails({
+                            ...details,
+                            pincode: event.target.value,
+                          });
+                        }}
+                        placeholder="PIN Code"
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Enter valid Pincode
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group controlId="email">
+                      <Form.Label>Email ID</Form.Label>
+                      <Form.Control
+                        required
+                        value={details.email}
+                        type="text"
+                        onChange={(event) => {
+                          setDetails({ ...details, email: event.target.value });
+                        }}
+                        placeholder="Email ID"
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Enter valid Email
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Form.Group controlId="order-notes">
+                      <Form.Label>Order notes</Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        rows="3"
+                        placeholder="Notes about your order, e.g. special notes for delivery."
+                        onChange={(event) => {
+                          setDetails({
+                            ...details,
+                            orderNotes: event.target.value,
+                          });
+                        }}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+              </div>
+            ) : (
+              <div>
+                <Row>
+                  <h4>Select Address</h4>
+                </Row>
+                <AddressCards
+                  addressError={details.errors.addressError}
+                  addresses={[1, 2, 3, 4]}
+                  onSelect={onAddressSelect}
+                  handleAddressSelectError={handleAddressSelectError}
+                  addNewAddress={() => setNewAddress(true)}
+                />
+              </div>
+            )}
           </Col>
           <Col md={{ span: 5 }} className="order-details bg-light mt-3 pt-2 ">
             <Row>
@@ -398,6 +464,7 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
                         ...details,
                         termsAgreed: !details.termsAgreed,
                         errors: {
+                          ...details.errors,
                           termsError: !details.termsAgreed
                             ? false
                             : details.errors.termsError,
@@ -427,6 +494,7 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
                   name="submit"
                   variant="primary"
                   block
+                  className="btn-ripple"
                   size="lg"
                   onClick={() => setDetails({ ...details, type: "online" })}
                 >
@@ -439,6 +507,7 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
                 <Button
                   variant="primary"
                   type="submit"
+                  className="btn-ripple"
                   onClick={() => setDetails({ ...details, type: "COD" })}
                   block
                   size="lg"
