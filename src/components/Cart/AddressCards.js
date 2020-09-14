@@ -32,17 +32,18 @@ const AddressCards = (props) => {
                 >
                   <Row>
                     <Col md={10} xs={10}>
-                      <h4 className="mb-0">Deepanshu Vangani</h4>
+                      <h4 className="mb-0">{address.name}</h4>
                     </Col>
                     <Col md={2} xs={2} className="btn-dark-ripple text-right">
                       <MdEdit size={20} onClick={() => console.log("click")} />
                     </Col>
                   </Row>
-                  <p className="font-weight-bold mb-3">(home)</p>
-                  <p>A-1001, Prajapati Gaurav,</p>
-                  <p>Plot no-3, sector-2 , kharghar</p>
-                  <p>Navi Mumbai,</p>
-                  <p>Maharashtra - 410210,</p>
+                  <p className="font-weight-bold mb-3">{`(${address.type})`}</p>
+                  <p>{address.line1}</p>
+                  <p>{address.line2}</p>
+                  <p>{address.city}</p>
+                  <p>{`${address.state}- ${address.zip}.`}</p>
+                  <p>{`mobile no: ${address.phoneNo}`}</p>
                 </Col>
               </Row>
             </Col>
