@@ -11,6 +11,7 @@ const PrivateRoute = ({ isLoggedIn, children, ...rest }) => {
         isLoggedIn ? (
           React.cloneElement(children, {
             match,
+            location,
           })
         ) : (
           <Redirect

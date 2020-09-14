@@ -13,6 +13,7 @@ import SignUp from "./components/auth/signUp";
 import Toast from "./components/utils/Toast";
 import CheckoutScreen from "./components/Cart/checkoutScreen";
 import PrivateRoute from "./components/utils/PrivateRoute";
+import UserDashboard from "./components/user/UserDashboard";
 
 function Start(props) {
   const [cartToastShow, setCarToastShow] = React.useState(false);
@@ -42,7 +43,9 @@ function Start(props) {
           <PrivateRoute exact path="/checkout">
             <CheckoutScreen />
           </PrivateRoute>
-          <PrivateRoute exact path="/profile"></PrivateRoute>
+          <PrivateRoute path="/profile/">
+            <UserDashboard />
+          </PrivateRoute>
           <Route
             path="/cat/:catId/subCat/:subCatId"
             component={(props) => <ProductSearchResults {...props} isSubCat />}
