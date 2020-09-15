@@ -4,6 +4,7 @@ import { startLoading, finishLoading } from "./LoadingActions";
 
 export const LOGIN = "LOGIN";
 export const LOGIN_FAILED = "LOGIN_FAILED";
+export const LOGOUT = "LOGOUT";
 const login = (data) => ({
   type: LOGIN,
   payload: data,
@@ -26,3 +27,5 @@ export const loginUser = (email, password) => async (dispatch) => {
     dispatch(invalidLogin(err));
   }
 };
+
+export const logout = () => ({ type: LOGOUT });

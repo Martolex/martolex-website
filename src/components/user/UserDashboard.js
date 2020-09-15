@@ -2,6 +2,8 @@ import React from "react";
 import { Container, Row, Col, ListGroup, Nav } from "react-bootstrap";
 import { Route, Switch } from "react-router";
 import { Link } from "react-router-dom";
+import { logout } from "../../redux/actions/authActions";
+import { connect } from "react-redux";
 
 const UserDashboard = (props) => {
   const { url: currUrl } = props.match;
@@ -40,24 +42,13 @@ const UserDashboard = (props) => {
               <ListGroup.Item
                 action
                 onClick={() => {
-                  console.log("pressed");
+                  props.userLogout();
                 }}
               >
                 LOGOUT
               </ListGroup.Item>
             </Link>
           </ListGroup>
-          {/* <Nav variant="pills" activeKey={activeKey} className="flex-column">
-            <Nav.Link as={Link} eventKey="1" onClick={()=>setActiveKey("1")} to={`${currUrl}`}>
-              DASHBOARD
-            </Nav.Link>
-            <Nav.Link eventKey="2" as={Link} to={`${currUrl}/orders`} >
-              ORDERS
-            </Nav.Link>
-            <Nav.Link as={Link} eventKey="3" to={`${currUrl}/edit`}>
-              PROFILE
-            </Nav.Link>
-          </Nav> */}
         </Col>
         <Col style={{ border: "1px solid red", height: 300 }} md={9}>
           <Switch>
@@ -82,5 +73,7 @@ const UserDashboard = (props) => {
     </Container>
   );
 };
-
-export default UserDashboard;
+const mapDispatchToProps = (dispatch) => ({
+  userLogout: () => dispatch(logout()),
+});
+export default connect(null, mapDispatchToProps)(UserDashboard);
