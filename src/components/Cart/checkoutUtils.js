@@ -28,7 +28,7 @@ export const getDeliveryDate = () => {
     minExpected.format("M") != maxExpected.format("M")
   ) {
     return (
-      minExpected.format("Do-MMM-YYYY") +
+      minExpected.format("DD-MMM-YYYY") +
       " to " +
       maxExpected.format("DD-MMM-YYYY")
     );
@@ -38,3 +38,20 @@ export const getDeliveryDate = () => {
     )}`;
   }
 };
+
+export const convertDate = (string) => {
+  const date = moment(string);
+  return date.format("Do MMMM, YYYY");
+};
+
+export const getOrderTotal = (items = []) => {
+  const total = items.reduce(
+    (total, item) =>
+      total + item.qty * (item.book.rent[item.plan] + item.book.rent.deposit),
+    0
+  );
+  return total.toFixed(2);
+};
+
+export const formatDeliveryDate = (start, end) =>
+  moment(start).format("DD/MM/YYYY") + " - " + moment(end).format("DD/MM/YYYY");

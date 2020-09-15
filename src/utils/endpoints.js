@@ -14,3 +14,9 @@ export const cartApi = `${userApi}/cart`;
 export const updateCartQuantityApi = `${cartApi}/modifyQty`;
 
 export const UserAddressesApi = `${userApi}/profile/addresses`;
+
+export const ordersApi = {
+  cod: `${userApi}/order/cod`,
+  online: `${userApi}/order/online`,
+  orderDetails: (orderId) => `${userApi}/order/${orderId}`,
+};

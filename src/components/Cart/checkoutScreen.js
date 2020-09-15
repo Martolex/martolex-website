@@ -12,6 +12,8 @@ import {
   getDeliveryCost,
 } from "./checkoutUtils";
 import AddressCards from "./AddressCards";
+import { post } from "../../utils/requests";
+import { ordersApi } from "../../utils/endpoints";
 
 const CheckoutScreen = ({ cart, user, ...props }) => {
   const [details, setDetails] = React.useState({
@@ -19,6 +21,7 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
   });
   const [newAddress, setNewAddress] = React.useState(false);
   const [validated, setValidated] = React.useState(false);
+  const [orderLoading, setOrderLoading] = React.useState(false);
 
   const onAddressSelect = (id) => {
     setDetails({ ...details, addressId: id });
@@ -83,7 +86,37 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
   };
 
   const handleOnlineTransaction = () => {};
-  const handleCodTransaction = () => {};
+  const handleCodTransaction = async () => {
+    console.log(details);
+    const params = {
+      addressId: details.addressId,
+      address: {
+        name: details.name,
+        type: "home",
+        line1: details.addLine1,
+        line2: details.addLine2,
+        city: details.city,
+        state: details.state,
+        zip: details.pincode,
+        phoneNo: details.phone,
+      },
+      items: cart.map((cartItem) => ({
+        qty: cartItem.qty,
+        plan: cartItem.plan,
+        bookId: cartItem.BookId,
+      })),
+    };
+
+    try {
+      setOrderLoading(true);
+      const [res] = await post(ordersApi.cod, true, params);
+      console.log(res);
+      window.location.href = `/order/${res.orderId}/confirmation`;
+    } catch (err) {
+      alert("something went wrong. Please Try again Later");
+    }
+    setOrderLoading(false);
+  };
 
   React.useEffect(() => {
     props.syncAddresses();
@@ -106,7 +139,7 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
   const deliveryCharges = getDeliveryCost();
   return (
     <Container className="checkout-page" fluid className="p-0">
-      {props.isLoading && (
+      {(props.isLoading || orderLoading) && (
         <OverLay>
           <OverLayLoader style={{ position: "absolute", top: "45vh" }} />
         </OverLay>

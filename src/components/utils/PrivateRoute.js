@@ -3,15 +3,15 @@ import { Route, Redirect } from "react-router";
 import { connect } from "react-redux";
 
 const PrivateRoute = ({ isLoggedIn, children, ...rest }) => {
-  console.log(isLoggedIn);
   return (
     <Route
       {...rest}
-      component={({ location, match }) =>
+      component={({ location, match, history }) =>
         isLoggedIn ? (
           React.cloneElement(children, {
             match,
             location,
+            history,
           })
         ) : (
           <Redirect
