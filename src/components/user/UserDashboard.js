@@ -16,8 +16,9 @@ const UserDashboard = (props) => {
               <ListGroup.Item
                 active={props.location.pathname == "/profile"}
                 action
+              >
                 DASHBOARD
-              ></ListGroup.Item>
+              </ListGroup.Item>
             </Link>
             <Link to={`${currUrl}/orders`}>
               <ListGroup.Item
@@ -33,6 +34,16 @@ const UserDashboard = (props) => {
                 action
               >
                 PROFILE
+              </ListGroup.Item>
+            </Link>
+            <Link to={`/`}>
+              <ListGroup.Item
+                action
+                onClick={() => {
+                  console.log("pressed");
+                }}
+              >
+                LOGOUT
               </ListGroup.Item>
             </Link>
           </ListGroup>

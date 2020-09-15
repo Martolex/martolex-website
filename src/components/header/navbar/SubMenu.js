@@ -13,6 +13,7 @@ const SubMenu = ({ categories }) => {
           <ul>
             {category.subcategories.map((subCategory) => (
               <Link
+                className="btn-link"
                 key={subCategory.id}
                 to={buildSubCatUrl(category.id, subCategory.id)}
               >
@@ -22,7 +23,7 @@ const SubMenu = ({ categories }) => {
           </ul>
         </li>
       ))}
-      <li>
+      {/* <li>
         <span>item1</span>
         <ul>
           <li>subitem1</li>
@@ -41,7 +42,7 @@ const SubMenu = ({ categories }) => {
       </li>
       <li>
         <span>item1</span>
-      </li>
+      </li> */}
     </ul>
   );
 };

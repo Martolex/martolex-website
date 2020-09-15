@@ -44,6 +44,7 @@ const ProductsPaginator = (props) => {
     if (offset) {
       setPageNum(pageNum + 1);
       getData(pagination.nextUrl);
+      window.scrollTo(0, 0);
     }
   };
   const prevPage = () => {
@@ -52,6 +53,7 @@ const ProductsPaginator = (props) => {
     if (offset) {
       setPageNum(pageNum - 1);
       getData(pagination.prevUrl);
+      window.scrollTo(0, 0);
     }
   };
   React.useEffect(() => {

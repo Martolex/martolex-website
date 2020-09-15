@@ -11,7 +11,7 @@ import { addToCart } from "../../../redux/actions/CartActions";
 
 const ProductCard = ({ product, ...props }) => {
   const { oneMonth, mrp } = product.rent;
-  const discount = ((mrp - oneMonth) / mrp) * 100;
+  const discount = (((mrp - oneMonth) / mrp) * 100).toFixed(0);
   return (
     <Row className="product-card">
       <Col md={2} className="product-img">

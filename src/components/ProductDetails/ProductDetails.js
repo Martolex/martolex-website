@@ -74,9 +74,6 @@ const ProductDetails = (props) => {
                 <img className="d-block w-100 " src={img.url} />
               </Carousel.Item>
             ))}
-            <Carousel.Item>
-              <img className="d-block w-100 " src="/book1.png" />
-            </Carousel.Item>
           </Carousel>
         </Col>
         <Col md={8} className="py-4 ">
@@ -162,9 +159,10 @@ const ProductDetails = (props) => {
           <p className="amount">
             Your Savings:{" "}
             <span>
-              {((product.rent.mrp - (plan.rent + product.rent.deposit)) /
-                product.rent.mrp) *
-                100}
+              {(
+                ((product.rent.mrp - plan.rent) / product.rent.mrp) *
+                100
+              ).toFixed(0)}
               %
             </span>
           </p>

@@ -2,9 +2,10 @@ import { backendApi } from "../config";
 
 export const getCategorytreeApi = backendApi + "categories/tree";
 export const loginApi = backendApi + "auth/signIn";
-export const categorySearchApi = (catId) => backendApi + `books/cat/${catId}`;
+export const categorySearchApi = (catId) =>
+  backendApi + `books/cat/${catId}?limit=12`;
 export const subCategorySearchApi = (catId, subCatId) =>
-  `${backendApi}books/cat/${catId}/subCat/${subCatId}`;
+  `${backendApi}books/cat/${catId}/subCat/${subCatId}?limit=12`;
 
 export const productDetailsApi = (bookId) => `${backendApi}books/${bookId}`;
 
