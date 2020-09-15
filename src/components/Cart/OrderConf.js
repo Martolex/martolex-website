@@ -62,33 +62,33 @@ const OrderConf = (props) => {
         <Col md={1}></Col>
         <Col md={10}>
           <Row>
-            <Col xs={12} md={6}>
-              <Card style={{ height: "100%" }} classname="h-100">
+            <Col className="mb-3" xs={12} md={6}>
+              <Card style={{ height: "100%" }}>
                 <Card.Header>
                   <b>ORDER SUMMARY</b>
                 </Card.Header>
                 <Card.Body>
                   <Row>
-                    <Col xs={4} md={4}>
+                    <Col xs={5}>
                       <b>Order #:</b>
                     </Col>
                     <Col>{props.match.params.orderId}</Col>
                   </Row>
                   <Row>
-                    <Col xs={4} md={4}>
+                    <Col xs={5}>
                       <b>Order Date:</b>
                     </Col>
                     <Col>{convertDate(order.createdAt)}</Col>
                   </Row>
 
                   <Row>
-                    <Col xs={4} md={4}>
+                    <Col xs={5}>
                       <b>Order Total:</b>
                     </Col>
                     <Col>₹ {getOrderTotal(order.items)}</Col>
                   </Row>
                   <Row>
-                    <Col xs={4} md={4}>
+                    <Col xs={5}>
                       <b>Delivery Date: </b>
                     </Col>
                     <Col>
@@ -97,6 +97,12 @@ const OrderConf = (props) => {
                         order.deliveryMaxDate
                       )}
                     </Col>
+                  </Row>
+                  <Row>
+                    <Col xs={5}>
+                      <b>Delivery charge: </b>
+                    </Col>
+                    <Col>{"₹ " + order?.deliveryAmount?.toFixed(2)}</Col>
                   </Row>
                 </Card.Body>
               </Card>
@@ -140,7 +146,7 @@ const OrderConf = (props) => {
                         className="book-img"
                       />
                     </Col>
-                    <Col xs={8}>
+                    <Col xs={8} md={7}>
                       <p className="mb-3">
                         <b>{item.book.name}</b>
                       </p>

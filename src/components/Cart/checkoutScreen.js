@@ -22,7 +22,8 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
   const [newAddress, setNewAddress] = React.useState(false);
   const [validated, setValidated] = React.useState(false);
   const [orderLoading, setOrderLoading] = React.useState(false);
-
+  const checkoutStats = cartStats(cart);
+  const deliveryCharges = getDeliveryCost();
   const onAddressSelect = (id) => {
     setDetails({ ...details, addressId: id });
   };
@@ -100,6 +101,7 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
         zip: details.pincode,
         phoneNo: details.phone,
       },
+      deliveryAmount: deliveryCharges.forward + deliveryCharges.return,
       items: cart.map((cartItem) => ({
         qty: cartItem.qty,
         plan: cartItem.plan,
@@ -135,8 +137,7 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
       setNewAddress(false);
     }
   }, [props.addresses]);
-  const checkoutStats = cartStats(cart);
-  const deliveryCharges = getDeliveryCost();
+
   return (
     <Container className="checkout-page" fluid className="p-0">
       {(props.isLoading || orderLoading) && (
