@@ -38,12 +38,7 @@ const Cart = (props) => {
               <span>Amount you pay now:</span>
               <span className="text-primary">Rs.{cartStats.totalAmount}/-</span>
             </Row>
-            <Row className="details-row w-100 m-0">
-              <span>Rental Amount:</span>
-              <span className="text-primary">
-                Rs. {cartStats.rentalAmount}/-
-              </span>
-            </Row>
+
             <Row className="details-row w-100 m-0">
               <span>Amount refunded:</span>
               <span className="text-primary">

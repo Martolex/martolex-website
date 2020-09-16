@@ -9,6 +9,9 @@ import {
   removeFromCart,
 } from "../../redux/actions/CartActions";
 import { connect } from "react-redux";
+import { plans } from "../../utils/enums";
+import { itemPrice } from "../../utils/cartStats";
+import { mapPlanToText } from "../../utils/produtUtils";
 
 const CartItem = ({ item, ...props }) => {
   return (
@@ -27,10 +30,11 @@ const CartItem = ({ item, ...props }) => {
         <p className="mt-0">
           {item.qty} x
           <span className="text-primary cost">
-            Rs. {item.book.rent[item.plan] + item.book.rent.deposit}/-
+            Rs. {itemPrice(item)}
+            /-
           </span>
         </p>
-        <p>Plan: {item.plan}</p>
+        <p>Plan: {mapPlanToText(item.plan)}</p>
         <p>Rent: Rs.{item.book.rent[item.plan]}/-</p>
         <Row className="buttons-div">
           <Col className="m-0 p-0 button" xs={8}>

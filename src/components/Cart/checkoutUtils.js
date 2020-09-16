@@ -1,4 +1,5 @@
 import moment from "moment";
+import { itemPrice } from "../../utils/cartStats";
 
 export const mapPlanToText = (plan) => {
   switch (plan) {
@@ -45,11 +46,7 @@ export const convertDate = (string) => {
 };
 
 export const getOrderTotal = (items = []) => {
-  const total = items.reduce(
-    (total, item) =>
-      total + item.qty * (item.book.rent[item.plan] + item.book.rent.deposit),
-    0
-  );
+  const total = items.reduce((total, item) => total + itemPrice(item), 0);
   return total.toFixed(2);
 };
 

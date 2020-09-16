@@ -8,10 +8,15 @@ import { buildBookDetailsUrl } from "../../../utils/buildUrl";
 import { connect } from "react-redux";
 import checkItemInCart from "../../../utils/checkItemInCart";
 import { addToCart } from "../../../redux/actions/CartActions";
+import { getMinPlan, getMinProductPrice } from "../../../utils/produtUtils";
 
 const ProductCard = ({ product, ...props }) => {
-  const { oneMonth, mrp } = product.rent;
-  const discount = (((mrp - oneMonth) / mrp) * 100).toFixed(0);
+  const productPlan = getMinPlan(product);
+  const price = product.rent[productPlan];
+  const discount = (
+    ((product.rent.mrp - price) / product.rent.mrp) *
+    100
+  ).toFixed(0);
   return (
     <Row className="product-card">
       <Col md={2} className="product-img">
@@ -35,6 +40,13 @@ const ProductCard = ({ product, ...props }) => {
               : product.description
             : "Not Available"}
         </p>
+
+        {product.isBuyBackEnabled ? (
+          <p className="prod-publisher text-success">Buyback available</p>
+        ) : (
+          <p className="prod-publisher text-danger">Buyback not available</p>
+        )}
+
         <ReactStars
           className="ratings"
           count={5}
@@ -47,7 +59,7 @@ const ProductCard = ({ product, ...props }) => {
       <Col md={3} className="right-block">
         <Row>
           <div className="prices">
-            <span className="price">&#8377;{product.rent.oneMonth}/-</span>
+            <span className="price">&#8377;{price}/-</span>
             <span className="actual-price">&#8377;{product.rent.mrp}/-</span>
             <p className="discount">Save {discount}%</p>
           </div>
@@ -55,7 +67,7 @@ const ProductCard = ({ product, ...props }) => {
         <Row className="w-100 mt-1">
           <Button
             onClick={() => {
-              props.addToCart(product.id, "oneMonth", 1);
+              props.addToCart(product.id, productPlan, 1);
             }}
             disabled={props.isPresentInCart}
             variant="success"

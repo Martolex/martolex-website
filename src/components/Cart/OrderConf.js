@@ -9,8 +9,10 @@ import {
   convertDate,
   getOrderTotal,
   formatDeliveryDate,
-  mapPlanToText,
 } from "./checkoutUtils";
+import { mapPlanToText } from "../../utils/produtUtils";
+import { itemPrice } from "../../utils/cartStats";
+import { plans } from "../../utils/enums";
 const OrderConf = (props) => {
   const [order, setOrder] = React.useState({});
   const [isLoading, setLoading] = React.useState(false);
@@ -154,11 +156,13 @@ const OrderConf = (props) => {
                         <b>Plan :</b> {mapPlanToText(item.plan)}
                       </p>
                       <p className="m-0">
-                        <b>Rent : </b>₹ {item.book.rent[item.plan]?.toFixed(2)}
+                        <b>Amount paid : </b>₹ {itemPrice(item)?.toFixed(2)}
                       </p>
                       <p className="m-0">
-                        <b>Refundable deposit : </b>₹{" "}
-                        {item.book.rent["deposit"]?.toFixed(2)}
+                        <b>deposit : </b>₹{" "}
+                        {item.plan != plans.SELL
+                          ? item.book.rent["deposit"]?.toFixed(2)
+                          : Number(0).toFixed(2)}
                       </p>
                     </Col>
                   </Row>

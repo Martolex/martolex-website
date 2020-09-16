@@ -4,16 +4,13 @@ import "./checkoutScreen.scss";
 import OverLay from "../utils/overLay";
 import OverLayLoader from "../utils/OverlayLoader";
 import { connect } from "react-redux";
-import cartStats from "../../utils/cartStats";
+import cartStats, { itemPrice } from "../../utils/cartStats";
 import { fetchAddresses } from "../../redux/actions/addressActions";
-import {
-  mapPlanToText,
-  getDeliveryDate,
-  getDeliveryCost,
-} from "./checkoutUtils";
+import { getDeliveryDate, getDeliveryCost } from "./checkoutUtils";
 import AddressCards from "./AddressCards";
 import { post } from "../../utils/requests";
 import { ordersApi } from "../../utils/endpoints";
+import { mapPlanToText } from "../../utils/produtUtils";
 
 const CheckoutScreen = ({ cart, user, ...props }) => {
   const [details, setDetails] = React.useState({
@@ -394,40 +391,28 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
                 </Col>
                 <Col className="total" xs={3} md={3}>
                   &#8377;
-                  {` ${
-                    (cartItem.book.rent[cartItem.plan] +
-                      cartItem.book.rent.deposit) *
-                    cartItem.qty
-                  }/-`}
+                  {` ${itemPrice(cartItem)}/-`}
                 </Col>
               </Row>
             ))}
 
             <hr />
 
-            <Row className="">
-              <Col xs={9} md={9}>
-                <b>Total Rental Amount</b>
-              </Col>
-              <Col className="total" xs={3} md={3}>
-                &#8377; {`${checkoutStats.rentalAmount}/-`}
-              </Col>
-            </Row>
             <hr />
             <Row className="">
-              <Col xs={9} md={9}>
+              <Col xs={8} md={9}>
                 <b>Amount You pay now</b>
               </Col>
-              <Col className="total" xs={3} md={3}>
+              <Col className="total" xs={4} md={3}>
                 &#8377; {`${checkoutStats.totalAmount}/-`}
               </Col>
             </Row>
             <hr />
             <Row className="">
-              <Col xs={9} md={9}>
+              <Col xs={8} md={9}>
                 <b>Amount Amount Refunded On Return of Books</b>
               </Col>
-              <Col className="total" xs={3} md={3}>
+              <Col className="total" xs={4} md={3}>
                 &#8377;{" "}
                 {`${checkoutStats.totalAmount - checkoutStats.rentalAmount}/-`}
               </Col>

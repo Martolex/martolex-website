@@ -24,6 +24,9 @@ import { useViewportHook } from "../utils/viewPortHandler";
 import { connect } from "react-redux";
 import checkItemInCart from "../../utils/checkItemInCart";
 import { addToCart } from "../../redux/actions/CartActions";
+import { plans } from "../../utils/enums";
+import { getMinPlan } from "../../utils/produtUtils";
+
 const ProductDetails = (props) => {
   const { width: viewPortWidth } = useViewportHook();
   const [product, setProduct] = React.useState({});
@@ -39,7 +42,8 @@ const ProductDetails = (props) => {
           false
         );
         setProduct(product);
-        setPlan({ plan: "oneMonth", rent: product.rent.oneMonth, qty: 1 });
+        const minPlan = getMinPlan(product);
+        setPlan({ plan: minPlan, rent: product.rent[minPlan], qty: 1 });
         setLoading(false);
         const [similarproducts] = await get(
           subCategorySearchApi(product.subCat.category.id, product.subCat.id)
@@ -108,6 +112,13 @@ const ProductDetails = (props) => {
           <p className="sub-head">
             Availability: <b className="val">In Stock</b>
           </p>
+          <p className="sub-head">
+            {product.isBuyBackEnabled ? (
+              <b className="val">Buyback available</b>
+            ) : (
+              <b className="val text-danger">BuyBack not available</b>
+            )}
+          </p>
           <Row className="align-items-center pl-3">
             Average Rating :{" "}
             <ReactStars
@@ -130,34 +141,48 @@ const ProductDetails = (props) => {
               maxQuantity={product.quantity}
             />
           </Row>
-          <Row className="w-100 py-2">
-            <Col md={6}>
-              <Form className="w-100">
-                <Form.Label>Rental Period</Form.Label>
-                <Form.Control
-                  as="select"
-                  size="lg"
-                  custom
-                  onChange={changePlan}
-                >
-                  <option value="oneMonth">1 Month</option>
-                  <option value="threeMonth">3 Months</option>
-                  <option value="sixMonth">6 months</option>
-                  <option value="nineMonth">9 months</option>
-                  <option value="twelveMonth">12 months</option>
-                </Form.Control>
-              </Form>
-            </Col>
-          </Row>
-          <p className="amount">
-            Rental Amount : <span>₹{plan.rent}</span>
-          </p>
+          {product.isBuyBackEnabled && (
+            <Row className="w-100 py-2">
+              <Col md={6}>
+                <Form className="w-100">
+                  <Form.Label>BuyBack Period</Form.Label>
+                  <Form.Control
+                    as="select"
+                    size="lg"
+                    custom
+                    onChange={changePlan}
+                  >
+                    <option value={plans.MONTHLY}>1 Month</option>
+                    <option value={plans.QUATERLY}>3 Months</option>
+                    <option value={plans.SEMIANNUAL}>6 months</option>
+                    <option value={plans.NINEMONTHS}>9 months</option>
+                    <option value={plans.ANNUAL}>12 months</option>
+                    <option value={plans.SELL}>Buy Book</option>
+                  </Form.Control>
+                </Form>
+              </Col>
+            </Row>
+          )}
+
           <p className="amount">
             Amount You Pay Now:{" "}
-            <span>₹ {plan.rent + product.rent.deposit}</span>
+            <span>
+              ₹{" "}
+              {product.isBuyBackEnabled && plan.plan != plans.SELL
+                ? plan.rent + product.rent.deposit
+                : plan.rent}
+            </span>
+          </p>
+          {product.isBuyBackEnabled && plan.plan != plans.SELL && (
+            <p className="amount">
+              Amount refunded on return : <span>₹{product.rent.deposit}</span>
+            </p>
+          )}
+          <p className="amount">
+            book MRP : <span>₹{product.rent.mrp}</span>
           </p>
           <p className="amount">
-            Your Savings:{" "}
+            Your Savings:
             <span>
               {(
                 ((product.rent.mrp - plan.rent) / product.rent.mrp) *

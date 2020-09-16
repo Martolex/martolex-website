@@ -2,10 +2,15 @@ import React from "react";
 import ReactStars from "react-stars";
 import "./ProductCard.scss";
 import { buildBookDetailsUrl } from "../../../utils/buildUrl";
+import { getMinPlan } from "../../../utils/produtUtils";
 
 const ProductCard = ({ product }) => {
-  const { oneMonth, mrp } = product.rent;
-  const discount = ((mrp - oneMonth) / mrp) * 100;
+  const productPlan = getMinPlan(product);
+  const price = product.rent[productPlan];
+  const discount = (
+    ((product.rent.mrp - price) / product.rent.mrp) *
+    100
+  ).toFixed(0);
   return (
     <div className="product">
       <div className="product-img">
@@ -20,6 +25,13 @@ const ProductCard = ({ product }) => {
         </a>
         <p className="prod-author">Author: {product.author}</p>
         <p className="prod-publisher">Publisher: {product.publisher}</p>
+
+        {product.isBuyBackEnabled ? (
+          <p className="prod-publisher text-success">Buyback available</p>
+        ) : (
+          <p className="prod-publisher text-danger">Buyback not available</p>
+        )}
+
         <ReactStars
           count={5}
           half={false}
@@ -28,9 +40,9 @@ const ProductCard = ({ product }) => {
           color2={"#ffd700"}
         />
         <div className="prices">
-          <span className="price">&#8377;{product.rent.oneMonth}/-</span>
+          <span className="price">&#8377;{price}/-</span>
           <span className="actual-price">&#8377;{product.rent.mrp}/-</span>
-          <span className="discount">save {discount.toFixed(0)}%</span>
+          <span className="discount">save {discount}%</span>
         </div>
       </div>
     </div>
