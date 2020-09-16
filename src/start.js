@@ -15,6 +15,7 @@ import CheckoutScreen from "./components/Cart/checkoutScreen";
 import PrivateRoute from "./components/utils/PrivateRoute";
 import UserDashboard from "./components/user/UserDashboard";
 import OrderConf from "./components/Cart/OrderConf";
+import BookNotFound from "./components/BookNotFound/BookNotFound";
 
 function Start(props) {
   const [cartToastShow, setCarToastShow] = React.useState(false);
@@ -65,6 +66,7 @@ function Start(props) {
             )}
           />
           <Route path="/books/:bookId" component={ProductDetails} />
+          <Route path="/notFound" component={BookNotFound} />
         </Switch>
         <Footer />
       </div>
