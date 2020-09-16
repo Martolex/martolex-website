@@ -50,7 +50,8 @@ const ProductCard = ({ product, ...props }) => {
         <ReactStars
           className="ratings"
           count={5}
-          half={false}
+          value={product.rating}
+          edit={false}
           onChange={(rating) => console.log(rating)}
           size={30}
           color2={"#ffd700"}

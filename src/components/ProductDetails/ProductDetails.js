@@ -11,6 +11,7 @@ import {
   Form,
   Breadcrumb,
 } from "react-bootstrap";
+import Avatar from "react-avatar";
 import { FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import QuantityChooser from "../utils/QuantityChooser";
 import ProductListing from "../productListing/productListing";
@@ -26,6 +27,7 @@ import checkItemInCart from "../../utils/checkItemInCart";
 import { addToCart } from "../../redux/actions/CartActions";
 import { plans } from "../../utils/enums";
 import { getMinPlan } from "../../utils/produtUtils";
+import ReviewList from "./ReviewList";
 
 const ProductDetails = (props) => {
   const { width: viewPortWidth } = useViewportHook();
@@ -61,6 +63,7 @@ const ProductDetails = (props) => {
   const changePlan = ({ target: { value } }) =>
     setPlan({ ...plan, plan: value, rent: product.rent[value] });
   const modifyQuantity = (qty) => setPlan({ ...plan, qty });
+
   return isLoading ? (
     <OverLay>
       <OverLayLoader />
@@ -124,12 +127,13 @@ const ProductDetails = (props) => {
             <ReactStars
               className="ratings"
               count={5}
-              half={false}
+              edit={false}
+              value={product.rating}
               onChange={(rating) => console.log(rating)}
               size={30}
               color2={"#ffd700"}
-            />{" "}
-            (0)
+            />
+            ({product.reviews.length})
           </Row>
           <Row className=" pl-3 py-3 align-items-center">
             <p className="mr-4">
@@ -221,6 +225,8 @@ const ProductDetails = (props) => {
           <Col className="px-4">{product.description}</Col>
         </Row>
       )}
+
+      <ReviewList reviews={product.reviews} />
       <Row>
         <Row className="w-100 pb-2 row-header-box">
           <h2 className="row-header">RELATED PRODUCTS</h2>
