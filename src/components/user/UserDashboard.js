@@ -4,14 +4,16 @@ import { Route, Switch } from "react-router";
 import { Link } from "react-router-dom";
 import { logout } from "../../redux/actions/authActions";
 import { connect } from "react-redux";
-
+import DashboardHome from "./DashBoardHome";
+import UserOrders from "./Orders/UserOrders";
+import PrivateRoute from "../utils/PrivateRoute";
 const UserDashboard = (props) => {
   const { url: currUrl } = props.match;
   const [activeKey, setActiveKey] = React.useState("1");
   console.log(props.location);
   return (
     <Container fluid>
-      <Row>
+      <Row className="px-2">
         <Col md={3} className="py-2">
           <ListGroup>
             <Link to={`${currUrl}`}>
@@ -50,18 +52,14 @@ const UserDashboard = (props) => {
             </Link>
           </ListGroup>
         </Col>
-        <Col style={{ border: "1px solid red", height: 300 }} md={9}>
+        <Col className="mx-2 my-2" style={{ border: "1px solid #eee" }}>
           <Switch>
-            <Route
-              exact
-              path="/profile/"
-              component={(props) => <h1>Dashboard</h1>}
-            />
-            <Route
-              exact
-              path="/profile/orders"
-              component={(props) => <h1>Orders</h1>}
-            />
+            <PrivateRoute exact path="/profile/">
+              <DashboardHome />
+            </PrivateRoute>
+            <PrivateRoute exact path="/profile/orders">
+              <UserOrders />
+            </PrivateRoute>
             <Route
               exact
               path="/profile/edit"

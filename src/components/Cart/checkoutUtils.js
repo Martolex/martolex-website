@@ -45,9 +45,9 @@ export const convertDate = (string) => {
   return date.format("Do MMMM, YYYY");
 };
 
-export const getOrderTotal = (items = []) => {
+export const getOrderTotal = (items = [], deliveryCharges = 0) => {
   const total = items.reduce((total, item) => total + itemPrice(item), 0);
-  return total.toFixed(2);
+  return (total + deliveryCharges).toFixed(2);
 };
 
 export const formatDeliveryDate = (start, end) =>

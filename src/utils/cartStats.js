@@ -15,9 +15,11 @@ const cartStats = (cart = []) => {
   );
 };
 
-export const itemPrice = (item) =>
-  item.plan == plans.SELL
-    ? item.book.rent[item.plan]
-    : item.book.rent[item.plan] + item.book.rent.deposit;
-
+export const itemPrice = (item) => {
+  const total =
+    item.plan == plans.SELL
+      ? item.book.rent[item.plan]
+      : item.book.rent[item.plan] + item.book.rent.deposit;
+  return total;
+};
 export default cartStats;
