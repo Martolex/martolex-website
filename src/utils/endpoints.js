@@ -12,6 +12,8 @@ export const productDetailsApi = (bookId) => `${backendApi}books/${bookId}`;
 const userApi = `${backendApi}user`;
 export const cartApi = `${userApi}/cart`;
 
+export const bookReviewAPI = `${userApi}/books/review`;
+
 export const updateCartQuantityApi = `${cartApi}/modifyQty`;
 
 export const UserAddressesApi = `${userApi}/profile/addresses`;
