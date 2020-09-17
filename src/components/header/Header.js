@@ -14,9 +14,10 @@ import Login from "../auth/Login";
 import Cart from "../Cart/Cart";
 import { connect } from "react-redux";
 import cartStats from "../../utils/cartStats";
+import querystring from "querystring";
 const Header = (props) => {
   const { width } = useViewportHook();
-
+  const [searchText, setSearchText] = useState("");
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [isMenuopen, setMenuOpen] = useState(false);
   const [isLoginOpen, setLoginOpen] = useState(false);
@@ -37,6 +38,11 @@ const Header = (props) => {
   const redirectToDashBoard = () => {
     window.location.href = "/profile";
   };
+
+  const searchBooks = () => {
+    window.location.href =
+      "/search?" + querystring.stringify({ search: searchText });
+  };
   return (
     <div>
       <div className="top-header">
@@ -56,9 +62,11 @@ const Header = (props) => {
           <div className="search-box">
             <input
               type="text"
+              value={searchText}
+              onChange={(event) => setSearchText(event.target.value)}
               placeholder="Search by Book Name, Author, ISBN, Publication"
             />
-            <button>Search</button>
+            <button onClick={searchBooks}>Search</button>
           </div>
         )}
 

@@ -13,14 +13,18 @@ import { connect } from "react-redux";
 import { buildCatUrl, buildSubCatUrl } from "../../utils/buildUrl";
 import QueryString from "query-string";
 import { Col, Row } from "react-bootstrap";
-import { categorySearchApi, subCategorySearchApi } from "../../utils/endpoints";
+import {
+  categorySearchApi,
+  subCategorySearchApi,
+  searchApi,
+} from "../../utils/endpoints";
 import { get } from "../../utils/requests";
 import OverlayLoader from "../utils/OverlayLoader";
 
 const ProductsPaginator = (props) => {
   const { width } = useViewportHook();
   const [displayType, setDisplayType] = React.useState("grid");
-
+  console.log(props);
   const [products, setProducts] = React.useState([]);
   const [pagination, setPagination] = React.useState({});
   const [pageNum, setPageNum] = React.useState(1);
@@ -59,8 +63,7 @@ const ProductsPaginator = (props) => {
   React.useEffect(() => {
     let api = "";
     if (isSearch) {
-      const queryParams = QueryString.parse(props.queryString);
-      api = ""; //search api
+      api = searchApi(props.queryString); //search api
     } else {
       const { catId, subCatId } = props;
       api = !subCatId

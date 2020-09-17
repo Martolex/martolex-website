@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Form, Row, Button } from "react-bootstrap";
 import { MdClose } from "react-icons/md";
 import "./mobileSearchBar.scss";
 import OverLay from "../../utils/overLay";
+import querystring from "querystring";
 const MobileSearchbar = (props) => {
+  const [searchText, setSearchText] = useState("");
+  const searchBooks = () => {
+    window.location.href =
+      "/search?" + querystring.stringify({ search: searchText });
+  };
   return (
     <OverLay
       style={
@@ -19,13 +25,15 @@ const MobileSearchbar = (props) => {
         <Form.Control
           type="text"
           size="lg"
+          value={searchText}
+          onChange={(event) => setSearchText(event.target.value)}
           placeholder="Search by Book Name, Author, ISBN, Publication"
         />
       </Row>
       <Row className="mx-1">
         <Button
           block
-          onClick={props.closeSearch}
+          onClick={searchBooks}
           size="lg"
           style={{ fontSize: "0.9em" }}
           className="text-light"
