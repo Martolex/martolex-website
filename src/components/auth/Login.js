@@ -8,6 +8,7 @@ import RightContainer from "../utils/RightContainer";
 import { loginUser } from "../../redux/actions/authActions";
 import { connect } from "react-redux";
 import { getCart } from "../../redux/actions/CartActions";
+import { Link } from "react-router-dom";
 const Login = (props) => {
   const [validated, setValidated] = useState(false);
   const [isLoading, setLoading] = useState(false);
@@ -92,11 +93,12 @@ const Login = (props) => {
             </Button>
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <Button variant="link" as="a" href="/signup" block>
+        <Row className="mt-2 text-center">
+          <Col xs={12}>Do not have a account yet?</Col>
+          <Col xs={12}>
+            <Link onClick={props.closeLogin} to="/signup">
               SIGN UP
-            </Button>
+            </Link>
           </Col>
         </Row>
       </Form>

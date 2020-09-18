@@ -2,11 +2,10 @@ import React from "react";
 import Toast from "../utils/Toast";
 
 const Home = (props) => {
-  const [loginToastShow, setLoginToastShow] = React.useState(
-    props?.location?.state?.loginError
-  );
+  const [loginToastShow, setLoginToastShow] = React.useState(false);
 
   React.useEffect(() => {
+    console.log(props.location);
     if (props?.location?.state?.loginError) {
       console.log("abcd");
       setLoginToastShow(true);
