@@ -52,6 +52,7 @@ const OrderCard = ({ order, ...props }) => {
           <OrderItem
             key={item.id}
             item={item}
+            refreshOrders={props.refreshOrders}
             returnBook={(itemId) => props.returnBook(itemId)}
           />
         ))}

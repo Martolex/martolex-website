@@ -4,8 +4,25 @@ import { mapPlanToText } from "../../../utils/produtUtils";
 import { itemPrice } from "../../../utils/cartStats";
 import { plans, returnStates, returnStateSetters } from "../../../utils/enums";
 import moment from "moment";
+import { post } from "../../../utils/requests";
+import { ordersApi } from "../../../utils/endpoints";
 const OrderItem = ({ item, ...props }) => {
   const returnStatus = returnStates[item.isReturned];
+  async function cancelReturn() {
+    const cancelConfirmation = window.confirm(
+      "are you sure you want to cancel your return. You may not be able to return the book if your plan has expired"
+    );
+    console.log(cancelConfirmation);
+    if (cancelConfirmation) {
+      try {
+        const [res] = await post(ordersApi.cancelReturn(item.id));
+        props.refreshOrders();
+        alert(res.message);
+      } catch (err) {
+        window.alert(err);
+      }
+    }
+  }
   return (
     <div>
       <Row>
@@ -29,7 +46,9 @@ const OrderItem = ({ item, ...props }) => {
               </p>
               <p className="m-0">
                 <b>Refundable amount: </b>
-                {item.plan === plans.SELL ? "N.A." : item.book.rent.deposit}
+                {item.plan === plans.SELL
+                  ? "N.A."
+                  : `₹${item.book.rent.deposit.toFixed(2)}`}
               </p>
               <p className="m-0">
                 <b>Return By : </b>
@@ -48,7 +67,7 @@ const OrderItem = ({ item, ...props }) => {
                 }
               </p>
             </Col>
-            <Col md={4} className="mt-auto mb-auto h-100" s>
+            <Col md={4} className="mt-auto mb-auto h-100">
               <Button className="mt-4" block>
                 TRACK ORDER
               </Button>
@@ -58,6 +77,7 @@ const OrderItem = ({ item, ...props }) => {
               {item.isReturned == returnStateSetters.NOT_RETURNED && (
                 <Button
                   onClick={() => props.returnBook(item.id)}
+                  disabled={new Date(item.returnDate).getTime() < Date.now()}
                   className=""
                   block
                 >
@@ -65,7 +85,12 @@ const OrderItem = ({ item, ...props }) => {
                 </Button>
               )}
               {item.isReturned == returnStateSetters.RETURN_REQUESTED && (
-                <Button variant="danger" className="" block>
+                <Button
+                  variant="danger"
+                  onClick={cancelReturn}
+                  className=""
+                  block
+                >
                   CANCEL RETURN
                 </Button>
               )}
@@ -90,7 +115,13 @@ const timeRemaining = (newDate) => {
   const dateDiff = Math.round(
     (new Date(newDate).getTime() - new Date().getTime()) / (1000 * 3600 * 24)
   );
-  return `Return eligible for ${dateDiff} day(s)`;
+  return dateDiff >= 0 ? (
+    `Return eligible for ${dateDiff} day(s)`
+  ) : (
+    <p className="text-danger text-center font-weight-bold">
+      return period has expired
+    </p>
+  );
 };
 
 export default OrderItem;

@@ -26,4 +26,5 @@ export const ordersApi = {
   getOrders: `${userApi}/order/`,
   getOrderAddress: `${userApi}/order/getDeliveryAddress`,
   returnItem: (itemId) => `${userApi}/order/return/${itemId}`,
+  cancelReturn: (itemId) => `${userApi}/order/return/${itemId}/cancelRequest`,
 };

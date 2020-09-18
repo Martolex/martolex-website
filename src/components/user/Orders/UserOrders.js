@@ -54,6 +54,7 @@ const UserOrders = (props) => {
         <Col className="p-0">
           {orders.map((order) => (
             <OrderCard
+              refreshOrders={getData}
               returnBook={(itemId) => {
                 setReturnData({ visible: true, itemId, orderId: order.id });
               }}
