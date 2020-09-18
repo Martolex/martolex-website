@@ -1,21 +1,53 @@
 import React, { useState } from "react";
 import "./BookNotFound.scss";
 import { Container, Image, Col, Row, Form, Button } from "react-bootstrap";
-
+import OverLay from "../utils/overLay";
+import OverlayLoader from "../utils/OverlayLoader";
+import { post } from "../../utils/requests";
+import { notFoundBookApi } from "../../utils/endpoints";
 const BookNotFound = (props) => {
   const [details, setDetails] = useState({});
   const [validated, setValidated] = useState(false);
+  const [isLoading, setloading] = useState(false);
+
+  async function submitBook() {
+    setloading(true);
+    try {
+      const postData = {
+        name: details.bookName,
+        author: details.bookAuthor,
+        publisher: details.bookPublisher,
+        edition: details.edition,
+        isbn: details.bookIsbn,
+        userName: details.name,
+        userEmail: details.email,
+        userPhone: details.phone,
+      };
+      await post(notFoundBookApi, false, postData);
+      setloading(false);
+      alert("Your request is submitted we will get in touch soon.");
+    } catch (err) {
+      setloading(false);
+      window.alert(err);
+    }
+  }
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
+      submitBook();
     }
     setValidated(true);
   };
   return (
     <Container fluid className="p-0">
+      {isLoading && (
+        <OverLay style={{ position: "fixed", top: 0, left: 0 }}>
+          <OverlayLoader />
+        </OverLay>
+      )}
       <Row className="w-100 m-0">
         <Col md={12} className="w-100 m-0 p-0">
           <Image

@@ -28,3 +28,5 @@ export const ordersApi = {
   returnItem: (itemId) => `${userApi}/order/return/${itemId}`,
   cancelReturn: (itemId) => `${userApi}/order/return/${itemId}/cancelRequest`,
 };
+
+export const notFoundBookApi = `${backendApi}not-found-books`;
