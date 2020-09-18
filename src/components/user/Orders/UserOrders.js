@@ -10,21 +10,23 @@ import { mapPlanToText } from "../../../utils/produtUtils";
 import { itemPrice } from "../../../utils/cartStats";
 import { plans } from "../../../utils/enums";
 import OrderCard from "./OrderCard";
+import ReturnBookModal from "./ReturnBookModal";
 const UserOrders = (props) => {
   const [isLoading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
-  React.useEffect(() => {
-    async function getData() {
-      try {
-        setLoading(true);
-        const [userOrders] = await get(ordersApi.getOrders, true);
-        setOrders(userOrders);
-        setLoading(false);
-      } catch (err) {
-        console.log(err);
-        alert("Something went wrong");
-      }
+  const [returns, setReturnData] = useState({ visible: false });
+  async function getData() {
+    try {
+      setLoading(true);
+      const [userOrders] = await get(ordersApi.getOrders, true);
+      setOrders(userOrders);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      alert("Something went wrong");
     }
+  }
+  React.useEffect(() => {
     getData();
   }, []);
   return (
@@ -34,6 +36,14 @@ const UserOrders = (props) => {
           <OverLayLoader />
         </Overlay>
       )}
+      <ReturnBookModal
+        show={returns.visible}
+        itemDetails={returns}
+        onHide={() => {
+          setReturnData({ ...returns, visible: false });
+        }}
+        refreshOrders={getData}
+      />
       <Row>
         <Col>
           <h2 className="text-dark font-weight-normal pt-4">Orders</h2>
@@ -43,7 +53,13 @@ const UserOrders = (props) => {
       <Row>
         <Col className="p-0">
           {orders.map((order) => (
-            <OrderCard key={order.id} order={order} />
+            <OrderCard
+              returnBook={(itemId) => {
+                setReturnData({ visible: true, itemId, orderId: order.id });
+              }}
+              key={order.id}
+              order={order}
+            />
           ))}
         </Col>
       </Row>

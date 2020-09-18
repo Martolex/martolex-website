@@ -13,18 +13,23 @@ const OrderCard = ({ order, ...props }) => {
         <Row>
           <Col md={3}>
             <p className="m-0">
-              <b>Order #</b> : {order.id.substring(0, 13).toUpperCase()}
+              <b>Order #</b> :
             </p>
+            <p className="m-0">{order.id.substring(0, 23).toUpperCase()}</p>
           </Col>
           <Col md={3}>
             <p className="m-0">
-              <b>Order Date : </b>{" "}
-              {moment(order.createdAt).format("DD-MMM-YYYY")}
+              <b>Order Date : </b>
+            </p>
+            <p className="m-0">
+              {moment(order.createdAt).format("Do MMMM, YYYY")}
             </p>
           </Col>
           <Col md={3}>
             <p className="m-0">
               <b>Delivery Date: </b> :
+            </p>
+            <p className="m-0">
               {order.actualDeliveryDate ? (
                 moment(order.actualDeliveryDate).format("DD-MMM-YYYY")
               ) : (
@@ -34,15 +39,21 @@ const OrderCard = ({ order, ...props }) => {
           </Col>
           <Col md={3}>
             <p className="m-0">
-              <b>Grand Total: </b> ₹
-              {getOrderTotal(order.items, order.deliveryAmount)}
+              <b>Grand Total: </b>
+            </p>
+            <p className="m-0">
+              ₹{getOrderTotal(order.items, order.deliveryAmount)}
             </p>
           </Col>
         </Row>
       </Card.Header>
       <Card.Body>
         {order.items.map((item) => (
-          <OrderItem key={item.id} item={item} />
+          <OrderItem
+            key={item.id}
+            item={item}
+            returnBook={(itemId) => props.returnBook(itemId)}
+          />
         ))}
       </Card.Body>
     </Card>
