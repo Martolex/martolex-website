@@ -34,7 +34,7 @@ const BottomNavbarMobile = (props) => {
           sm={3}
         >
           <AiOutlineUser size={25} />
-          <p>Account</p>
+          <p>{props.isLoggedIn ? "Account" : "login"}</p>
         </Col>
       </Row>
     </Container>

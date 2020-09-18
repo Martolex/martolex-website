@@ -108,6 +108,7 @@ const BookNotFound = (props) => {
                   value={details.phone}
                   minLength={10}
                   maxLength={10}
+                  pattern="[789]+[0-9]+"
                   onChange={(event) => {
                     setDetails({
                       ...details,

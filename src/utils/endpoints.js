@@ -1,6 +1,7 @@
 import { backendApi } from "../config";
 
 export const getCategorytreeApi = backendApi + "categories/tree";
+
 export const loginApi = backendApi + "auth/signIn";
 export const categorySearchApi = (catId) =>
   backendApi + `books/cat/${catId}?limit=12`;
@@ -27,6 +28,14 @@ export const ordersApi = {
   getOrderAddress: `${userApi}/order/getDeliveryAddress`,
   returnItem: (itemId) => `${userApi}/order/return/${itemId}`,
   cancelReturn: (itemId) => `${userApi}/order/return/${itemId}/cancelRequest`,
+};
+
+const authApiRoot = backendApi + "auth";
+
+export const authApi = {
+  root: authApiRoot,
+  login: `${authApiRoot}/login`,
+  signUp: `${authApiRoot}/signUp`,
 };
 
 export const notFoundBookApi = `${backendApi}not-found-books`;
