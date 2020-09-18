@@ -64,6 +64,9 @@ const NavBarMobile = ({ categories, ...props }) => {
                                 <ListGroup.Item
                                   className="text-dark"
                                   className="pl-5"
+                                  onClick={() => {
+                                    props.closeMenu();
+                                  }}
                                 >
                                   {subcategory.name.toUpperCase()}
                                 </ListGroup.Item>
@@ -77,7 +80,12 @@ const NavBarMobile = ({ categories, ...props }) => {
                         to={buildCatUrl(category.id)}
                         className="text-dark btn-link"
                       >
-                        <ListGroup.Item className="pl-4">
+                        <ListGroup.Item
+                          className="pl-4"
+                          onClick={() => {
+                            props.closeMenu();
+                          }}
+                        >
                           {category.name.toUpperCase()}
                         </ListGroup.Item>
                       </Link>

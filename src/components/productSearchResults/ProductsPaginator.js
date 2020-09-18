@@ -71,7 +71,7 @@ const ProductsPaginator = (props) => {
         : subCategorySearchApi(catId, subCatId);
     }
     getData(api);
-  }, []);
+  }, [props.catId, props.subCatId]);
   const getNewPage = (url) => {};
   return (
     <Col md={9} className="px-4">
