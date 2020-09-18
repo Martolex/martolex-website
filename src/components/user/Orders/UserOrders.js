@@ -11,6 +11,7 @@ import { itemPrice } from "../../../utils/cartStats";
 import { plans } from "../../../utils/enums";
 import OrderCard from "./OrderCard";
 import ReturnBookModal from "./ReturnBookModal";
+import { Link } from "react-router-dom";
 const UserOrders = (props) => {
   const [isLoading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
@@ -52,16 +53,43 @@ const UserOrders = (props) => {
       </Row>
       <Row>
         <Col className="p-0">
-          {orders.map((order) => (
-            <OrderCard
-              refreshOrders={getData}
-              returnBook={(itemId) => {
-                setReturnData({ visible: true, itemId, orderId: order.id });
-              }}
-              key={order.id}
-              order={order}
-            />
-          ))}
+          {orders.length > 0 ? (
+            orders.map((order) => (
+              <OrderCard
+                refreshOrders={getData}
+                returnBook={(itemId) => {
+                  setReturnData({ visible: true, itemId, orderId: order.id });
+                }}
+                key={order.id}
+                order={order}
+              />
+            ))
+          ) : (
+            <Container className="text-center justify-content-center">
+              <Row className="text-center justify-content-center py-3 pb-5">
+                <Col md={4} xs={9}>
+                  <Image width="100%" src="/emptyOrders.svg" />
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <h2>No Orders</h2>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <p className="lead">Go find the books you like</p>
+                </Col>
+              </Row>
+              <Row className="justify-content-center">
+                <Col md={3} className="mb-3">
+                  <Button as={Link} to="/" className="btn-link text-dark" block>
+                    FIND BOOKS
+                  </Button>
+                </Col>
+              </Row>
+            </Container>
+          )}
         </Col>
       </Row>
     </Container>
