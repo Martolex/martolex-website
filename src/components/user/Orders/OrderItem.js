@@ -8,9 +8,10 @@ import { post } from "../../../utils/requests";
 import { ordersApi } from "../../../utils/endpoints";
 const OrderItem = ({ item, ...props }) => {
   const returnStatus = returnStates[item.isReturned];
+
   async function cancelReturn() {
     const cancelConfirmation = window.confirm(
-      "are you sure you want to cancel your return. You may not be able to return the book if your plan has expired"
+      "Are you sure you want to cancel your return. You may not be able to return the book if your plan has expired"
     );
     console.log(cancelConfirmation);
     if (cancelConfirmation) {

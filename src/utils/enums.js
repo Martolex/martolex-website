@@ -18,5 +18,5 @@ export const returnStates = {
   0: { message: "not returned", color: "dark" },
   1: { message: "Return Requested", color: "warning" },
   2: { message: "Returned", color: "success" },
-  "-1": { message: "not elligible for returns", color: "dark" },
+  "-1": { message: "not eligible for returns", color: "danger" },
 };

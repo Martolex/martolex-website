@@ -255,14 +255,16 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
                       <Form.Label>town / city*</Form.Label>
                       <Form.Control
                         required
-                        type="text"
-                        minLength={3}
-                        pattern="[a-zA-Z]+"
+                        as="select"
                         onChange={(event) => {
                           setDetails({ ...details, city: event.target.value });
                         }}
                         placeholder="Town / city"
-                      />
+                      >
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Navi Mumbai">Navi Mumbai</option>
+                        <option value="Pune">Pune</option>
+                      </Form.Control>
                       <Form.Control.Feedback type="invalid">
                         Enter valid city name
                       </Form.Control.Feedback>
