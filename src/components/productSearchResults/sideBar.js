@@ -1,38 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import { Col, Card, ListGroup } from "react-bootstrap";
 import { buildSubCatUrl, buildCatUrl } from "../../utils/buildUrl";
 import { connect } from "react-redux";
+import { useViewportHook } from "../utils/viewPortHandler";
+import { desktopRes } from "../../viewPortBreakpoints";
 
 const SideBar = ({ displaySubCat, categories, ...props }) => {
+  const { width } = useViewportHook();
+
+  const [openFilters, setOpenFilters] = useState(width > desktopRes);
   return (
     <Col md={3}>
       <Card className="mb-2">
         <Card.Header
+          style={{ cursor: "pointer" }}
+          onClick={() => width < desktopRes && setOpenFilters(!openFilters)}
           style={{ borderRadius: "2px" }}
           className="text-center bg-primary text-dark font-weight-bold"
         >
           {!displaySubCat ? "FILTER BY CATEGORY" : "FILTER BY SUB-CATEGORY"}
         </Card.Header>
 
-        <ListGroup className="side-filter" variant="flush">
-          {displaySubCat
-            ? categories
-                .find((cat) => cat.id == props.catId)
-                ?.subcategories.map(({ id, name }, idx) => (
-                  <ListGroup.Item
-                    href={buildSubCatUrl(props.catId, id)}
-                    action
-                    active={props.subCatId == id}
-                  >
+        {openFilters && (
+          <ListGroup className="side-filter" variant="flush">
+            {displaySubCat
+              ? categories
+                  .find((cat) => cat.id == props.catId)
+                  ?.subcategories.map(({ id, name }, idx) => (
+                    <ListGroup.Item
+                      href={buildSubCatUrl(props.catId, id)}
+                      action
+                      active={props.subCatId == id}
+                    >
+                      {name.toUpperCase()}
+                    </ListGroup.Item>
+                  ))
+              : categories.map(({ id, name }) => (
+                  <ListGroup.Item href={buildCatUrl(id)} action>
                     {name.toUpperCase()}
                   </ListGroup.Item>
-                ))
-            : categories.map(({ id, name }) => (
-                <ListGroup.Item href={buildCatUrl(id)} action>
-                  {name.toUpperCase()}
-                </ListGroup.Item>
-              ))}
-        </ListGroup>
+                ))}
+          </ListGroup>
+        )}
       </Card>
     </Col>
   );
