@@ -16,6 +16,7 @@ import PrivateRoute from "./components/utils/PrivateRoute";
 import UserDashboard from "./components/user/UserDashboard";
 import OrderConf from "./components/Cart/OrderConf";
 import BookNotFound from "./components/BookNotFound/BookNotFound";
+import Error404 from "./components/404/Error404";
 
 function Start(props) {
   const [cartToastShow, setCarToastShow] = React.useState(false);
@@ -67,6 +68,8 @@ function Start(props) {
           />
           <Route path="/books/:bookId" component={ProductDetails} />
           <Route path="/notFound" component={BookNotFound} />
+          <Route path="/not-found-error" component={Error404} />
+          <Route component={Error404} />
         </Switch>
         <Footer />
       </div>

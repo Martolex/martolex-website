@@ -43,15 +43,20 @@ const ProductDetails = (props) => {
           productDetailsApi(props.match.params.bookId),
           false
         );
-        setProduct(product);
-        const minPlan = getMinPlan(product);
-        setPlan({ plan: minPlan, rent: product.rent[minPlan], qty: 1 });
-        setLoading(false);
-        const [similarproducts] = await get(
-          subCategorySearchApi(product.subCat.category.id, product.subCat.id)
-        );
-        setsimilarproducts(similarproducts.books);
-        setSimilarLoading(false);
+        if (product) {
+          setProduct(product);
+          const minPlan = getMinPlan(product);
+          setPlan({ plan: minPlan, rent: product.rent[minPlan], qty: 1 });
+          setLoading(false);
+          const [similarproducts] = await get(
+            subCategorySearchApi(product.subCat.category.id, product.subCat.id)
+          );
+
+          setsimilarproducts(similarproducts.books);
+          setSimilarLoading(false);
+        } else {
+          window.location.href = "/not-found-error";
+        }
       } catch (err) {
         console.log(err);
       }
