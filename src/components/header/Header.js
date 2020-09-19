@@ -1,10 +1,9 @@
-import React, { Component, useState, useCallback } from "react";
+import React, { useState } from "react";
 import { FaOpencart, FaUser, FaChevronDown, FaPhoneAlt } from "react-icons/fa";
 import { BsHeart, BsSearch } from "react-icons/bs";
 import { MdMenu } from "react-icons/md";
 import "./header.scss";
 import NavBar from "./navbar/navbar";
-import { Fade } from "react-bootstrap";
 import { useViewportHook } from "../utils/viewPortHandler";
 import { desktopRes } from "../../viewPortBreakpoints";
 import MobileSearchbar from "./navbar/mobileSearchBar";
@@ -22,18 +21,18 @@ const Header = (props) => {
   const [isMenuopen, setMenuOpen] = useState(false);
   const [isLoginOpen, setLoginOpen] = useState(false);
   const [isCartOpen, setCartOpen] = useState(false);
-  const toggleSearch = useCallback(() => {
+  const toggleSearch = () => {
     setSearchOpen(!isSearchOpen);
-  });
-  const togglemenu = useCallback(() => {
+  };
+  const togglemenu = () => {
     setMenuOpen(!isMenuopen);
-  });
-  const toggleLogin = useCallback(() => {
+  };
+  const toggleLogin = () => {
     setLoginOpen(!isLoginOpen);
-  });
-  const toggleCart = useCallback(() => {
+  };
+  const toggleCart = () => {
     setCartOpen(!isCartOpen);
-  });
+  };
 
   const redirectToDashBoard = () => {
     window.location.href = "/profile";

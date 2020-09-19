@@ -4,14 +4,12 @@ import "./ProductDetails.scss";
 import {
   Row,
   Col,
-  Image,
   Button,
   Container,
   Carousel,
   Form,
   Breadcrumb,
 } from "react-bootstrap";
-import Avatar from "react-avatar";
 import { FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import QuantityChooser from "../utils/QuantityChooser";
 import ProductListing from "../productListing/productListing";
@@ -36,6 +34,7 @@ const ProductDetails = (props) => {
   const [isLoading, setLoading] = React.useState(true);
   const [similarLoading, setSimilarLoading] = React.useState(true);
   const [plan, setPlan] = React.useState({});
+
   React.useEffect(() => {
     async function getData() {
       try {
@@ -58,12 +57,11 @@ const ProductDetails = (props) => {
           window.location.href = "/not-found-error";
         }
       } catch (err) {
-        console.log(err);
+        alert(err);
       }
     }
-
     getData();
-  }, []);
+  }, [props.match.params.bookId]);
 
   const changePlan = ({ target: { value } }) =>
     setPlan({ ...plan, plan: value, rent: product.rent[value] });
@@ -83,7 +81,11 @@ const ProductDetails = (props) => {
           <Carousel className="w-75 imgcarousel">
             {product.images.map((img, idx) => (
               <Carousel.Item key={idx}>
-                <img className="d-block w-100 " src={img.url} />
+                <img
+                  alt={`product ${idx + 1}`}
+                  className="d-block w-100 "
+                  src={img.url}
+                />
               </Carousel.Item>
             ))}
           </Carousel>
@@ -134,7 +136,6 @@ const ProductDetails = (props) => {
               count={5}
               edit={false}
               value={product.rating}
-              onChange={(rating) => console.log(rating)}
               size={30}
               color2={"#ffd700"}
             />
@@ -177,12 +178,12 @@ const ProductDetails = (props) => {
             Amount You Pay Now:{" "}
             <span>
               ₹{" "}
-              {product.isBuyBackEnabled && plan.plan != plans.SELL
+              {product.isBuyBackEnabled && plan.plan !== plans.SELL
                 ? plan.rent + product.rent.deposit
                 : plan.rent}
             </span>
           </p>
-          {product.isBuyBackEnabled && plan.plan != plans.SELL && (
+          {product.isBuyBackEnabled && plan.plan !== plans.SELL && (
             <p className="amount">
               Amount refunded on return : <span>₹{product.rent.deposit}</span>
             </p>

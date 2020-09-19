@@ -31,8 +31,8 @@ const SignUp = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
-    if (form.checkValidity() === false || data.password != data.confPassword) {
-      if (data.password != data.confPassword) {
+    if (form.checkValidity() === false || data.password !== data.confPassword) {
+      if (data.password !== data.confPassword) {
         alert("passwords do not match");
       }
       event.stopPropagation();

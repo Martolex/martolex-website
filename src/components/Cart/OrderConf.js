@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Card, Image, Table } from "react-bootstrap";
+import { Container, Row, Col, Card, Image } from "react-bootstrap";
 import "./orderConf.scss";
 import { get } from "../../utils/requests";
 import { ordersApi } from "../../utils/endpoints";
@@ -24,7 +24,6 @@ const OrderConf = (props) => {
           ordersApi.orderDetails(props.match.params.orderId)
         );
         setOrder(orderDet);
-        console.log(orderDet);
       } catch (err) {
         console.error(err);
         alert(
@@ -34,7 +33,7 @@ const OrderConf = (props) => {
       setLoading(false);
     }
     getOrderDetails();
-  }, []);
+  }, [props.match.params.orderId]);
   return (
     <Container className="py-3">
       {isLoading && (
@@ -160,7 +159,7 @@ const OrderConf = (props) => {
                       </p>
                       <p className="m-0">
                         <b>deposit : </b>₹{" "}
-                        {item.plan != plans.SELL
+                        {item.plan !== plans.SELL
                           ? item.book.rent["deposit"]?.toFixed(2)
                           : Number(0).toFixed(2)}
                       </p>

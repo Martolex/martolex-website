@@ -1,14 +1,9 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Card, Image, Button } from "react-bootstrap";
+import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import Overlay from "../../utils/overLay";
 import OverLayLoader from "../../utils/OverlayLoader";
 import { get } from "../../../utils/requests";
 import { ordersApi } from "../../../utils/endpoints";
-import moment from "moment";
-import { formatDeliveryDate, getOrderTotal } from "../../Cart/checkoutUtils";
-import { mapPlanToText } from "../../../utils/produtUtils";
-import { itemPrice } from "../../../utils/cartStats";
-import { plans } from "../../../utils/enums";
 import OrderCard from "./OrderCard";
 import ReturnBookModal from "./ReturnBookModal";
 import { Link } from "react-router-dom";
@@ -23,8 +18,7 @@ const UserOrders = (props) => {
       setOrders(userOrders);
       setLoading(false);
     } catch (err) {
-      console.log(err);
-      alert("Something went wrong");
+      alert(err);
     }
   }
   React.useEffect(() => {

@@ -13,24 +13,23 @@ const SideBar = ({ displaySubCat, categories, ...props }) => {
     <Col md={3}>
       <Card className="mb-2">
         <Card.Header
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", borderRadius: "2px" }}
           onClick={() => width < desktopRes && setOpenFilters(!openFilters)}
-          style={{ borderRadius: "2px" }}
           className="text-center bg-primary text-dark font-weight-bold"
         >
           {!displaySubCat ? "FILTER BY CATEGORY" : "FILTER BY SUB-CATEGORY"}
         </Card.Header>
 
         {openFilters && (
-          <ListGroup className="side-filter" variant="flush">
+          <ListGroup className="side-filter mt-2" variant="flush">
             {displaySubCat
               ? categories
-                  .find((cat) => cat.id == props.catId)
+                  .find((cat) => cat.id === props.catId)
                   ?.subcategories.map(({ id, name }, idx) => (
                     <ListGroup.Item
                       href={buildSubCatUrl(props.catId, id)}
                       action
-                      active={props.subCatId == id}
+                      active={props.subCatId === id}
                     >
                       {name.toUpperCase()}
                     </ListGroup.Item>

@@ -20,8 +20,7 @@ const ReturnBookModal = ({
       setAddress(orderAddress);
       setLoading(false);
     } catch (err) {
-      console.log(err);
-      alert("Something went wrong");
+      alert(err);
     }
   }
   React.useEffect(() => {
@@ -33,7 +32,7 @@ const ReturnBookModal = ({
   async function confirmReturn() {
     try {
       setLoading(true);
-      const [res] = await post(ordersApi.returnItem(itemId));
+      await post(ordersApi.returnItem(itemId));
       props.onHide();
       refreshOrders();
       alert("return request successfull");

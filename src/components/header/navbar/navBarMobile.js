@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Container,
-  Row,
-  Col,
-  ListGroup,
-  Accordion,
-  Card,
-} from "react-bootstrap";
+import { Row, Col, ListGroup, Accordion } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
 import OverLay from "../../utils/overLay";
@@ -62,8 +55,7 @@ const NavBarMobile = ({ categories, ...props }) => {
                                 key={subcategory.id}
                               >
                                 <ListGroup.Item
-                                  className="text-dark"
-                                  className="pl-5"
+                                  className="text-dark pl-5"
                                   onClick={() => {
                                     props.closeMenu();
                                   }}

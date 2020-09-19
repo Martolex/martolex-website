@@ -27,7 +27,6 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
-    console.log(details.type);
     if (!!details.addressId) {
       if (details.termsAgreed) {
         handleTransaction(details);
@@ -46,7 +45,7 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
         });
         alert("Please select an address");
       } else {
-        if (form.checkValidity() === false || details.termsAgreed == false) {
+        if (form.checkValidity() === false || details.termsAgreed === false) {
           if (!details.termsAgreed) {
             setDetails({
               ...details,
@@ -70,7 +69,6 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
     });
 
   const handleTransaction = (details) => {
-    console.log("handling...");
     switch (details.type) {
       case "online":
         handleOnlineTransaction();
@@ -83,9 +81,10 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
     }
   };
 
-  const handleOnlineTransaction = () => {};
+  const handleOnlineTransaction = () => {
+    console.log("online");
+  };
   const handleCodTransaction = async () => {
-    console.log(details);
     const params = {
       addressId: details.addressId,
       address: {
@@ -109,7 +108,6 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
     try {
       setOrderLoading(true);
       const [res] = await post(ordersApi.cod, true, params);
-      console.log(res);
       window.location.href = `/order/${res.orderId}/confirmation`;
     } catch (err) {
       alert("something went wrong. Please Try again Later");
@@ -119,16 +117,17 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
 
   React.useEffect(() => {
     props.syncAddresses();
+    const { name, email, phoneNo } = user;
     setDetails({
       ...details,
-      name: user.name,
-      email: user.email,
-      phone: user.phoneNo,
+      name,
+      email,
+      phone: phoneNo,
     });
-  }, []);
+  }, [user]);
 
   React.useEffect(() => {
-    if (props.addresses.length == 0) {
+    if (props.addresses.length === 0) {
       setNewAddress(true);
     } else {
       setNewAddress(false);
@@ -136,7 +135,7 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
   }, [props.addresses]);
 
   return (
-    <Container className="checkout-page" fluid className="p-0">
+    <Container className="checkout-page p-0" fluid>
       {(props.isLoading || orderLoading) && (
         <OverLay>
           <OverLayLoader style={{ position: "absolute", top: "45vh" }} />
@@ -448,7 +447,7 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
               </Col>
               <Col xs={5} md={4}>
                 {`${
-                  deliveryCharges.forward != 0
+                  deliveryCharges.forward !== 0
                     ? "₹ " + deliveryCharges.forward + "/-"
                     : " Free Delivery"
                 }`}
@@ -460,7 +459,7 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
               </Col>
               <Col xs={5} md={4}>
                 {`${
-                  deliveryCharges.return != 0
+                  deliveryCharges.return !== 0
                     ? "₹ " + deliveryCharges.return + "/-"
                     : " Free Delivery"
                 }`}
@@ -514,8 +513,8 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
                   />
                 </Col>
                 <Col>
-                  I have read and accept the <a href="#">Rental policy</a> along
-                  with the <a href="#">Damage policy</a>
+                  I have read and accept the <a href="/">Rental policy</a> along
+                  with the <a href="/">Damage policy</a>
                   {details.errors.termsError && (
                     <p className="text-danger mt-2">
                       You must agree before placing your order.

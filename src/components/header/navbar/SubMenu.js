@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
 import { buildSubCatUrl, buildCatUrl } from "../../../utils/buildUrl";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";

@@ -28,7 +28,7 @@ export const modifyCartItemQuantity = (bookId, plan, qty) => async (
 ) => {
   try {
     dispatch(startLoading("cart"));
-    const [res] = await post(updateCartQuantityApi, true, {
+    await post(updateCartQuantityApi, true, {
       bookId,
       plan,
       qty,
@@ -45,19 +45,16 @@ export const addToCart = (bookId, plan, qty) => async (dispatch) => {
       plan,
       qty,
     });
-    console.log(cartItem);
     dispatch(add(cartItem));
   } catch (err) {}
 };
 
 export const removeFromCart = (bookId) => async (dispatch) => {
   try {
-    console.log(bookId);
     dispatch(startLoading("cart"));
     const [res] = await deleteCall(cartApi, true, {
       bookId,
     });
-    console.log(res);
     dispatch(remove(bookId));
     dispatch(finishLoading("cart"));
   } catch (err) {}

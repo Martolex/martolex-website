@@ -13,7 +13,6 @@ const OrderItem = ({ item, ...props }) => {
     const cancelConfirmation = window.confirm(
       "Are you sure you want to cancel your return. You may not be able to return the book if your plan has expired"
     );
-    console.log(cancelConfirmation);
     if (cancelConfirmation) {
       try {
         const [res] = await post(ordersApi.cancelReturn(item.id));
@@ -75,7 +74,7 @@ const OrderItem = ({ item, ...props }) => {
               <Button className="" block>
                 DOWNLOAD INVOICE
               </Button>
-              {item.isReturned == returnStateSetters.NOT_RETURNED && (
+              {item.isReturned === returnStateSetters.NOT_RETURNED && (
                 <Button
                   onClick={() => props.returnBook(item.id)}
                   disabled={new Date(item.returnDate).getTime() < Date.now()}
@@ -85,7 +84,7 @@ const OrderItem = ({ item, ...props }) => {
                   RETURN
                 </Button>
               )}
-              {item.isReturned == returnStateSetters.RETURN_REQUESTED && (
+              {item.isReturned === returnStateSetters.RETURN_REQUESTED && (
                 <Button
                   variant="danger"
                   onClick={cancelReturn}
@@ -95,7 +94,7 @@ const OrderItem = ({ item, ...props }) => {
                   CANCEL RETURN
                 </Button>
               )}
-              {item.isReturned == returnStateSetters.NOT_RETURNED && (
+              {item.isReturned === returnStateSetters.NOT_RETURNED && (
                 <p
                   style={{ fontSize: "14px" }}
                   className="text-danger text-muted m-0 text-right"

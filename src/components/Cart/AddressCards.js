@@ -9,6 +9,8 @@ const AddressCards = (props) => {
     props.handleAddressSelectError();
     props.onSelect(id);
   };
+
+  async function editAddress() {}
   return (
     <div>
       <Row className="address-cards">
@@ -26,7 +28,7 @@ const AddressCards = (props) => {
               <Row className="w-100 m-0 h-100">
                 <Col
                   className={`px-3 py-2 address-card ${
-                    address.id == activecard ? "active" : ""
+                    address.id === activecard ? "active" : ""
                   } `}
                   onClick={onCardSelect(address.id)}
                 >
@@ -35,7 +37,7 @@ const AddressCards = (props) => {
                       <h4 className="mb-0">{address.name}</h4>
                     </Col>
                     <Col md={2} xs={2} className="btn-dark-ripple text-right">
-                      <MdEdit size={20} onClick={() => console.log("click")} />
+                      <MdEdit size={20} onClick={editAddress()} />
                     </Col>
                   </Row>
                   <p className="font-weight-bold mb-3">{`(${address.type})`}</p>

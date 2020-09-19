@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Form, Row, Button } from "react-bootstrap";
+import { Form, Row, Button } from "react-bootstrap";
 import { MdClose } from "react-icons/md";
 import "./mobileSearchBar.scss";
 import OverLay from "../../utils/overLay";

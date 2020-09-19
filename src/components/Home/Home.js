@@ -5,13 +5,10 @@ const Home = (props) => {
   const [loginToastShow, setLoginToastShow] = React.useState(false);
 
   React.useEffect(() => {
-    console.log(props.location);
     if (props?.location?.state?.loginError) {
-      console.log("abcd");
       setLoginToastShow(true);
     }
   }, [props?.location?.state?.loginError]);
-  console.log(loginToastShow);
   return (
     <div>
       <h1>Home</h1>

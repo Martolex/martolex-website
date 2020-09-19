@@ -8,7 +8,7 @@ import { buildBookDetailsUrl } from "../../../utils/buildUrl";
 import { connect } from "react-redux";
 import checkItemInCart from "../../../utils/checkItemInCart";
 import { addToCart } from "../../../redux/actions/CartActions";
-import { getMinPlan, getMinProductPrice } from "../../../utils/produtUtils";
+import { getMinPlan } from "../../../utils/produtUtils";
 
 const ProductCard = ({ product, ...props }) => {
   const productPlan = getMinPlan(product);
@@ -52,7 +52,6 @@ const ProductCard = ({ product, ...props }) => {
           count={5}
           value={product.rating}
           edit={false}
-          onChange={(rating) => console.log(rating)}
           size={30}
           color2={"#ffd700"}
         />

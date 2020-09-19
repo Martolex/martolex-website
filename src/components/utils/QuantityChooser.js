@@ -10,7 +10,7 @@ const QuantityChooser = ({
   const [qty, setQty] = React.useState(null);
   React.useEffect(() => {
     setQty(currentQuantity || initialQuantity);
-  }, []);
+  }, [currentQuantity, initialQuantity]);
   const increment = () => {
     if (qty < maxQuantity) {
       onChange(qty + 1);

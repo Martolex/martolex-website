@@ -6,8 +6,8 @@ const PrivateRoute = ({ isLoggedIn, children, ...rest }) => {
   return (
     <Route
       {...rest}
-      component={({ location, match, history }) =>
-        isLoggedIn ? (
+      component={({ location, match, history }) => {
+        return isLoggedIn ? (
           React.cloneElement(children, {
             match,
             location,
@@ -16,12 +16,12 @@ const PrivateRoute = ({ isLoggedIn, children, ...rest }) => {
         ) : (
           <Redirect
             to={{
-              pathname: "/",
+              pathname: "",
               state: { loginError: true },
             }}
           />
-        )
-      }
+        );
+      }}
     />
   );
 };

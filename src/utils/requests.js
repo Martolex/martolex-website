@@ -21,7 +21,7 @@ export const get = (api, isAuthorized = true, params = {}, headers = {}) => {
     fetch(url, options)
       .then((res) => res.json())
       .then((res) => {
-        if (res.code == 1) {
+        if (res.code === 1) {
           resolve([res.data, res.pagination]);
         } else {
           reject(res.message);
@@ -50,7 +50,7 @@ export const post = (api, isAuthorized = true, body = {}, headers = {}) => {
     fetch(api, options)
       .then((res) => res.json())
       .then((res) => {
-        if (res.code == 1) {
+        if (res.code === 1) {
           resolve([res.data, res.pagination]);
         } else {
           reject(res.message);
@@ -84,7 +84,7 @@ export const deleteCall = (
     fetch(api, options)
       .then((res) => res.json())
       .then((res) => {
-        if (res.code == 1) {
+        if (res.code === 1) {
           resolve([res.data, res.pagination]);
         } else {
           reject(res.message);

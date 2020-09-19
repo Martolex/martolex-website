@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col, ListGroup, Nav } from "react-bootstrap";
+import { Container, Row, Col, ListGroup } from "react-bootstrap";
 import { Route, Switch } from "react-router";
 import { Link } from "react-router-dom";
 import { logout } from "../../redux/actions/authActions";
@@ -9,8 +9,6 @@ import UserOrders from "./Orders/UserOrders";
 import PrivateRoute from "../utils/PrivateRoute";
 const UserDashboard = (props) => {
   const { url: currUrl } = props.match;
-  const [activeKey, setActiveKey] = React.useState("1");
-  console.log(props.location);
   return (
     <Container fluid>
       <Row className="px-2">
@@ -18,7 +16,7 @@ const UserDashboard = (props) => {
           <ListGroup>
             <Link to={`${currUrl}`}>
               <ListGroup.Item
-                active={props.location.pathname == "/profile"}
+                active={props.location.pathname === "/profile"}
                 action
               >
                 DASHBOARD

@@ -1,7 +1,6 @@
 import React from "react";
 import "./CartItem.scss";
 import { Row, Image, Col, Button } from "react-bootstrap";
-import { MdClose } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
 import QuantityChooser from "../utils/QuantityChooser";
 import {
@@ -9,7 +8,6 @@ import {
   removeFromCart,
 } from "../../redux/actions/CartActions";
 import { connect } from "react-redux";
-import { plans } from "../../utils/enums";
 import { itemPrice } from "../../utils/cartStats";
 import { mapPlanToText } from "../../utils/produtUtils";
 

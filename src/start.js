@@ -23,11 +23,11 @@ function Start(props) {
   const [newCartLength, setNewCartLength] = React.useState(0);
   React.useEffect(() => props.getCategories(), []);
   React.useEffect(() => {
-    props.cartHydrated &&
-      props.cartLength > newCartLength &&
+    if (props.cartHydrated && props.cartLength > newCartLength) {
       setCarToastShow(true);
-    setNewCartLength(props.cartLength);
-  }, [props.cartLength]);
+      setNewCartLength(props.cartLength);
+    }
+  }, [props.cartLength, newCartLength, props.cartHydrated]);
   return (
     <ViewportProvider>
       <div className="App">

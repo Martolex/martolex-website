@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { FiArrowRight } from "react-icons/fi";
 
 import { Container, Col, Row, Form, Button, Spinner } from "react-bootstrap";
-import OverLay from "../utils/overLay";
 import "./Login.scss";
 import RightContainer from "../utils/RightContainer";
 import { loginUser } from "../../redux/actions/authActions";
@@ -10,13 +8,12 @@ import { connect } from "react-redux";
 import { getCart } from "../../redux/actions/CartActions";
 import { Link } from "react-router-dom";
 const Login = (props) => {
-  const [validated, setValidated] = useState(false);
-  const [isLoading, setLoading] = useState(false);
+  const [validated] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
 
   React.useEffect(() => {
-    if (props.auth == true) {
+    if (props.auth === true) {
       props.closeLogin();
     }
   }, [props.auth]);

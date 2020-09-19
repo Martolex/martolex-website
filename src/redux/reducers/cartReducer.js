@@ -1,11 +1,3 @@
-import { SET_LOADING, FINISH_LOADING } from "../actions/LoadingActions";
-
-const {
-  SYNC_CART,
-  UPDATE_QUANTITY,
-  ADD_TO_CART,
-} = require("../actions/CartActions");
-
 const initialState = { loading: false, items: [], hydrated: false };
 
 const updateItem = (items, bookId, qty) => {
@@ -18,17 +10,17 @@ const updateItem = (items, bookId, qty) => {
 };
 
 const removeItem = (bookId, items) => {
-  return items.filter((item) => item.BookId != bookId);
+  return items.filter((item) => item.BookId !== bookId);
 };
 
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_LOADING":
-      return action.payload.type == "cart"
+      return action.payload.type === "cart"
         ? { ...state, loading: true }
         : state;
     case "FINISH_LOADING":
-      return action.payload.type == "cart"
+      return action.payload.type === "cart"
         ? { ...state, loading: false }
         : state;
     case "SYNC_CART":

@@ -1,10 +1,7 @@
 import React from "react";
-import { Card, Col, Row, Button, Image } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import moment from "moment";
 import { getOrderTotal } from "../../Cart/checkoutUtils";
-import { mapPlanToText } from "../../../utils/produtUtils";
-import { itemPrice } from "../../../utils/cartStats";
-import { plans } from "../../../utils/enums";
 import OrderItem from "./OrderItem";
 const OrderCard = ({ order, ...props }) => {
   return (

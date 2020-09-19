@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
-import { BsTypeH1 } from "react-icons/bs";
 
 const Error404 = (props) => {
   return (

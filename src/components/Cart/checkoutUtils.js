@@ -25,8 +25,8 @@ export const getDeliveryDate = () => {
   const maxExpected = moment(new Date().getTime() + 7 * 24 * 60 * 60 * 1000);
 
   if (
-    minExpected.format("YYYY") != maxExpected.format("YYYY") ||
-    minExpected.format("M") != maxExpected.format("M")
+    minExpected.format("YYYY") !== maxExpected.format("YYYY") ||
+    minExpected.format("M") !== maxExpected.format("M")
   ) {
     return (
       minExpected.format("DD-MMM-YYYY") +

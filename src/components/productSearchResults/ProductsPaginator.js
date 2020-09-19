@@ -3,14 +3,11 @@ import ProductListing from "../productListing/productListing";
 import {
   BsGrid3X3GapFill,
   BsList,
-  BsChevronBarLeft,
   BsChevronLeft,
   BsChevronRight,
 } from "react-icons/bs";
 import { desktopRes } from "../../viewPortBreakpoints";
 import { useViewportHook } from "../utils/viewPortHandler";
-import { connect } from "react-redux";
-import { buildCatUrl, buildSubCatUrl } from "../../utils/buildUrl";
 import QueryString from "query-string";
 import { Col, Row } from "react-bootstrap";
 import {
@@ -21,15 +18,19 @@ import {
 import { get } from "../../utils/requests";
 import OverlayLoader from "../utils/OverlayLoader";
 
-const ProductsPaginator = (props) => {
+const ProductsPaginator = ({
+  catId,
+  subCatId,
+  isSearch,
+  queryString,
+  ...props
+}) => {
   const { width } = useViewportHook();
   const [displayType, setDisplayType] = React.useState("grid");
-  console.log(props);
   const [products, setProducts] = React.useState([]);
   const [pagination, setPagination] = React.useState({});
   const [pageNum, setPageNum] = React.useState(1);
   const [isLoading, setLoading] = React.useState(false);
-  const { isSearch } = props;
   async function getData(api) {
     try {
       setLoading(true);
@@ -38,13 +39,12 @@ const ProductsPaginator = (props) => {
       setPagination(pagination);
       setLoading(false);
     } catch (err) {
-      console.log(err);
+      alert(err);
     }
   }
 
   const nextPage = () => {
     const { offset } = QueryString.parse(pagination.nextUrl);
-    console.log(offset);
     if (offset) {
       setPageNum(pageNum + 1);
       getData(pagination.nextUrl);
@@ -53,7 +53,6 @@ const ProductsPaginator = (props) => {
   };
   const prevPage = () => {
     const { offset } = QueryString.parse(pagination.prevUrl);
-    console.log(offset);
     if (offset) {
       setPageNum(pageNum - 1);
       getData(pagination.prevUrl);
@@ -63,19 +62,17 @@ const ProductsPaginator = (props) => {
   React.useEffect(() => {
     let api = "";
     if (isSearch) {
-      api = searchApi(props.queryString); //search api
+      api = searchApi(queryString); //search api
     } else {
-      const { catId, subCatId } = props;
       api = !subCatId
         ? categorySearchApi(catId)
         : subCategorySearchApi(catId, subCatId);
     }
     getData(api);
-  }, [props.catId, props.subCatId]);
-  const getNewPage = (url) => {};
+  }, [catId, subCatId, isSearch, queryString]);
   return (
     <Col md={9} className="px-4">
-      <Row className="w-100 mb-4" className="pagination-selector">
+      <Row className="w-100 mb-4 pagination-selector">
         {desktopRes < width && (
           <Col md={1} className="text-dark">
             <BsGrid3X3GapFill

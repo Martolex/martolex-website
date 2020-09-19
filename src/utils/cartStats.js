@@ -17,7 +17,7 @@ const cartStats = (cart = []) => {
 
 export const itemPrice = (item) => {
   const total =
-    item.plan == plans.SELL
+    item.plan === plans.SELL
       ? item.book.rent[item.plan]
       : item.book.rent[item.plan] + item.book.rent.deposit;
   return total;

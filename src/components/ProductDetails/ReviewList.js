@@ -8,11 +8,9 @@ const ReviewList = ({ reviews, ...props }) => {
   const [list, setList] = React.useState([]);
   React.useEffect(() => {
     setList(reviews);
-  }, []);
-  console.log(reviews);
+  }, [reviews]);
   const [reviewPageVisible, showReviewPage] = React.useState(false);
   const addNewReview = (review) => setList([...list, review]);
-  console.log(list);
   return (
     <Row className="mb-3 px-2">
       <Row className="w-100 pb-2 row-header-box">
