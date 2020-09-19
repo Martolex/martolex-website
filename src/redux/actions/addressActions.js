@@ -12,7 +12,6 @@ export const fetchAddresses = () => async (dispatch) => {
   try {
     dispatch(startLoading("address"));
     const [addresses] = await get(UserAddressesApi);
-    console.log(addresses);
     dispatch(addAddresses(addresses));
     dispatch(finishLoading("address"));
   } catch (err) {

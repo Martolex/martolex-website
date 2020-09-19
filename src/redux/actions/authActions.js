@@ -19,7 +19,6 @@ export const loginUser = (email, password) => async (dispatch) => {
   dispatch(startLoading("auth"));
   try {
     const [user] = await post(loginApi, false, { email, password });
-    console.log(user);
     dispatch(login(user));
     dispatch(finishLoading("auth"));
   } catch (err) {

@@ -36,7 +36,6 @@ const ReviewCard = ({ review }) => {
             count={5}
             edit={false}
             value={review.rating}
-            onChange={(rating) => console.log(rating)}
             size={25}
             color2={"#ffd700"}
           />

@@ -12,7 +12,5 @@ export const FetchCategories = () => async (dispatch) => {
   try {
     const [response] = await get(getCategorytreeApi, false);
     dispatch(setCategories(response));
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };

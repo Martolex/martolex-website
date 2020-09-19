@@ -36,7 +36,6 @@ const ProductCard = ({ product }) => {
           count={5}
           value={product.rating}
           edit={false}
-          onChange={(rating) => console.log(rating)}
           size={30}
           color2={"#ffd700"}
         />
