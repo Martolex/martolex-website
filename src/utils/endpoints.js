@@ -38,4 +38,9 @@ export const authApi = {
   signUp: `${authApiRoot}/signUp`,
 };
 
+export const bookUploadApi = {
+  getBookNames: `${userApi}/books/getBookNames`,
+  getBookDetails: (bookId) => `${userApi}/books/${bookId}`,
+};
+
 export const notFoundBookApi = `${backendApi}not-found-books`;

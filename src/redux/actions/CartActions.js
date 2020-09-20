@@ -52,7 +52,7 @@ export const addToCart = (bookId, plan, qty) => async (dispatch) => {
 export const removeFromCart = (bookId) => async (dispatch) => {
   try {
     dispatch(startLoading("cart"));
-    const [res] = await deleteCall(cartApi, true, {
+    await deleteCall(cartApi, true, {
       bookId,
     });
     dispatch(remove(bookId));
