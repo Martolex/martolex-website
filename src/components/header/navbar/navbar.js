@@ -25,9 +25,11 @@ const Navbar = (props) => {
             didn't find your book
           </Link>
         </li>
-        <Link className="btn-link hover-link" to="/upload">
-          <li>Sell your book</li>
-        </Link>
+        <li>
+          <Link className="btn-link hover-link" to="/upload-book">
+            Sell your book
+          </Link>
+        </li>
 
         <li onClick={props.openDashBoard}>
           <FaUser />
