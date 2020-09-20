@@ -1,4 +1,5 @@
 import { store } from "../redux";
+import querystring from "querystring";
 export const get = (api, isAuthorized = true, params = {}, headers = {}) => {
   return new Promise((resolve, reject) => {
     const allHeaders = {
@@ -8,11 +9,8 @@ export const get = (api, isAuthorized = true, params = {}, headers = {}) => {
     if (isAuthorized) {
       allHeaders.Authorization = `bearer ${store.getState().user.token}`;
     }
-    let url = api + "?";
-    for (let param in params) {
-      url += `${param}=${params[param]}&`;
-    }
-    url = url.substr(0, url.length - 1);
+
+    const url = api + "?" + querystring.stringify(params);
     const options = {
       method: "GET",
       headers: allHeaders,
