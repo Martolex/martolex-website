@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { Container, Row, Col, Card, Form } from "react-bootstrap";
+import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import AsyncCreatableSelect from "react-select/async-creatable";
 import Select from "react-select";
 import { get } from "../../utils/requests";
@@ -16,9 +16,10 @@ const BookUpload = (props) => {
   const [details, setDetails] = useState({
     prices: { mrp: undefined, sellingPrice: undefined },
     buyBackEnabled: true,
+    state: "Maharashtra",
   });
   const [subCategories, setSubCategories] = useState([]);
-
+  const [errors, setErrors] = useState({});
   const categories =
     props.categories &&
     props.categories.map((category) => ({
@@ -34,7 +35,13 @@ const BookUpload = (props) => {
       isNew: true,
     };
 
-    setDetails({ name: newValue, author: "", isbn: "", edition: "" });
+    setDetails({
+      ...details,
+      name: newValue,
+      author: "",
+      isbn: "",
+      edition: "",
+    });
   };
 
   const loadBookNames = useCallback(
@@ -86,6 +93,83 @@ const BookUpload = (props) => {
         }))
     );
   };
+
+  const validateForm = () => {
+    const errors = {};
+    if (!details.category) {
+      errors.category = true;
+    }
+    if (!details.subcategory || !details.subcategory.value) {
+      errors.subcategory = true;
+    }
+    if (!details.name) {
+      errors.name = true;
+    }
+    if (!details.author || details.author.length == 0) {
+      errors.author = true;
+    }
+    if (!details.isbn || !details.isbn.match(/^[0-9]{13}|[0-9]{11}$/)) {
+      errors.isbn = true;
+    }
+
+    if (!details.frontCover || details.frontCover.length == 0) {
+      errors.frontcover = true;
+    }
+    if (!details.backCover || details.backCover.length == 0) {
+      errors.backcover = true;
+    }
+
+    if (!details.firstPage || details.firstPage.length == 0) {
+      errors.firstPage = true;
+    }
+
+    if (!details.addLine1 || details.addLine1.length == 0) {
+      errors.addLine1 = true;
+    }
+    if (!details.addLine2 || details.addLine2.length == 0) {
+      errors.addLine2 = true;
+    }
+    if (!details.city || details.city.length == 0) {
+      errors.city = true;
+    }
+    if (!details.state || details.state.length == 0) {
+      errors.state = true;
+    }
+    if (!details.pincode || details.pincode.length !== 6) {
+      errors.pincode = true;
+    }
+
+    if (!details.prices.mrp || details.prices.mrp <= 0) {
+      errors.mrp = true;
+    }
+    if (!details.prices.sellingPrice || details.prices.sellingPrice <= 0) {
+      errors.sellingPrice = true;
+    }
+
+    if (details.buyBackEnabled) {
+      if (!details.prices.deposit || details.prices.deposit <= 0) {
+        errors.deposit = true;
+      }
+      if (
+        Object.keys(details.prices).filter(
+          (key) => !["mrp", "sellingPrice", "deposit"].includes(key)
+        ).length === 0
+      ) {
+        errors.buybacks = true;
+      }
+    }
+
+    return errors;
+  };
+  const submitBook = () => {
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      alert("There are errors in your form");
+      return;
+    }
+    console.log("processing");
+  };
   return (
     <Container className="my-4 upload-form" fluid>
       {isLoading && (
@@ -113,6 +197,11 @@ const BookUpload = (props) => {
                         options={categories}
                         onChange={handleCategoryChange}
                       />
+                      {errors.category && (
+                        <p className=" error text-danger">
+                          category is required
+                        </p>
+                      )}
                     </Form.Group>
                   </Col>
                   <Col md={6}>
@@ -125,6 +214,11 @@ const BookUpload = (props) => {
                           setDetails({ ...details, subcategory: inputValue })
                         }
                       />
+                      {errors.subcategory && (
+                        <p className=" error text-danger">
+                          subcategory is required
+                        </p>
+                      )}
                     </Form.Group>
                   </Col>
                 </Row>
@@ -145,6 +239,11 @@ const BookUpload = (props) => {
                         cacheOptions
                         loadOptions={loadBookNames}
                       />
+                      {errors.name && (
+                        <p className=" error text-danger">
+                          Book Name is required
+                        </p>
+                      )}
                     </Form.Group>
                   </Col>
                 </Row>
@@ -164,9 +263,11 @@ const BookUpload = (props) => {
                         }}
                         placeholder="Author Name"
                       />
-                      <Form.Control.Feedback type="invalid">
-                        Author Name is required
-                      </Form.Control.Feedback>
+                      {errors.author && (
+                        <p className=" error text-danger">
+                          Author Name is required
+                        </p>
+                      )}
                     </Form.Group>
                   </Col>
                 </Row>
@@ -206,9 +307,9 @@ const BookUpload = (props) => {
                         }}
                         placeholder="Enter the ISBN of the book"
                       />
-                      <Form.Control.Feedback type="invalid">
-                        Enter valid ISBN
-                      </Form.Control.Feedback>
+                      {errors.isbn && (
+                        <p className=" error text-danger">Enter valid ISBN</p>
+                      )}
                     </Form.Group>
                   </Col>
                 </Row>
@@ -226,6 +327,11 @@ const BookUpload = (props) => {
                       tag="Front Cover"
                       maxImages={1}
                     />
+                    {errors.frontcover && (
+                      <p className=" error text-danger">
+                        Front cover is required
+                      </p>
+                    )}
                   </Col>
                   <Col className="mb-3" md={4} xs={12}>
                     <ImageUpload
@@ -235,6 +341,11 @@ const BookUpload = (props) => {
                       tag="Back Cover"
                       maxImages={1}
                     />
+                    {errors.backcover && (
+                      <p className=" error text-danger">
+                        Back cover is required
+                      </p>
+                    )}
                   </Col>
                   <Col className="mb-3" md={4} xs={12}>
                     <ImageUpload
@@ -244,6 +355,11 @@ const BookUpload = (props) => {
                       tag="First Page"
                       maxImages={1}
                     />
+                    {errors.firstPage && (
+                      <p className=" error text-danger">
+                        first page is required
+                      </p>
+                    )}
                   </Col>
                 </Row>
                 <Row>
@@ -280,9 +396,9 @@ const BookUpload = (props) => {
                           });
                         }}
                       />
-                      <Form.Control.Feedback type="invalid">
-                        MRP is required
-                      </Form.Control.Feedback>
+                      {errors.mrp && (
+                        <p className=" error text-danger">MRP is required</p>
+                      )}
                     </Form.Group>
                   </Col>
                   <Col md={6}>
@@ -303,9 +419,11 @@ const BookUpload = (props) => {
                           });
                         }}
                       />
-                      <Form.Control.Feedback type="invalid">
-                        Selling Price is required
-                      </Form.Control.Feedback>
+                      {errors.sellingPrice && (
+                        <p className=" error text-danger">
+                          Selling price is required
+                        </p>
+                      )}
                     </Form.Group>
                   </Col>
                 </Row>
@@ -324,6 +442,11 @@ const BookUpload = (props) => {
                       }}
                       label="Opt for BuyBack"
                     />
+                    {errors.buybacks && (
+                      <p className=" error text-danger">
+                        Atleast one buyback amount is required
+                      </p>
+                    )}
                   </Col>
                 </Row>
                 {details.buyBackEnabled && (
@@ -445,6 +568,11 @@ const BookUpload = (props) => {
                               });
                             }}
                           />
+                          {errors.deposit && (
+                            <p className=" error text-danger">
+                              Deposit is required
+                            </p>
+                          )}
                         </Form.Group>
                       </Col>
                     </Row>
@@ -461,6 +589,7 @@ const BookUpload = (props) => {
                       <Form.Control
                         required
                         type="text"
+                        value={details.addLine1}
                         onChange={(event) => {
                           setDetails({
                             ...details,
@@ -469,9 +598,11 @@ const BookUpload = (props) => {
                         }}
                         placeholder="Address line 1"
                       />
-                      <Form.Control.Feedback type="invalid">
-                        address is required
-                      </Form.Control.Feedback>
+                      {errors.addLine1 && (
+                        <p className=" error text-danger">
+                          Address is required
+                        </p>
+                      )}
                     </Form.Group>
                   </Col>
                 </Row>
@@ -482,6 +613,7 @@ const BookUpload = (props) => {
                       <Form.Control
                         required
                         type="text"
+                        value={details.addLine2}
                         onChange={(event) => {
                           setDetails({
                             ...details,
@@ -490,59 +622,59 @@ const BookUpload = (props) => {
                         }}
                         placeholder="Address line 2"
                       />
-                      <Form.Control.Feedback type="invalid">
-                        Address is required
-                      </Form.Control.Feedback>
+                      {errors.addLine2 && (
+                        <p className=" error text-danger">
+                          address is required
+                        </p>
+                      )}
                     </Form.Group>
                   </Col>
                 </Row>
                 <Row>
-                  <Col>
+                  <Col md={4} xs={12}>
                     <Form.Group controlId="town">
                       <Form.Label>town / city*</Form.Label>
-                      <Form.Control
-                        required
-                        as="select"
-                        onChange={(event) => {
-                          setDetails({ ...details, city: event.target.value });
+                      <Select
+                        className="mb-0"
+                        value={details.city}
+                        onChange={(inputValue) => {
+                          setDetails({
+                            ...details,
+                            city: inputValue,
+                            state: "Maharashtra",
+                          });
                         }}
-                        placeholder="Town / city"
-                      >
-                        {deliveryLocations.map((location) => (
-                          <option value={location.value}>
-                            {location.label}
-                          </option>
-                        ))}
-                      </Form.Control>
-                      <Form.Control.Feedback type="invalid">
-                        City Name is required
-                      </Form.Control.Feedback>
+                        options={deliveryLocations}
+                        placeholder="city"
+                      />
+                      {errors.city && (
+                        <p className=" error text-danger">city is required</p>
+                      )}
                     </Form.Group>
                   </Col>
-                  <Col>
+                  <Col md={4} xs={12}>
                     <Form.Group controlId="state">
-                      <Form.Label>State*</Form.Label>
+                      <Form.Label>State *</Form.Label>
                       <Form.Control
                         required
-                        type="text"
+                        value={details.state}
+                        readOnly
                         pattern="[a-zA-Z]+"
                         onChange={(event) => {
                           setDetails({ ...details, state: event.target.value });
                         }}
                         placeholder="state"
                       />
-                      <Form.Control.Feedback type="invalid">
-                        Enter valid state name
-                      </Form.Control.Feedback>
                     </Form.Group>
                   </Col>
 
-                  <Col>
+                  <Col md={4} xs={12}>
                     <Form.Group controlId="pincode">
                       <Form.Label>PIN Code*</Form.Label>
                       <Form.Control
                         required
                         type="text"
+                        value={details.pincode}
                         maxLength={6}
                         minLength={6}
                         pattern="[1-9][0-9]+"
@@ -554,12 +686,19 @@ const BookUpload = (props) => {
                         }}
                         placeholder="PIN Code"
                       />
-                      <Form.Control.Feedback type="invalid">
-                        Enter valid Pincode
-                      </Form.Control.Feedback>
+                      {errors.pincode && (
+                        <p className=" error text-danger">
+                          Enter valid pincode
+                        </p>
+                      )}
                     </Form.Group>
                   </Col>
                 </Row>
+                <Col md={6} className=" mt-4 mx-auto">
+                  <Button block onClick={submitBook}>
+                    SUBMIT
+                  </Button>
+                </Col>
               </Form>
             </Card.Body>
           </Card>
