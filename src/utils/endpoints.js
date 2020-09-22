@@ -43,4 +43,26 @@ export const bookUploadApi = {
   getBookDetails: (bookId) => `${userApi}/books/${bookId}`,
 };
 
+export const userProfileApi = {
+  userAddresses: `${userApi}/profile/addresses`,
+  registerAsSeller: `${userApi}/profile/sellerRegister`,
+};
+
 export const notFoundBookApi = `${backendApi}not-found-books`;
+
+export const getBankFromIFSC = (ifsc) => {
+  return new Promise((resolve, reject) => {
+    fetch(`https://api.techm.co.in/api/v1/ifsc/${ifsc.toLowerCase()}`, {
+      method: "GET",
+    })
+      .then((data) => data.json())
+      .then((res) => {
+        if (res.status === "success") {
+          resolve(res.data);
+        } else {
+          reject({ invalidCode: true, message: res.message });
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};

@@ -18,6 +18,7 @@ import OrderConf from "./components/Cart/OrderConf";
 import BookNotFound from "./components/BookNotFound/BookNotFound";
 import Error404 from "./components/404/Error404";
 import BookUpload from "./components/UserBookUpload/BookUpload";
+import SellerRegistration from "./components/UserBookUpload/SellerRegistration";
 
 function Start(props) {
   const [cartToastShow, setCarToastShow] = React.useState(false);
@@ -55,6 +56,9 @@ function Start(props) {
           </PrivateRoute>
           <PrivateRoute exact path="/upload-book">
             <BookUpload />
+          </PrivateRoute>
+          <PrivateRoute exact path="/seller-registration">
+            <SellerRegistration />
           </PrivateRoute>
           <Route
             path="/cat/:catId/subCat/:subCatId"

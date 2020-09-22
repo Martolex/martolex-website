@@ -1,3 +1,5 @@
+import { MAKE_SELLER } from "../actions/authActions";
+
 const type = "auth";
 const authReducer = (state = {}, action) => {
   switch (action.type) {
@@ -13,6 +15,9 @@ const authReducer = (state = {}, action) => {
       return { error: action.payload, auth: false };
     case "LOGOUT":
       return { auth: false };
+
+    case "MAKE_SELLER":
+      return { ...state, profile: { ...state.profile, isSeller: true } };
     default:
       return state;
   }

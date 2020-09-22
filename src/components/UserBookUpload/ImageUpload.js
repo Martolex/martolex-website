@@ -24,7 +24,7 @@ const ImageUpload = (props) => {
   }, [files]);
 
   const removeImage = (idx) =>
-    setFiles(files.filter((_, fileidx) => fileidx != idx));
+    setFiles(files.filter((_, fileidx) => fileidx !== idx));
 
   const images = files.map((file, idx) => (
     <Col md={previewSize} className="img mb-2 mx-auto">

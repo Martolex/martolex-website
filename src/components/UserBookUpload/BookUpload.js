@@ -11,6 +11,7 @@ import ImageUpload from "./ImageUpload";
 import { connect } from "react-redux";
 import { deliveryLocations } from "../../utils/deliveryLocations";
 import "./BookUpload.scss";
+import { Redirect, withRouter } from "react-router";
 
 const BookUpload = (props) => {
   const [details, setDetails] = useState({
@@ -19,6 +20,7 @@ const BookUpload = (props) => {
     state: "Maharashtra",
   });
   const [subCategories, setSubCategories] = useState([]);
+  const [isLoading, setloading] = useState(false);
   const [errors, setErrors] = useState({});
   const categories =
     props.categories &&
@@ -26,7 +28,7 @@ const BookUpload = (props) => {
       value: category.id,
       label: category.name,
     }));
-  const [isLoading, setloading] = useState(false);
+
   const handleNewBookName = (inputValue) => {
     console.log("abcd");
     const newValue = {
@@ -105,38 +107,22 @@ const BookUpload = (props) => {
     if (!details.name) {
       errors.name = true;
     }
-    if (!details.author || details.author.length == 0) {
+    if (!details.author || details.author.length === 0) {
       errors.author = true;
     }
     if (!details.isbn || !details.isbn.match(/^[0-9]{13}|[0-9]{11}$/)) {
       errors.isbn = true;
     }
 
-    if (!details.frontCover || details.frontCover.length == 0) {
+    if (!details.frontCover || details.frontCover.length === 0) {
       errors.frontcover = true;
     }
-    if (!details.backCover || details.backCover.length == 0) {
+    if (!details.backCover || details.backCover.length === 0) {
       errors.backcover = true;
     }
 
-    if (!details.firstPage || details.firstPage.length == 0) {
+    if (!details.firstPage || details.firstPage.length === 0) {
       errors.firstPage = true;
-    }
-
-    if (!details.addLine1 || details.addLine1.length == 0) {
-      errors.addLine1 = true;
-    }
-    if (!details.addLine2 || details.addLine2.length == 0) {
-      errors.addLine2 = true;
-    }
-    if (!details.city || details.city.length == 0) {
-      errors.city = true;
-    }
-    if (!details.state || details.state.length == 0) {
-      errors.state = true;
-    }
-    if (!details.pincode || details.pincode.length !== 6) {
-      errors.pincode = true;
     }
 
     if (!details.prices.mrp || details.prices.mrp <= 0) {
@@ -170,6 +156,10 @@ const BookUpload = (props) => {
     }
     console.log("processing");
   };
+
+  if (!props.isSeller) {
+    return <Redirect to="seller-registration" />;
+  }
   return (
     <Container className="my-4 upload-form" fluid>
       {isLoading && (
@@ -177,6 +167,7 @@ const BookUpload = (props) => {
           <OverlayLoader style={{ position: "absolute", top: "45vh" }} />
         </OverLay>
       )}
+
       <Row className="justify-content-center">
         <Col style={{ borderRadius: 5 }} md={7}>
           <Card>
@@ -578,122 +569,7 @@ const BookUpload = (props) => {
                     </Row>
                   </div>
                 )}
-                <hr />
-                <Row>
-                  <h4>PICKUP ADDRESS</h4>
-                </Row>
-                <Row>
-                  <Col>
-                    <Form.Group controlId="address-line1">
-                      <Form.Label>Address line 1*</Form.Label>
-                      <Form.Control
-                        required
-                        type="text"
-                        value={details.addLine1}
-                        onChange={(event) => {
-                          setDetails({
-                            ...details,
-                            addLine1: event.target.value,
-                          });
-                        }}
-                        placeholder="Address line 1"
-                      />
-                      {errors.addLine1 && (
-                        <p className=" error text-danger">
-                          Address is required
-                        </p>
-                      )}
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <Form.Group controlId="address-line2">
-                      <Form.Label>Address line 2*</Form.Label>
-                      <Form.Control
-                        required
-                        type="text"
-                        value={details.addLine2}
-                        onChange={(event) => {
-                          setDetails({
-                            ...details,
-                            addLine2: event.target.value,
-                          });
-                        }}
-                        placeholder="Address line 2"
-                      />
-                      {errors.addLine2 && (
-                        <p className=" error text-danger">
-                          address is required
-                        </p>
-                      )}
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md={4} xs={12}>
-                    <Form.Group controlId="town">
-                      <Form.Label>town / city*</Form.Label>
-                      <Select
-                        className="mb-0"
-                        value={details.city}
-                        onChange={(inputValue) => {
-                          setDetails({
-                            ...details,
-                            city: inputValue,
-                            state: "Maharashtra",
-                          });
-                        }}
-                        options={deliveryLocations}
-                        placeholder="city"
-                      />
-                      {errors.city && (
-                        <p className=" error text-danger">city is required</p>
-                      )}
-                    </Form.Group>
-                  </Col>
-                  <Col md={4} xs={12}>
-                    <Form.Group controlId="state">
-                      <Form.Label>State *</Form.Label>
-                      <Form.Control
-                        required
-                        value={details.state}
-                        readOnly
-                        pattern="[a-zA-Z]+"
-                        onChange={(event) => {
-                          setDetails({ ...details, state: event.target.value });
-                        }}
-                        placeholder="state"
-                      />
-                    </Form.Group>
-                  </Col>
 
-                  <Col md={4} xs={12}>
-                    <Form.Group controlId="pincode">
-                      <Form.Label>PIN Code*</Form.Label>
-                      <Form.Control
-                        required
-                        type="text"
-                        value={details.pincode}
-                        maxLength={6}
-                        minLength={6}
-                        pattern="[1-9][0-9]+"
-                        onChange={(event) => {
-                          setDetails({
-                            ...details,
-                            pincode: event.target.value,
-                          });
-                        }}
-                        placeholder="PIN Code"
-                      />
-                      {errors.pincode && (
-                        <p className=" error text-danger">
-                          Enter valid pincode
-                        </p>
-                      )}
-                    </Form.Group>
-                  </Col>
-                </Row>
                 <Col md={6} className=" mt-4 mx-auto">
                   <Button block onClick={submitBook}>
                     SUBMIT
@@ -708,5 +584,8 @@ const BookUpload = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({ categories: state.categories });
-export default connect(mapStateToProps)(BookUpload);
+const mapStateToProps = (state) => ({
+  categories: state.categories,
+  isSeller: state.user.profile.isSeller,
+});
+export default withRouter(connect(mapStateToProps)(BookUpload));
