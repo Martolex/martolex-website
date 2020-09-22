@@ -206,6 +206,7 @@ const BookUpload = (props) => {
                       <Select
                         value={details.subcategory}
                         options={subCategories}
+                        noOptionsMessage={() => "Select a category first"}
                         onChange={(inputValue) =>
                           setDetails({ ...details, subcategory: inputValue })
                         }
@@ -231,6 +232,9 @@ const BookUpload = (props) => {
                         }
                         allowCreateWhileLoading={false}
                         createOptionPosition="first"
+                        noOptionsMessage={() =>
+                          "Start Typing to get recommendations"
+                        }
                         onCreateOption={handleNewBookName}
                         cacheOptions
                         loadOptions={loadBookNames}

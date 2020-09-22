@@ -9,6 +9,7 @@ const SideBar = ({ displaySubCat, categories, ...props }) => {
   const { width } = useViewportHook();
 
   const [openFilters, setOpenFilters] = useState(width > desktopRes);
+
   return (
     <Col md={3}>
       <Card className="mb-2">
@@ -24,7 +25,7 @@ const SideBar = ({ displaySubCat, categories, ...props }) => {
           <ListGroup className="side-filter mt-2" variant="flush">
             {displaySubCat
               ? categories
-                  .find((cat) => cat.id === props.catId)
+                  .find((cat) => cat.id == props.catId)
                   ?.subcategories.map(({ id, name }, idx) => (
                     <ListGroup.Item
                       href={buildSubCatUrl(props.catId, id)}
