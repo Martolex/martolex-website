@@ -18,6 +18,7 @@ const BookUpload = (props) => {
     prices: { mrp: undefined, sellingPrice: undefined },
     buyBackEnabled: true,
     state: "Maharashtra",
+    quantity: 1,
   });
   const [subCategories, setSubCategories] = useState([]);
   const [isLoading, setloading] = useState(false);
@@ -119,6 +120,9 @@ const BookUpload = (props) => {
     }
     if (!details.backCover || details.backCover.length === 0) {
       errors.backcover = true;
+    }
+    if (!details.quantity || details.quantity < 1) {
+      errors.quantity = true;
     }
 
     if (!details.firstPage || details.firstPage.length === 0) {
@@ -301,6 +305,30 @@ const BookUpload = (props) => {
                       />
                       {errors.isbn && (
                         <p className=" error text-danger">Enter valid ISBN</p>
+                      )}
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Form.Group controlId="book-quantity">
+                      <Form.Label>Quantity *</Form.Label>
+                      <Form.Control
+                        required
+                        type="number"
+                        min={1}
+                        value={details.quantity}
+                        onChange={(event) => {
+                          setDetails({
+                            ...details,
+                            quantity: event.target.value,
+                          });
+                        }}
+                      />
+                      {errors.quantity && (
+                        <p className=" error text-danger">
+                          Quantity should be greater than 0
+                        </p>
                       )}
                     </Form.Group>
                   </Col>
