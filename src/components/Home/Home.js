@@ -1,5 +1,6 @@
 import React from "react";
 import Toast from "../utils/Toast";
+import { Image } from "react-bootstrap";
 
 const Home = (props) => {
   const [loginToastShow, setLoginToastShow] = React.useState(false);
@@ -18,6 +19,7 @@ const Home = (props) => {
         header="login Error"
         body="please login to continue"
       />
+      <Image src="https://s3.console.aws.amazon.com/s3/object/martolex-book-images/abcd?region=ap-south-1&tab=overview" />
     </div>
   );
 };

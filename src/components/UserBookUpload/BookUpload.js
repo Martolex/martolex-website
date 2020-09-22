@@ -148,6 +148,7 @@ const BookUpload = (props) => {
     return errors;
   };
   const submitBook = () => {
+    console.log(details);
     const errors = validateForm();
     if (Object.keys(errors).length > 0) {
       setErrors(errors);
@@ -315,7 +316,9 @@ const BookUpload = (props) => {
                       onChange={(files) =>
                         setDetails({ ...details, frontCover: [...files] })
                       }
+                      onLoad={setloading}
                       tag="Front Cover"
+                      prefix="front"
                       maxImages={1}
                     />
                     {errors.frontcover && (
@@ -330,6 +333,7 @@ const BookUpload = (props) => {
                         setDetails({ ...details, backCover: [...files] })
                       }
                       tag="Back Cover"
+                      prefix="back"
                       maxImages={1}
                     />
                     {errors.backcover && (
@@ -344,6 +348,7 @@ const BookUpload = (props) => {
                         setDetails({ ...details, firstPage: [...files] })
                       }
                       tag="First Page"
+                      prefix="first_page"
                       maxImages={1}
                     />
                     {errors.firstPage && (
@@ -361,6 +366,7 @@ const BookUpload = (props) => {
                       }
                       tag="Any other Images of the book. Max 3"
                       maxImages={3}
+                      prefix="other"
                     />
                   </Col>
                 </Row>

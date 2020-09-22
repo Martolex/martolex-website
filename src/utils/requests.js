@@ -91,3 +91,38 @@ export const deleteCall = (
       .catch((err) => reject(err));
   });
 };
+
+export const put = (
+  api,
+  isAuthorized = true,
+  type,
+  body = {},
+  headers = {}
+) => {
+  const allHeaders = {
+    "Content-type": "application/json",
+
+    ...headers,
+  };
+  if (isAuthorized) {
+    allHeaders.Authorization = `bearer ${store.getState().user.token}`;
+  }
+  return new Promise((resolve, reject) => {
+    const options = {
+      method: "POST",
+      headers: allHeaders,
+      credentials: "include",
+      body: type !== "blob" ? JSON.stringify(body) : body,
+    };
+    fetch(api, options)
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.code === 1) {
+          resolve([res.data, res.pagination]);
+        } else {
+          reject(res.message);
+        }
+      })
+      .catch((err) => reject(err));
+  });
+};

@@ -41,6 +41,7 @@ export const authApi = {
 export const bookUploadApi = {
   getBookNames: `${userApi}/books/getBookNames`,
   getBookDetails: (bookId) => `${userApi}/books/${bookId}`,
+  uploadImage: `${userApi}/books/get_s3_signed_url`,
 };
 
 export const userProfileApi = {
