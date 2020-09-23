@@ -42,6 +42,7 @@ export const bookUploadApi = {
   getBookNames: `${userApi}/books/getBookNames`,
   getBookDetails: (bookId) => `${userApi}/books/${bookId}`,
   uploadImage: `${userApi}/books/get_s3_signed_url`,
+  upload: `${userApi}/books/`,
 };
 
 export const userProfileApi = {

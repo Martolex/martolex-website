@@ -2,8 +2,8 @@ export const plans = {
   MONTHLY: "oneMonth",
   QUATERLY: "threeMonth",
   SEMIANNUAL: "sixMonth",
-  NINEMONTHS: "nineMonths",
-  ANNUAL: "twelveMonths",
+  NINEMONTHS: "nineMonth",
+  ANNUAL: "twelveMonth",
   SELL: "sellPrice",
 };
 

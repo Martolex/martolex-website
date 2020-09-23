@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import AsyncCreatableSelect from "react-select/async-creatable";
 import Select from "react-select";
-import { get } from "../../utils/requests";
+import { get, post } from "../../utils/requests";
 import { bookUploadApi } from "../../utils/endpoints";
 import OverLay from "../utils/overLay";
 import OverlayLoader from "../utils/OverlayLoader";
@@ -72,8 +72,8 @@ const BookUpload = (props) => {
           const [bookDetails] = await get(
             bookUploadApi.getBookDetails(details.name.value)
           );
-          const { isbn, author, edition } = bookDetails;
-          setDetails({ ...details, isbn, author, edition });
+          const { isbn, author, edition, publisher } = bookDetails;
+          setDetails({ ...details, isbn, author, edition, publisher });
         } catch (err) {
           alert(err);
         }
@@ -110,6 +110,9 @@ const BookUpload = (props) => {
     }
     if (!details.author || details.author.length === 0) {
       errors.author = true;
+    }
+    if (!details.publisher || details.publisher.length === 0) {
+      errors.publisher = true;
     }
     if (!details.isbn || !details.isbn.match(/^[0-9]{13}|[0-9]{11}$/)) {
       errors.isbn = true;
@@ -159,8 +162,41 @@ const BookUpload = (props) => {
       alert("There are errors in your form");
       return;
     }
-    console.log("processing");
+    uploadBook();
   };
+
+  async function uploadBook() {
+    setloading(true);
+    try {
+      const postData = {
+        name: details.name.label,
+        subCatId: details.subcategory.value,
+        quantity: details.quantity,
+        isbn: details.isbn,
+        author: details.author,
+        edition: details.edition,
+        publisher: details.publisher,
+        mrp: details.prices.mrp,
+        deposit: details.prices.deposit,
+        onemonthrent: details.prices.oneMonth,
+        threemonthrent: details.prices.threeMonth,
+        sixmonthrent: details.prices.sixMonth,
+        ninemonthrent: details.prices.nineMonth,
+        twelvemonthrent: details.prices.twelveMonth,
+        sellPrice: details.prices.sellingPrice,
+        frontCover: details.frontCover[0],
+        backCover: details.backCover[0],
+        frontPage: details.firstPage[0],
+        otherImgs: details.otherImages,
+      };
+      const [res] = await post(bookUploadApi.upload, true, postData);
+      alert(res.message);
+      window.location.href = "/profile/books";
+    } catch (err) {
+      console.log(err);
+    }
+    setloading(false);
+  }
 
   if (!props.isSeller) {
     return <Redirect to="seller-registration" />;
@@ -271,6 +307,30 @@ const BookUpload = (props) => {
                     </Form.Group>
                   </Col>
                 </Row>
+                <Row>
+                  <Col>
+                    <Form.Group controlId="book-publisher">
+                      <Form.Label>publisher *</Form.Label>
+                      <Form.Control
+                        required
+                        type="text"
+                        value={details.publisher}
+                        onChange={(event) => {
+                          setDetails({
+                            ...details,
+                            publisher: event.target.value,
+                          });
+                        }}
+                        placeholder="publisher Name"
+                      />
+                      {errors.publisher && (
+                        <p className=" error text-danger">
+                          publisher Name is required
+                        </p>
+                      )}
+                    </Form.Group>
+                  </Col>
+                </Row>
 
                 <Row>
                   <Col>
@@ -366,6 +426,7 @@ const BookUpload = (props) => {
                       }
                       tag="Back Cover"
                       prefix="back"
+                      onLoad={setloading}
                       maxImages={1}
                     />
                     {errors.backcover && (
@@ -380,6 +441,7 @@ const BookUpload = (props) => {
                         setDetails({ ...details, firstPage: [...files] })
                       }
                       tag="First Page"
+                      onLoad={setloading}
                       prefix="first_page"
                       maxImages={1}
                     />
@@ -398,6 +460,7 @@ const BookUpload = (props) => {
                       }
                       tag="Any other Images of the book. Max 3"
                       maxImages={3}
+                      onLoad={setloading}
                       prefix="other"
                     />
                   </Col>
