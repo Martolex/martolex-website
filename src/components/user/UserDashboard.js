@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import DashboardHome from "./DashBoardHome";
 import UserOrders from "./Orders/UserOrders";
 import PrivateRoute from "../utils/PrivateRoute";
+import UserBooks from "./UserBooks/UserBooks";
 const UserDashboard = (props) => {
   const { url: currUrl } = props.match;
   return (
@@ -30,6 +31,14 @@ const UserDashboard = (props) => {
                 ORDERS
               </ListGroup.Item>
             </Link>
+            <Link to={`${currUrl}/books`}>
+              <ListGroup.Item
+                active={props.location.pathname.includes("/books")}
+                action
+              >
+                UPLOADED BOOKS
+              </ListGroup.Item>
+            </Link>
             <Link to={`${currUrl}/edit`}>
               <ListGroup.Item
                 active={props.location.pathname.includes("/edit")}
@@ -38,6 +47,7 @@ const UserDashboard = (props) => {
                 PROFILE
               </ListGroup.Item>
             </Link>
+
             <Link to={`/`}>
               <ListGroup.Item
                 action
@@ -58,6 +68,11 @@ const UserDashboard = (props) => {
             <PrivateRoute exact path="/profile/orders">
               <UserOrders />
             </PrivateRoute>
+            {props.isSeller && (
+              <PrivateRoute exact path="/profile/books">
+                <UserBooks />
+              </PrivateRoute>
+            )}
             <Route
               exact
               path="/profile/edit"
@@ -72,4 +87,8 @@ const UserDashboard = (props) => {
 const mapDispatchToProps = (dispatch) => ({
   userLogout: () => dispatch(logout()),
 });
-export default connect(null, mapDispatchToProps)(UserDashboard);
+
+const mapStateToProps = (state) => ({
+  isSeller: state.user.profile.isSeller,
+});
+export default connect(mapStateToProps, mapDispatchToProps)(UserDashboard);

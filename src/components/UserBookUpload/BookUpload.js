@@ -176,6 +176,7 @@ const BookUpload = (props) => {
         author: details.author,
         edition: details.edition,
         publisher: details.publisher,
+        isBuyBackEnabled: details.buyBackEnabled,
         mrp: details.prices.mrp,
         deposit: details.prices.deposit,
         onemonthrent: details.prices.oneMonth,
