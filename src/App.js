@@ -10,6 +10,7 @@ import Start from "./start";
 import { BrowserRouter } from "react-router-dom";
 
 function App({ props }) {
+  console.log(process.env);
   return (
     <BrowserRouter>
       <Provider store={store}>
