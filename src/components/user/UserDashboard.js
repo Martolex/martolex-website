@@ -31,14 +31,16 @@ const UserDashboard = (props) => {
                 ORDERS
               </ListGroup.Item>
             </Link>
-            <Link to={`${currUrl}/books`}>
-              <ListGroup.Item
-                active={props.location.pathname.includes("/books")}
-                action
-              >
-                UPLOADED BOOKS
-              </ListGroup.Item>
-            </Link>
+            {props.isSeller && (
+              <Link to={`${currUrl}/books`}>
+                <ListGroup.Item
+                  active={props.location.pathname.includes("/books")}
+                  action
+                >
+                  UPLOADED BOOKS
+                </ListGroup.Item>
+              </Link>
+            )}
             <Link to={`${currUrl}/edit`}>
               <ListGroup.Item
                 active={props.location.pathname.includes("/edit")}

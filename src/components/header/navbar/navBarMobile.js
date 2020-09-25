@@ -30,10 +30,9 @@ const NavBarMobile = ({ categories, ...props }) => {
         </Row>
         <Row>
           <ListGroup defaultActiveKey="" className="w-100">
-            <ListGroup.Item href="/home" action>
+            <ListGroup.Item href="/" action>
               HOME
             </ListGroup.Item>
-
             <Accordion>
               <Accordion.Toggle as={ListGroup.Item} eventKey="1">
                 BOOKS
@@ -86,11 +85,9 @@ const NavBarMobile = ({ categories, ...props }) => {
                 </ListGroup>
               </Accordion.Collapse>
             </Accordion>
-
             <ListGroup.Item href="/how" action>
               HOW WE WOK
             </ListGroup.Item>
-
             <ListGroup.Item href="/contactUs" action>
               CONTACT US
             </ListGroup.Item>
@@ -100,6 +97,14 @@ const NavBarMobile = ({ categories, ...props }) => {
             <ListGroup.Item href="/notFound" action>
               DIDN'T FIND YOUR BOOK
             </ListGroup.Item>
+            <ListGroup.Item href="/upload-book" action>
+              SELL YOUR BOOK
+            </ListGroup.Item>
+            {props.isLoggedIn && (
+              <ListGroup.Item href="/profile" action>
+                SELL YOUR BOOK
+              </ListGroup.Item>
+            )}{" "}
           </ListGroup>
         </Row>
       </Col>
@@ -109,6 +114,7 @@ const NavBarMobile = ({ categories, ...props }) => {
 
 const mapStateToProps = (state) => ({
   categories: state.categories,
+  isLoggedIn: state.user.auth,
 });
 
 export default connect(mapStateToProps)(NavBarMobile);

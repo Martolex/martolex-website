@@ -11,7 +11,11 @@ const Navbar = (props) => {
   return (
     <div>
       <ul className="navbar">
-        <li>home</li>
+        <li>
+          <Link className="btn-link hover-link" to="/">
+            home
+          </Link>
+        </li>
         <li onClick={togglemenu}>
           {isMenuopen && <SubMenu />}
           Books

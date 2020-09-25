@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import BookCard from "./BookCard";
 import { get } from "../../../utils/requests";
+import Overlay from "../../utils/overLay";
+import OverLayLoader from "../../utils/OverlayLoader";
 import { bookUploadApi } from "../../../utils/endpoints";
 
 const UserBooks = (props) => {
   const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   useEffect(() => {
     async function getData() {
       setLoading(true);
@@ -22,6 +24,11 @@ const UserBooks = (props) => {
   }, []);
   return (
     <Container>
+      {isLoading && (
+        <Overlay style={{ position: "fixed", top: 0, left: 0 }}>
+          <OverLayLoader />
+        </Overlay>
+      )}
       <Row>
         <Col>
           <h2 className="text-dark font-weight-normal pt-4">Your Books</h2>
