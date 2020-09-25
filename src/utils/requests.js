@@ -9,8 +9,8 @@ export const get = (api, isAuthorized = true, params = {}, headers = {}) => {
     if (isAuthorized) {
       allHeaders.Authorization = `bearer ${store.getState().user.token}`;
     }
-
-    const url = api + "?" + querystring.stringify(params);
+    const query = querystring.stringify(params);
+    const url = api + (query.length > 0 ? "?" + query : "");
     const options = {
       method: "GET",
       headers: allHeaders,
