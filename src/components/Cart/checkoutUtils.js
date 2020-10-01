@@ -46,7 +46,10 @@ export const convertDate = (string) => {
 };
 
 export const getOrderTotal = (items = [], deliveryCharges = 0) => {
-  const total = items.reduce((total, item) => total + itemPrice(item), 0);
+  const total = items.reduce(
+    (total, item) => total + item.qty * (item.rent + item.deposit),
+    0
+  );
   return (total + deliveryCharges).toFixed(2);
 };
 

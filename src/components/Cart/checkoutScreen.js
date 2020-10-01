@@ -11,6 +11,7 @@ import AddressCards from "./AddressCards";
 import { post } from "../../utils/requests";
 import { ordersApi } from "../../utils/endpoints";
 import { mapPlanToText } from "../../utils/produtUtils";
+import { plans } from "../../utils/enums";
 
 const CheckoutScreen = ({ cart, user, ...props }) => {
   const [details, setDetails] = React.useState({
@@ -102,6 +103,8 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
         qty: cartItem.qty,
         plan: cartItem.plan,
         bookId: cartItem.BookId,
+        rent: cartItem.book.rent[cartItem.plan],
+        deposit: cartItem.plan !== plans.SELL ? cartItem.book.rent : 0,
       })),
     };
 
