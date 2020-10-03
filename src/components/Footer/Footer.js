@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import "./footer.scss";
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
-
+import { subscribeToNewsLetter } from "../../utils/endpoints";
+import { post } from "../../utils/requests";
 const Footer = (props) => {
+  const [details, setDetails] = useState({ name: "", email: "" });
+  async function subscribe(e) {
+    e.preventDefault();
+    try {
+      const { name, email } = details;
+      let [data] = await post(subscribeToNewsLetter, false, { name, email });
+      alert(data.message);
+    } catch (err) {
+      alert(err);
+    }
+  }
   return (
     <div>
       <Row className="bg-primary text-dark social py-4">
@@ -91,25 +103,37 @@ const Footer = (props) => {
               </p>
             </Row>
 
-            <Form>
+            <Form onSubmit={subscribe}>
               <Row className="my-2">
                 <Form.Control
-                  // className="ml-2"
+                  // value={details.name}
+                  onChange={(event) => {
+                    setDetails({
+                      ...details,
+                      name: event.target.value,
+                    });
+                  }}
                   type="text"
-                  // size="lg"
+                  required
                   placeholder="your Name"
                 />
               </Row>
               <Row>
                 <Form.Control
-                  // className="ml-2"
-                  type="text"
-                  // size="lg"
+                  value={details.email}
+                  onChange={(event) =>
+                    setDetails({
+                      ...details,
+                      email: event.target.value,
+                    })
+                  }
+                  type="email"
+                  required
                   placeholder="your email"
                 />
               </Row>
               <Row className="my-2">
-                <Button variant="primary" block>
+                <Button variant="primary" type="submit" block>
                   SUBSCRIBE
                 </Button>
               </Row>

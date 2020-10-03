@@ -68,3 +68,5 @@ export const getBankFromIFSC = (ifsc) => {
       .catch((err) => reject(err));
   });
 };
+
+export const subscribeToNewsLetter = `${backendApi}newsletter/subscribe`;
