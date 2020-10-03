@@ -116,7 +116,7 @@ const timeRemaining = (newDate) => {
     (new Date(newDate).getTime() - new Date().getTime()) / (1000 * 3600 * 24)
   );
   return dateDiff >= 0 ? (
-    `Return eligible for ${dateDiff} day(s)`
+    `Return closes  ${moment().to(newDate)}`
   ) : (
     <p className="text-danger text-center font-weight-bold">
       return period has expired
