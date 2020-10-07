@@ -104,9 +104,11 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
         plan: cartItem.plan,
         bookId: cartItem.BookId,
         rent: cartItem.book.rent[cartItem.plan],
-        deposit: cartItem.plan !== plans.SELL ? cartItem.book.rent : 0,
+        deposit: cartItem.plan !== plans.SELL ? cartItem.book.rent.deposit : 0,
       })),
     };
+    console.log(params.items);
+    return;
 
     try {
       setOrderLoading(true);
