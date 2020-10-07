@@ -107,8 +107,6 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
         deposit: cartItem.plan !== plans.SELL ? cartItem.book.rent.deposit : 0,
       })),
     };
-    console.log(params.items);
-    return;
 
     try {
       setOrderLoading(true);
