@@ -19,6 +19,7 @@ import BookNotFound from "./components/BookNotFound/BookNotFound";
 import Error404 from "./components/404/Error404";
 import BookUpload from "./components/UserBookUpload/BookUpload";
 import SellerRegistration from "./components/UserBookUpload/SellerRegistration";
+import StaticRouter from "./components/staticPages/StaticRouter";
 
 function Start(props) {
   const [cartToastShow, setCarToastShow] = React.useState(false);
@@ -74,6 +75,9 @@ function Start(props) {
               <ProductSearchResults {...props} isSearch={true} />
             )}
           />
+
+          <Route path="/static" component={StaticRouter} />
+
           <Route path="/books/:bookId" component={ProductDetails} />
           <Route path="/notFound" component={BookNotFound} />
           <Route path="/not-found-error" component={Error404} />

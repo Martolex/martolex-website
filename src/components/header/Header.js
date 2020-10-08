@@ -14,6 +14,7 @@ import Cart from "../Cart/Cart";
 import { connect } from "react-redux";
 import cartStats from "../../utils/cartStats";
 import querystring from "querystring";
+import { Link } from "react-router-dom";
 const Header = (props) => {
   const { width } = useViewportHook();
   const [searchText, setSearchText] = useState("");
@@ -56,7 +57,9 @@ const Header = (props) => {
         )}
       </div>
       <div className="main-header">
-        <img className="logo" src="/logo.png" alt="logo" />
+        <Link to="/">
+          <img className="logo" src="/logo.png" alt="logo" />
+        </Link>
         {desktopRes < width && (
           <div className="search-box">
             <input
@@ -82,10 +85,7 @@ const Header = (props) => {
                   : `Login/register`}
               </p>
             </div>
-            <div className="item">
-              <BsHeart size={20} />
-              <p>WishList</p>
-            </div>
+
             <div
               className="item cart"
               onClick={props.isLoggedIn ? toggleCart : toggleLogin}

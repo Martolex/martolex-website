@@ -49,22 +49,18 @@ const Footer = (props) => {
               <h3 className=" text-light">Information</h3>
             </Row>
             <Row>
-              <a href="/" className="footer-link">
+              <a href="/static/terms_conditions" className="footer-link">
                 Terms and conditions
               </a>
             </Row>
             <Row>
-              <a href="/" className="footer-link">
+              <a href="/static/Privacy_policy" className="footer-link">
                 Privacy Policy
               </a>
             </Row>
+
             <Row>
-              <a href="/" className="footer-link">
-                Returns Policy
-              </a>
-            </Row>
-            <Row>
-              <a href="/" className="footer-link">
+              <a href="/static/Damage_policy" className="footer-link">
                 Damage Policy
               </a>
             </Row>
@@ -86,7 +82,7 @@ const Footer = (props) => {
               </a>
             </Row>
             <Row>
-              <a href="/" className="footer-link">
+              <a href="/static/Rental_policy" className="footer-link">
                 Rental Policy
               </a>
             </Row>

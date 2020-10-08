@@ -2,8 +2,9 @@ import React from "react";
 import "./bottomNavBarMobile.scss";
 import { Container, Col, Row } from "react-bootstrap";
 import { AiOutlineHome, AiOutlineUser } from "react-icons/ai";
-import { FaRegHeart } from "react-icons/fa";
+import { FaBookOpen } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
+import { Link } from "react-router-dom";
 const BottomNavbarMobile = (props) => {
   return (
     <Container fluid className="bottom-navbar">
@@ -13,8 +14,10 @@ const BottomNavbarMobile = (props) => {
           <p>Home</p>
         </Col>
         <Col className="justify-content-center" sm={3} xs={3}>
-          <FaRegHeart size={25} />
-          <p>Wislist</p>
+          <Link className="btn-link text-dark" to="/upload-book">
+            <FaBookOpen size={25} />
+            <p>SELL</p>
+          </Link>
         </Col>
         <Col
           className="justify-content-center"
