@@ -102,7 +102,7 @@ const NavBarMobile = ({ categories, ...props }) => {
             </ListGroup.Item>
             {props.isLoggedIn && (
               <ListGroup.Item href="/profile" action>
-                SELL YOUR BOOK
+                DASHBOARD
               </ListGroup.Item>
             )}{" "}
           </ListGroup>

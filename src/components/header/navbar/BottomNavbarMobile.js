@@ -4,20 +4,29 @@ import { Container, Col, Row } from "react-bootstrap";
 import { AiOutlineHome, AiOutlineUser } from "react-icons/ai";
 import { FaBookOpen } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 const BottomNavbarMobile = (props) => {
+  const history = useHistory();
   return (
     <Container fluid className="bottom-navbar">
       <Row>
-        <Col className="justify-content-center" sm={3} xs={3}>
+        <Col
+          onClick={() => history.push("/")}
+          className="justify-content-center"
+          sm={3}
+          xs={3}
+        >
           <AiOutlineHome size={25} />
           <p>Home</p>
         </Col>
-        <Col className="justify-content-center" sm={3} xs={3}>
-          <Link className="btn-link text-dark" to="/upload-book">
-            <FaBookOpen size={25} />
-            <p>SELL</p>
-          </Link>
+        <Col
+          onClick={() => history.push("/upload-book")}
+          className="justify-content-center"
+          sm={3}
+          xs={3}
+        >
+          <FaBookOpen size={25} />
+          <p>Sell</p>
         </Col>
         <Col
           className="justify-content-center"
