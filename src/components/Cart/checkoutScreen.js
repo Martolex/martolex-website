@@ -88,6 +88,7 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
   const handleCodTransaction = async () => {
     const params = {
       addressId: details.addressId,
+      referralCode : details.referralCode,
       address: {
         name: details.name,
         type: "home",
@@ -400,7 +401,6 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
               </Row>
             ))}
 
-            <hr />
 
             <hr />
             <Row className="">
@@ -409,6 +409,31 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
               </Col>
               <Col className="total" xs={4} md={3}>
                 &#8377; {`${checkoutStats.totalAmount}/-`}
+              </Col>
+            </Row>
+            <hr/>
+            <Row className="">
+              <Col md={4}>
+                <b>REFERAL CODE:</b>
+              </Col>
+              <Col>
+                <Form.Group controlId="referalCode">
+                  <Form.Control
+                    type="text"
+                    pattern="[a-zA-Z0-9]+"
+                    maxLength={6}
+                    value={details.referralCode}
+                    onChange={(event) => {
+                      setDetails({
+                        ...details,
+                        referralCode: event.target.value,
+                      });
+                    }}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Enter valid REFERAL CODE
+                  </Form.Control.Feedback>
+                </Form.Group>
               </Col>
             </Row>
             <hr />
