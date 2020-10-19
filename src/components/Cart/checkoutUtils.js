@@ -1,5 +1,7 @@
 import moment from "moment";
 import { itemPrice } from "../../utils/cartStats";
+import { ordersApi } from "../../utils/endpoints";
+import { get } from "../../utils/requests";
 
 export const mapPlanToText = (plan) => {
   switch (plan) {
@@ -18,7 +20,10 @@ export const mapPlanToText = (plan) => {
   }
 };
 
-export const getDeliveryCost = () => ({ forward: 70, return: 0 });
+export const getDeliveryCost = async () => {
+  const [deliveryCharges] = await get(ordersApi.getDeliveryCharges);
+  return deliveryCharges;
+};
 
 export const getDeliveryDate = () => {
   const minExpected = moment(new Date().getTime() + 5 * 24 * 60 * 60 * 1000);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import "./checkoutScreen.scss";
 import OverLay from "../utils/overLay";
@@ -21,7 +21,18 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
   const [validated, setValidated] = React.useState(false);
   const [orderLoading, setOrderLoading] = React.useState(false);
   const checkoutStats = cartStats(cart);
-  const deliveryCharges = getDeliveryCost();
+  const [deliveryCharges, setDeliveryCharges] = useState({});
+  React.useEffect(() => {
+    (async () => {
+      try {
+        setOrderLoading(true);
+        setDeliveryCharges(await getDeliveryCost(cart));
+        setOrderLoading(false);
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, []);
   const onAddressSelect = (id) => {
     setDetails({ ...details, addressId: id });
   };

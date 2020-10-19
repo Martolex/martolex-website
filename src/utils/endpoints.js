@@ -24,6 +24,7 @@ export const UserAddressesApi = `${userApi}/profile/addresses`;
 export const ordersApi = {
   cod: `${userApi}/order/cod`,
   online: `${userApi}/order/online`,
+  getDeliveryCharges: `${cartApi}/deliveryCharge`,
   orderDetails: (orderId) => `${userApi}/order/${orderId}`,
   getOrders: `${userApi}/order/`,
   getOrderAddress: `${userApi}/order/getDeliveryAddress`,
