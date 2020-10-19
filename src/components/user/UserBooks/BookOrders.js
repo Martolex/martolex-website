@@ -19,6 +19,7 @@ const BookOrders = (props) => {
         );
         const { ordered, ...book } = res;
         setOrders(ordered);
+        setBook(book);
       } catch (err) {
         alert(err);
       }
@@ -29,6 +30,11 @@ const BookOrders = (props) => {
   console.log(orders);
   return (
     <Container className="mx-0 p-0" fluid>
+      <Row className="my-3 mx-1">
+        <Col>
+          <h3>Orders for {book.name}</h3>
+        </Col>
+      </Row>
       <Row className="mx-0">
         <Col className="w-100 p-0">
           <div style={{ border: "1px solid #eee" }}>

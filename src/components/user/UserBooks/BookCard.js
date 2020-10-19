@@ -1,15 +1,29 @@
 import React from "react";
 import "./BookCard.scss";
 import { Row, Col, Image, Button } from "react-bootstrap";
-import { FiShoppingCart } from "react-icons/fi";
-import { FaRegHeart } from "react-icons/fa";
+
 import { buildBookDetailsUrl } from "../../../utils/buildUrl";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { deleteCall } from "../../../utils/requests";
+import { UserBooksApi } from "../../../utils/endpoints";
 
 const BookCard = ({ book }) => {
   const history = useHistory();
   function viewOrders() {
     history.push(`/profile/book/${book.id}/orders`);
+  }
+
+  async function removeBook() {
+    try {
+      const confirm = window.confirm("Are you Sure ?");
+      if (confirm) {
+        const [res] = await deleteCall(UserBooksApi, true, { bookId: book.id });
+        alert(res.message);
+        history.go(0);
+      }
+    } catch (err) {
+      alert(err);
+    }
   }
   return (
     <Row className="book-card">
@@ -56,7 +70,7 @@ const BookCard = ({ book }) => {
           <Button block variant="warning">
             EDIT
           </Button>
-          <Button block variant="danger">
+          <Button onClick={removeBook} block variant="danger">
             REMOVE
           </Button>
         </Row>
