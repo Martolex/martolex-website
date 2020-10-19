@@ -1,4 +1,5 @@
 import { backendApi } from "../config";
+import { get } from "./requests";
 
 export const getCategorytreeApi = backendApi + "categories/tree";
 
@@ -28,6 +29,23 @@ export const ordersApi = {
   getOrderAddress: `${userApi}/order/getDeliveryAddress`,
   returnItem: (itemId) => `${userApi}/order/return/${itemId}`,
   cancelReturn: (itemId) => `${userApi}/order/return/${itemId}/cancelRequest`,
+  multipleOrderDetails: async (orderIds) => {
+    try {
+      var orders = [];
+      if (typeof orderIds == "string") {
+        orders = [orderIds];
+      } else {
+        orders = orderIds;
+      }
+      console.log(orders);
+
+      const promises = orders.map((orderId) =>
+        get(`${userApi}/order/${orderId}`)
+      );
+      const ordersDet = (await Promise.all(promises)).map((order) => order[0]);
+      return ordersDet;
+    } catch (err) {}
+  },
 };
 
 const authApiRoot = backendApi + "auth";
@@ -54,16 +72,12 @@ export const notFoundBookApi = `${backendApi}not-found-books`;
 
 export const getBankFromIFSC = (ifsc) => {
   return new Promise((resolve, reject) => {
-    fetch(`https://api.techm.co.in/api/v1/ifsc/${ifsc.toLowerCase()}`, {
+    fetch(`https://ifsc.razorpay.com/${ifsc.toLowerCase()}`, {
       method: "GET",
     })
       .then((data) => data.json())
       .then((res) => {
-        if (res.status === "success") {
-          resolve(res.data);
-        } else {
-          reject({ invalidCode: true, message: res.message });
-        }
+        resolve(res);
       })
       .catch((err) => reject(err));
   });

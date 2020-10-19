@@ -12,7 +12,7 @@ import { post } from "../../utils/requests";
 import { ordersApi } from "../../utils/endpoints";
 import { mapPlanToText } from "../../utils/produtUtils";
 import { plans } from "../../utils/enums";
-
+import querystring from "querystring";
 const CheckoutScreen = ({ cart, user, ...props }) => {
   const [details, setDetails] = React.useState({
     errors: { termsError: false },
@@ -112,7 +112,9 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
     try {
       setOrderLoading(true);
       const [res] = await post(ordersApi.cod, true, params);
-      window.location.href = `/order/${res.orderId}/confirmation`;
+      window.location.href =
+        `/order/confirmation?` +
+        querystring.stringify({ orders: res.orderIds });
     } catch (err) {
       alert("something went wrong. Please Try again Later");
     }

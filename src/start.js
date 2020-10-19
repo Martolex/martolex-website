@@ -52,7 +52,7 @@ function Start(props) {
           <PrivateRoute path="/profile/">
             <UserDashboard />
           </PrivateRoute>
-          <PrivateRoute path="/order/:orderId/confirmation">
+          <PrivateRoute path="/order/confirmation">
             <OrderConf />
           </PrivateRoute>
           <PrivateRoute exact path="/upload-book">
