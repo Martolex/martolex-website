@@ -4,10 +4,13 @@ import { Row, Col, Image, Button } from "react-bootstrap";
 import { FiShoppingCart } from "react-icons/fi";
 import { FaRegHeart } from "react-icons/fa";
 import { buildBookDetailsUrl } from "../../../utils/buildUrl";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const BookCard = ({ book }) => {
-  console.log(book.isApproved);
+  const history = useHistory();
+  function viewOrders() {
+    history.push(`/profile/book/${book.id}/orders`);
+  }
   return (
     <Row className="book-card">
       <Col md={2} xs={12} className="book-img">
@@ -47,7 +50,9 @@ const BookCard = ({ book }) => {
             VIEW BOOK
           </Button>
 
-          <Button block>VIEW ORDERS</Button>
+          <Button onClick={viewOrders} block>
+            VIEW ORDERS
+          </Button>
           <Button block variant="warning">
             EDIT
           </Button>

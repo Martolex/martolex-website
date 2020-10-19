@@ -84,4 +84,8 @@ export const getBankFromIFSC = (ifsc) => {
   });
 };
 
+
+export const SellerBooksApi = {
+  getOrdersByBook: (bookId) => `${backendApi}seller/orders/book/${bookId}`,
+};
 export const subscribeToNewsLetter = `${backendApi}newsletter/subscribe`;

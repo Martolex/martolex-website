@@ -8,12 +8,13 @@ import DashboardHome from "./DashBoardHome";
 import UserOrders from "./Orders/UserOrders";
 import PrivateRoute from "../utils/PrivateRoute";
 import UserBooks from "./UserBooks/UserBooks";
+import BookOrders from "./UserBooks/BookOrders";
 const UserDashboard = (props) => {
   const { url: currUrl } = props.match;
   return (
     <Container fluid>
       <Row className="px-2">
-        <Col md={3} className="py-2">
+        <Col md={2} className="py-2">
           <ListGroup>
             <Link to={`${currUrl}`}>
               <ListGroup.Item
@@ -62,7 +63,7 @@ const UserDashboard = (props) => {
             </Link>
           </ListGroup>
         </Col>
-        <Col className="mx-2 my-2" style={{ border: "1px solid #eee" }}>
+        <Col className="mx-2 my-2 p-0" style={{ border: "1px solid #eee" }}>
           <Switch>
             <PrivateRoute exact path="/profile/">
               <DashboardHome />
@@ -73,6 +74,11 @@ const UserDashboard = (props) => {
             {props.isSeller && (
               <PrivateRoute exact path="/profile/books">
                 <UserBooks />
+              </PrivateRoute>
+            )}
+            {props.isSeller && (
+              <PrivateRoute path="/profile/book/:BookId/orders">
+                <BookOrders />
               </PrivateRoute>
             )}
             <Route
