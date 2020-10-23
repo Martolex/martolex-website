@@ -1,0 +1,25 @@
+@import "../../assets/styles/breakpoints";
+
+.banner{
+    height: 340px;
+}
+
+.prod-carousel{
+
+    .scrollable-div{
+        overflow-x: hidden;
+        flex-wrap: nowrap;
+        transition: 1s all ease;
+    }
+    .arrows{
+        vertical-align: center;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+@media only screen and (max-width: $breakpoint-desktop) {
+    .banner{
+        height: 200px;
+    }
+}

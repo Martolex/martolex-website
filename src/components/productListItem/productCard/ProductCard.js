@@ -4,7 +4,7 @@ import "./ProductCard.scss";
 import { buildBookDetailsUrl } from "../../../utils/buildUrl";
 import { getMinPlan } from "../../../utils/produtUtils";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, ...props }) => {
   const productPlan = getMinPlan(product);
   const price = product.rent[productPlan];
   const discount = (
@@ -12,7 +12,7 @@ const ProductCard = ({ product }) => {
     100
   ).toFixed(0);
   return (
-    <div className="product">
+    <div className="product" style={props.style}>
       <div className="product-img">
         <img
           alt={`${product.name} cover image}`}
