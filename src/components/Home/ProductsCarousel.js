@@ -6,7 +6,9 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 import ProductCard from "../productListItem/productCard/ProductCard";
-const ProductCarousel = (props) => {
+import { Link } from "react-router-dom";
+import { buildCatUrl } from "../../utils/buildUrl";
+const ProductCarousel = ({ catId, label, ...props }) => {
   const [products, setProducts] = React.useState([]);
   async function getData(api, params) {
     console.log(params);
@@ -19,7 +21,7 @@ const ProductCarousel = (props) => {
     }
   }
   React.useEffect(() => {
-    getData(categorySearchApi(6));
+    getData(categorySearchApi(catId));
   }, []);
 
   return (
@@ -27,7 +29,9 @@ const ProductCarousel = (props) => {
       <Row>
         <Col className="text-center">
           <h2>
-            <u>ENGINEERING BOOKS</u>
+            <Link className="btn-link text-dark" to={buildCatUrl(catId)}>
+              <u>{label.toUpperCase()}</u>
+            </Link>
           </h2>
         </Col>
       </Row>
