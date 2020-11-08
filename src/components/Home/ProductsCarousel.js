@@ -8,30 +8,42 @@ import "react-multi-carousel/lib/styles.css";
 import ProductCard from "../productListItem/productCard/ProductCard";
 import { Link } from "react-router-dom";
 import { buildCatUrl } from "../../utils/buildUrl";
+import ProductCardSkeleton from "../productListItem/productCard/ProductCardSkeleton";
+import Skeleton from "react-loading-skeleton";
 const ProductCarousel = ({ catId, label, ...props }) => {
   const [products, setProducts] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
   async function getData(api, params) {
     console.log(params);
     try {
       const [data] = await get(api, true, params);
       console.log(data);
       setProducts(data.books);
+      setLoading(false);
     } catch (err) {
       console.log(err);
     }
   }
   React.useEffect(() => {
-    getData(categorySearchApi(catId));
-  }, []);
+    if (catId) getData(categorySearchApi(catId));
+  }, [catId]);
 
   return (
     <Container className="prod-carousel my-3" fluid>
       <Row>
         <Col className="text-center">
           <h2>
-            <Link className="btn-link text-dark" to={buildCatUrl(catId)}>
-              <u>{label.toUpperCase()}</u>
-            </Link>
+            {catId ? (
+              <Link className="btn-link text-dark" to={buildCatUrl(catId)}>
+                <u>{label.toUpperCase()}</u>
+              </Link>
+            ) : (
+              <Row>
+                <Col md={{ offset: 4, span: 4 }}>
+                  <Skeleton />
+                </Col>
+              </Row>
+            )}
           </h2>
         </Col>
       </Row>
@@ -92,10 +104,14 @@ const ProductCarousel = ({ catId, label, ...props }) => {
             slidesToSlide={1}
             swipeable
           >
-            {products.length > 0 &&
-              products.map((product) => (
-                <ProductCard product={product} style={{ width: "100%" }} />
-              ))}
+            {!loading
+              ? products.length > 0 &&
+                products.map((product) => (
+                  <ProductCard product={product} style={{ width: "100%" }} />
+                ))
+              : [...Array(10).keys()].map((item) => (
+                  <ProductCardSkeleton style={{ width: "100%" }} />
+                ))}
           </Carousel>
         </Col>
       </Row>
