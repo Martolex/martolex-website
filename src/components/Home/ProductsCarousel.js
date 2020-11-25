@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { categorySearchApi } from "../../utils/endpoints";
 import { get } from "../../utils/requests";
 import Carousel from "react-multi-carousel";
@@ -109,7 +109,7 @@ const ProductCarousel = ({ catId, label, ...props }) => {
                 products.map((product) => (
                   <ProductCard product={product} style={{ width: "100%" }} />
                 ))
-              : [...Array(10).keys()].map((item) => (
+              : [...Array(4).keys()].map((item) => (
                   <ProductCardSkeleton style={{ width: "100%" }} />
                 ))}
           </Carousel>
