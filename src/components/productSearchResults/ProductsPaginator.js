@@ -71,10 +71,10 @@ const ProductsPaginator = ({
     getData(api);
   }, [catId, subCatId, isSearch, queryString]);
   return (
-    <Col md={9} className="px-4">
-      <Row className="w-100 mb-4 pagination-selector">
+    <Col md={9} className="px-md-4">
+      <Row className="mx-0 mb-4 pagination-selector">
         {desktopRes < width && (
-          <Col md={1} className="text-dark">
+          <Col md={2} className="text-dark">
             <BsGrid3X3GapFill
               className="mr-1 buttons "
               size={20}
@@ -83,27 +83,27 @@ const ProductsPaginator = ({
               }}
             />
             <BsList
-              className="mr-1 buttons"
-              size={25}
+              className="mr-1 buttons btn-list"
+              size={26}
               onClick={() => {
                 setDisplayType("row");
               }}
             />
           </Col>
         )}
-        <Col md={11} className="pagination-header">
-          Showing page {pageNum}
+        <Col md={10} className="text-white">
+          ---
         </Col>
+        <Col className="pagination-header">Showing page {pageNum}</Col>
       </Row>
-      {isLoading && <OverlayLoader />}
       <ProductListing
         isLoading={isLoading}
         products={products}
         displayType={displayType}
       />
-      <Row className="pagination justify-content-center mt-3 p-0">
-        <Col md={3} className="p-0 m-0">
-          <Row className="p-0 m-0">
+      <Row className="pagination justify-content-center mt-3 mx-1 p-0">
+        <Col md={3} className="p-md-0 m-0">
+          <Row className="p-md-0 m-0">
             <Col onClick={prevPage} className="button">
               <BsChevronLeft size={20} />
             </Col>

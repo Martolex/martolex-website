@@ -22,7 +22,7 @@ const ProductCard = ({ product, ...props }) => {
       <Col md={2} className="product-img">
         <Image src={product.images[0]?.url || "/book1.png"} />
       </Col>
-      <Col className="pt-1 pl-2" md={7}>
+      <Col className="pt-1 pl-2 prod-details" md={7}>
         <a href={buildBookDetailsUrl(product.id)} className="prod-name">
           {product.name}
         </a>
@@ -32,14 +32,14 @@ const ProductCard = ({ product, ...props }) => {
         <p className="prod-publisher">
           <b>Publisher:</b> {product.publisher}
         </p>
-        <p className="prod-description">
+        {/* <p className="prod-description">
           <b style={{ fontSize: "1.1em" }}>description:</b>{" "}
           {product.description
             ? product.description.length > 200
               ? product.description.substring(0, 200) + "..."
               : product.description
             : "Not Available"}
-        </p>
+        </p> */}
 
         {product.isBuyBackEnabled ? (
           <p className="prod-publisher text-success">Buyback available</p>
