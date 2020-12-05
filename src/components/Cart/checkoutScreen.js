@@ -80,26 +80,10 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
       errors: { ...details.errors, addressError: false },
     });
 
-  const handleTransaction = (details) => {
-    switch (details.type) {
-      case "online":
-        handleOnlineTransaction();
-        break;
-      case "COD":
-        handleCodTransaction();
-        break;
-      default:
-        Alert("something went wrong");
-    }
-  };
-
-  const handleOnlineTransaction = () => {
-    console.log("online");
-  };
-  const handleCodTransaction = async () => {
+  const handleTransaction = async (details) => {
     const params = {
       addressId: details.addressId,
-      referralCode : details.referralCode,
+      referralCode: details.referralCode,
       address: {
         name: details.name,
         type: "home",
@@ -122,10 +106,9 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
 
     try {
       setOrderLoading(true);
-      const [res] = await post(ordersApi.cod, true, params);
-      window.location.href =
-        `/order/confirmation?` +
-        querystring.stringify({ orders: res.orderIds });
+      const [res] = await post(ordersApi.create, true, params);
+      console.log(res);
+      window.location.href = res.paymentLink;
     } catch (err) {
       alert("something went wrong. Please Try again Later");
     }
@@ -414,7 +397,6 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
               </Row>
             ))}
 
-
             <hr />
             <Row className="">
               <Col xs={8} md={9}>
@@ -424,7 +406,7 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
                 &#8377; {`${checkoutStats.totalAmount}/-`}
               </Col>
             </Row>
-            <hr/>
+            <hr />
             <Row className="">
               <Col md={4}>
                 <b>REFERAL CODE:</b>
@@ -575,23 +557,8 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
                   block
                   className="btn-ripple"
                   size="lg"
-                  onClick={() => setDetails({ ...details, type: "online" })}
                 >
-                  SECURE ONLINE PAYMENT
-                </Button>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Button
-                  variant="primary"
-                  type="submit"
-                  className="btn-ripple"
-                  onClick={() => setDetails({ ...details, type: "COD" })}
-                  block
-                  size="lg"
-                >
-                  CASH ON DELIVERY
+                  PAY NOW
                 </Button>
               </Col>
             </Row>

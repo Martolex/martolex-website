@@ -22,8 +22,7 @@ export const updateCartQuantityApi = `${cartApi}/modifyQty`;
 export const UserAddressesApi = `${userApi}/profile/addresses`;
 
 export const ordersApi = {
-  cod: `${userApi}/order/cod`,
-  online: `${userApi}/order/online`,
+  create: `${userApi}/order/create`,
   getDeliveryCharges: `${cartApi}/deliveryCharge`,
   orderDetails: (orderId) => `${userApi}/order/${orderId}`,
   getOrders: `${userApi}/order/`,
@@ -85,7 +84,6 @@ export const getBankFromIFSC = (ifsc) => {
       .catch((err) => reject(err));
   });
 };
-
 
 export const SellerBooksApi = {
   getOrdersByBook: (bookId) => `${backendApi}seller/orders/book/${bookId}`,
