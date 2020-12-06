@@ -90,6 +90,14 @@ const Login = (props) => {
             </Button>
           </Col>
         </Row>
+
+        <Row>
+          <Col className="text-right" xs={12}>
+            <Link onClick={props.closeLogin} to="/forgot-password">
+              forgot password?
+            </Link>
+          </Col>
+        </Row>
         <Row className="mt-2 text-center">
           <Col xs={12}>Do not have a account yet?</Col>
           <Col xs={12}>
