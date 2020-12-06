@@ -4,6 +4,7 @@ import { get } from "./requests";
 export const getCategorytreeApi = backendApi + "categories/tree";
 
 export const loginApi = backendApi + "auth/signIn";
+
 export const categorySearchApi = (catId) =>
   backendApi + `books/cat/${catId}?limit=12`;
 export const subCategorySearchApi = (catId, subCatId) =>
@@ -55,6 +56,11 @@ export const authApi = {
   root: authApiRoot,
   login: `${authApiRoot}/login`,
   signUp: `${authApiRoot}/signUp`,
+  forgotPassword: {
+    sendRequest: `${authApiRoot}/forgot-password`,
+    verifyRequest: `${authApiRoot}/forgot-password/verify-token`,
+    resetPassword: `${authApiRoot}/forgot-password/reset-password`,
+  },
 };
 
 export const UserBooksApi = `${userApi}/books/`;
@@ -85,7 +91,6 @@ export const getBankFromIFSC = (ifsc) => {
       .catch((err) => reject(err));
   });
 };
-
 
 export const SellerBooksApi = {
   getOrdersByBook: (bookId) => `${backendApi}seller/orders/book/${bookId}`,
