@@ -21,6 +21,7 @@ import BookUpload from "./components/UserBookUpload/BookUpload";
 import SellerRegistration from "./components/UserBookUpload/SellerRegistration";
 import StaticRouter from "./components/staticPages/StaticRouter";
 import ForgotPassword from "./components/auth/ForgotPassword";
+import PasswordReset from "./components/auth/PasswordReset";
 
 function Start(props) {
   const [cartToastShow, setCarToastShow] = React.useState(false);
@@ -47,6 +48,7 @@ function Start(props) {
           <Route exact path="/" component={Home} />
           <Route exact path="/signUp" component={SignUp} />
           <Route exact path="/forgot-password" component={ForgotPassword} />
+          <Route path="/password-reset/:token" component={PasswordReset} />
           <Route exact path="/details" component={productDetails} />
           <PrivateRoute exact path="/checkout">
             <CheckoutScreen />
