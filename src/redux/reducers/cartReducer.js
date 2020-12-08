@@ -1,3 +1,5 @@
+import { EMPTY_CART } from "../actions/CartActions";
+
 const initialState = { loading: false, items: [], hydrated: false };
 
 const updateItem = (items, bookId, qty) => {
@@ -42,6 +44,8 @@ const cartReducer = (state = initialState, action) => {
       };
     case "REMOVE_FROM_CART":
       return { ...state, items: [...removeItem(action.payload, state.items)] };
+    case EMPTY_CART:
+      return { ...state, items: [] };
     default:
       return state;
   }

@@ -1,6 +1,7 @@
 import { post } from "../../utils/requests";
 import { loginApi } from "../../utils/endpoints";
 import { startLoading, finishLoading } from "./LoadingActions";
+import { emptyCart } from "./CartActions";
 
 export const LOGIN = "LOGIN";
 export const LOGIN_FAILED = "LOGIN_FAILED";
@@ -30,5 +31,9 @@ export const loginUser = (email, password) => async (dispatch) => {
     dispatch(invalidLogin(err));
   }
 };
+const deleteToken = () => ({ type: LOGOUT });
 
-export const logout = () => ({ type: LOGOUT });
+export const logout = () => async (dispatch) => {
+  dispatch(deleteToken());
+  dispatch(emptyCart());
+};

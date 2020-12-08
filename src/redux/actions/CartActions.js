@@ -5,6 +5,7 @@ export const SYNC_CART = "SYNC_CART";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const UPDATE_QUANTITY = "UPDATE_QUANTITY";
+export const EMPTY_CART = "EMPTY_CART";
 const syncCart = (items) => ({ type: SYNC_CART, payload: items });
 const add = (item) => ({ type: ADD_TO_CART, payload: item });
 const remove = (bookId) => ({ type: REMOVE_FROM_CART, payload: bookId });
@@ -59,3 +60,5 @@ export const removeFromCart = (bookId) => async (dispatch) => {
     dispatch(finishLoading("cart"));
   } catch (err) {}
 };
+
+export const emptyCart = () => ({ type: EMPTY_CART });
