@@ -3,6 +3,7 @@ import "./productListing.scss";
 import ProductCard from "../productListItem/productCard/ProductCard";
 import ProductRow from "../productListItem/ProductListItem/ProductListItem";
 import ProductCardSkeleton from "../productListItem/productCard/ProductCardSkeleton";
+import NoProducts from "./NoProducts";
 const ProductListing = ({ displayType, products, isLoading, ...props }) => {
   // const Product = (props) => {
   //   return displayType == "grid" ? <ProductCard /> : <ProductRow />;
@@ -18,7 +19,7 @@ const ProductListing = ({ displayType, products, isLoading, ...props }) => {
         )
       )
     ) : (
-      <h1 style={{ textAlign: "center" }}>No more products</h1>
+      <NoProducts />
     );
 
   const cardPlaceHolders = [...Array(6).keys()].map(() => (
