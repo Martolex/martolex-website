@@ -52,10 +52,15 @@ export const convertDate = (string) => {
 
 export const getOrderTotal = (items = [], deliveryCharges = 0) => {
   const total = items.reduce(
-    (total, item) => total + item.qty * (item.rent + item.deposit),
+    (total, item) => total + item.qty * item.deposit,
     0
   );
   return (total + deliveryCharges).toFixed(2);
+};
+
+export const getRefundAmount = (rent, deposit) => {
+  console.log(rent);
+  return deposit - rent;
 };
 
 export const formatDeliveryDate = (start, end) =>

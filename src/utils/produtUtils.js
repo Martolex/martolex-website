@@ -16,6 +16,16 @@ export const getMinPlan = ({ rent, isBuyBackEnabled }) => {
   }
 };
 
+export const getProductPrice = (plan, rent, isBuyBackEnabled) => {
+  return isBuyBackEnabled && plan.plan !== plans.SELL
+    ? rent.deposit
+    : plan.rent;
+};
+
+export const getRefundAmount = (rent, plan) => {
+  return rent.deposit - plan.rent;
+};
+
 export const mapPlanToText = (plan) => {
   switch (plan) {
     case "oneMonth":

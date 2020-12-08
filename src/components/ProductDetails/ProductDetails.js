@@ -24,7 +24,11 @@ import { connect } from "react-redux";
 import checkItemInCart from "../../utils/checkItemInCart";
 import { addToCart } from "../../redux/actions/CartActions";
 import { plans } from "../../utils/enums";
-import { getMinPlan } from "../../utils/produtUtils";
+import {
+  getMinPlan,
+  getProductPrice,
+  getRefundAmount,
+} from "../../utils/produtUtils";
 import ReviewList from "./ReviewList";
 
 const ProductDetails = (props) => {
@@ -177,15 +181,13 @@ const ProductDetails = (props) => {
           <p className="amount">
             Amount You Pay Now:{" "}
             <span>
-              ₹{" "}
-              {product.isBuyBackEnabled && plan.plan !== plans.SELL
-                ? plan.rent + product.rent.deposit
-                : plan.rent}
+              ₹ {getProductPrice(plan, product.rent, product.isBuyBackEnabled)}
             </span>
           </p>
           {product.isBuyBackEnabled && plan.plan !== plans.SELL && (
             <p className="amount">
-              Amount refunded on return : <span>₹{product.rent.deposit}</span>
+              Amount refunded on return :{" "}
+              <span>₹{getRefundAmount(product.rent, plan)}</span>
             </p>
           )}
           <p className="amount">
@@ -195,7 +197,12 @@ const ProductDetails = (props) => {
             Your Savings:
             <span>
               {(
-                ((product.rent.mrp - plan.rent) / product.rent.mrp) *
+                (getRefundAmount(product.rent, plan) /
+                  getProductPrice(
+                    plan,
+                    product.rent,
+                    product.isBuyBackEnabled
+                  )) *
                 100
               ).toFixed(0)}
               %

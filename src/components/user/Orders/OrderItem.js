@@ -6,6 +6,7 @@ import { plans, returnStates, returnStateSetters } from "../../../utils/enums";
 import moment from "moment";
 import { post } from "../../../utils/requests";
 import { ordersApi } from "../../../utils/endpoints";
+import { getRefundAmount } from "../../Cart/checkoutUtils";
 const OrderItem = ({ item, ...props }) => {
   const returnStatus = returnStates[item.isReturned];
 
@@ -42,13 +43,13 @@ const OrderItem = ({ item, ...props }) => {
                 <b>Plan :</b> {mapPlanToText(item.plan)}
               </p>
               <p className="m-0">
-                <b>Amount paid : </b>₹ {(item.deposit + item.rent).toFixed(2)}
+                <b>Amount paid : </b>₹ {item.deposit.toFixed(2)}
               </p>
               <p className="m-0">
                 <b>Refundable amount: </b>
                 {item.plan === plans.SELL
                   ? "N.A."
-                  : `₹${item.deposit.toFixed(2)}`}
+                  : `₹${getRefundAmount(item.rent, item.deposit).toFixed(2)}`}
               </p>
               <p className="m-0">
                 <b>Return By : </b>
