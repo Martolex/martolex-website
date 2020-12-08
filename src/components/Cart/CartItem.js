@@ -28,12 +28,12 @@ const CartItem = ({ item, ...props }) => {
         <p className="mt-0">
           {item.qty} x
           <span className="text-primary cost">
-            Rs. {itemPrice(item)}
+            Rs. {item.price}
             /-
           </span>
         </p>
         <p>Plan: {mapPlanToText(item.plan)}</p>
-        <p>Rent: Rs.{item.book.rent[item.plan]}/-</p>
+        <p>Rent: Rs.{item.rent}/-</p>
         <Row className="buttons-div">
           <Col className="m-0 p-0 button" xs={8}>
             <QuantityChooser
