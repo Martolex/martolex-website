@@ -8,7 +8,6 @@ import {
   removeFromCart,
 } from "../../redux/actions/CartActions";
 import { connect } from "react-redux";
-import { itemPrice } from "../../utils/cartStats";
 import { mapPlanToText } from "../../utils/produtUtils";
 
 const CartItem = ({ item, ...props }) => {

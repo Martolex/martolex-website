@@ -1,7 +1,6 @@
 import React from "react";
 import { Image, Col, Row, Button } from "react-bootstrap";
 import { mapPlanToText } from "../../../utils/produtUtils";
-import { itemPrice } from "../../../utils/cartStats";
 import { plans, returnStates, returnStateSetters } from "../../../utils/enums";
 import moment from "moment";
 import { post } from "../../../utils/requests";

@@ -98,9 +98,9 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
       items: cart.map((cartItem) => ({
         qty: cartItem.qty,
         plan: cartItem.plan,
-        bookId: cartItem.BookId,
-        rent: cartItem.book.rent[cartItem.plan],
-        deposit: cartItem.plan !== plans.SELL ? cartItem.book.rent.deposit : 0,
+        bookId: cartItem.bookId,
+        rent: cartItem.rent,
+        deposit: cartItem.plan !== plans.SELL ? cartItem.price : 0,
       })),
     };
 
@@ -388,11 +388,11 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
                   </p>
                   <p className="text-primary">{`[ ${mapPlanToText(
                     cartItem.plan
-                  )} = ₹ ${cartItem.book.rent[cartItem.plan]}]`}</p>
+                  )} = ₹ ${cartItem.rent}]`}</p>
                 </Col>
                 <Col className="total" xs={3} md={3}>
                   &#8377;
-                  {` ${itemPrice(cartItem)}/-`}
+                  {` ${cartItem.price}/-`}
                 </Col>
               </Row>
             ))}

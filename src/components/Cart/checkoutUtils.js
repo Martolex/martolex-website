@@ -1,5 +1,4 @@
 import moment from "moment";
-import { itemPrice } from "../../utils/cartStats";
 import { ordersApi } from "../../utils/endpoints";
 import { get } from "../../utils/requests";
 

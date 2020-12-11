@@ -16,10 +16,7 @@ const cartStats = (cart = []) => {
 };
 
 export const itemPrice = (item) => {
-  const total =
-    item.plan === plans.SELL
-      ? item.book.rent[item.plan]
-      : item.book.rent.deposit;
+  const total = item.plan === plans.SELL ? item.price : item.book.rent.deposit;
   return total;
 };
 export default cartStats;
