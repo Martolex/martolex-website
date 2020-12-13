@@ -22,6 +22,7 @@ import SellerRegistration from "./components/UserBookUpload/SellerRegistration";
 import StaticRouter from "./components/staticPages/StaticRouter";
 import ForgotPassword from "./components/auth/ForgotPassword";
 import PasswordReset from "./components/auth/PasswordReset";
+import OrderFailure from "./components/Cart/OrderFailure";
 
 function Start(props) {
   const [cartToastShow, setCarToastShow] = React.useState(false);
@@ -47,6 +48,7 @@ function Start(props) {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/signUp" component={SignUp} />
+          <Route exact path="/order/failure" component={OrderFailure} />
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route path="/password-reset/:token" component={PasswordReset} />
           <Route exact path="/details" component={productDetails} />
