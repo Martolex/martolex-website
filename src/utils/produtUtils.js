@@ -39,7 +39,7 @@ export const mapPlanToText = (plan) => {
     case "twelveMonth":
       return "12 Month Plan";
     case plans.SELL:
-      return "Sell";
+      return "BUY";
     default:
       return "custom plan";
   }

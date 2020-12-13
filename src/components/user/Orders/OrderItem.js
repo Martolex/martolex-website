@@ -42,7 +42,8 @@ const OrderItem = ({ item, ...props }) => {
             <b>Plan :</b> {mapPlanToText(item.plan)}
           </p>
           <p className="m-0">
-            <b>Amount paid : </b>₹ {item.deposit.toFixed(2)}
+            <b>Amount paid : </b>₹{" "}
+            {(item.plan !== plans.SELL ? item.deposit : item.rent).toFixed(2)}
           </p>
           <p className="m-0">
             <b>Refundable amount: </b>
