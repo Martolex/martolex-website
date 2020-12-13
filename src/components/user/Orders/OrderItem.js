@@ -24,103 +24,64 @@ const OrderItem = ({ item, ...props }) => {
     }
   }
   return (
-    <div>
+    <Col md={6} sm={12} className="my-2">
       <Row>
-        <Col className="text-center" md={2}>
+        <Col className="text-center" md={4}>
           <Image
             src={item.book.images[0]?.url || `/book1.png`}
             className="book-img"
           />
         </Col>
-        <Col style={{ height: "100%" }} md={10}>
-          <Row style={{ height: "100%" }}>
-            <Col md={8}>
-              <p className="mb-3">
-                <b>{item.book.name}</b>
-              </p>
-              <p className="m-0">
-                <b>Plan :</b> {mapPlanToText(item.plan)}
-              </p>
-              <p className="m-0">
-                <b>Amount paid : </b>₹ {item.deposit.toFixed(2)}
-              </p>
-              <p className="m-0">
-                <b>Refundable amount: </b>
-                {item.plan === plans.SELL
-                  ? "N.A."
-                  : `₹${getRefundAmount(item.rent, item.deposit).toFixed(2)}`}
-              </p>
-              <p className="m-0">
-                <b>Return By : </b>
-                {item.plan === plans.SELL
-                  ? "N.A"
-                  : moment(item.returnDate).format("DD-MM-YYYY")}
-              </p>
-              <p className="m-0">
-                <b>Return status : </b>
-                {
-                  <span
-                    className={`font-weight-bold text-${returnStatus.color}`}
-                  >
-                    {returnStatus.message}
-                  </span>
-                }
-              </p>
-            </Col>
-            <Col md={4} className="mt-auto mb-auto h-100">
-              <Button className="mt-4" block>
-                TRACK ORDER
-              </Button>
-              <Button className="" block>
-                DOWNLOAD INVOICE
-              </Button>
-              {item.isReturned === returnStateSetters.NOT_RETURNED && (
-                <Button
-                  onClick={() => props.returnBook(item.id)}
-                  disabled={new Date(item.returnDate).getTime() < Date.now()}
-                  className=""
-                  block
-                >
-                  RETURN
-                </Button>
-              )}
-              {item.isReturned === returnStateSetters.RETURN_REQUESTED && (
-                <Button
-                  variant="danger"
-                  onClick={cancelReturn}
-                  className=""
-                  block
-                >
-                  CANCEL RETURN
-                </Button>
-              )}
-              {item.isReturned === returnStateSetters.NOT_RETURNED && (
-                <p
-                  style={{ fontSize: "14px" }}
-                  className="text-danger text-muted m-0 text-right"
-                >
-                  {timeRemaining(item.returnDate)}
-                </p>
-              )}
-            </Col>
-          </Row>
+        <Col style={{ height: "100%" }} md={8}>
+          {/* <Row style={{ height: "100%" }}>
+            <Col md={8}> */}
+          <p style={{ fontSize: "1.2em" }} className="mb-2 text-truncate">
+            {item.book.name}
+          </p>
+          <p className="m-0">
+            <b>Plan :</b> {mapPlanToText(item.plan)}
+          </p>
+          <p className="m-0">
+            <b>Amount paid : </b>₹ {item.deposit.toFixed(2)}
+          </p>
+          <p className="m-0">
+            <b>Refundable amount: </b>
+            {item.plan === plans.SELL
+              ? "N.A."
+              : `₹${getRefundAmount(item.rent, item.deposit).toFixed(2)}`}
+          </p>
+          <p className="m-0">
+            <b>Return By : </b>
+            {item.plan === plans.SELL
+              ? "N.A"
+              : moment(item.returnDate).format("DD-MM-YYYY")}
+          </p>
+          <p className="m-0">
+            <b>Return status : </b>
+            {
+              <span className={`font-weight-bold text-${returnStatus.color}`}>
+                {returnStatus.message}
+              </span>
+            }
+          </p>
+          {item.isReturned === returnStateSetters.NOT_RETURNED && (
+            <Button
+              onClick={() => props.returnBook(item.id)}
+              disabled={new Date(item.returnDate).getTime() < Date.now()}
+              className=""
+              block
+            >
+              RETURN
+            </Button>
+          )}
+          {item.isReturned === returnStateSetters.RETURN_REQUESTED && (
+            <Button variant="danger" onClick={cancelReturn} className="" block>
+              CANCEL RETURN
+            </Button>
+          )}
         </Col>
       </Row>
-      <hr />
-    </div>
-  );
-};
-
-const timeRemaining = (newDate) => {
-  const dateDiff = Math.round(
-    (new Date(newDate).getTime() - new Date().getTime()) / (1000 * 3600 * 24)
-  );
-  return dateDiff >= 0 ? (
-    `Return closes  ${moment().to(newDate)}`
-  ) : (
-    <p className="text-danger text-center font-weight-bold">
-      return period has expired
-    </p>
+    </Col>
   );
 };
 

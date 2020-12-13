@@ -14,6 +14,21 @@ export const returnStateSetters = {
   NOT_ELIGIBLE: -1,
 };
 
+export const paymentStatus = {
+  PENDING: "PENDING",
+  PAID: "PAID",
+  FAILED: "FAILED",
+};
+
+export const orderStatus = {
+  PROCESSING: "PROCESSING",
+  SHIPPED: "SHIPPED",
+  INTRANSIT: "INTRANSIT",
+  DELIVERED: "DELIVERED",
+};
+
+export const paymentMethods = { COD: "COD", CASHFREE: "CASHFREE" };
+
 export const returnStates = {
   0: { message: "not returned", color: "dark" },
   1: { message: "Return Requested", color: "warning" },

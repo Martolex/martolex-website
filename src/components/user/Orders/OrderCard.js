@@ -1,30 +1,41 @@
 import React from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import moment from "moment";
 import { getOrderTotal } from "../../Cart/checkoutUtils";
+import {
+  orderStatus,
+  paymentMethods,
+  paymentStatus,
+} from "../../../utils/enums";
 import OrderItem from "./OrderItem";
+import "./orderCard.scss";
+const isPaymentSuccessful = (order) =>
+  (order.paymentMode === paymentMethods.CASHFREE &&
+    order.paymentStatus === paymentStatus.PAID) ||
+  order.paymentMode === paymentMethods.COD;
 const OrderCard = ({ order, ...props }) => {
+  console.log(order);
   return (
     <Card className=" mx-0 my-3">
       <Card.Header className="">
         <Row>
-          <Col md={3}>
+          <Col md={2}>
             <p className="m-0">
               <b>Order #</b> :
             </p>
-            <p className="m-0">{order.id.substring(0, 23).toUpperCase()}</p>
+            <p className="m-0">{order.id.substring(0, 13).toUpperCase()}</p>
           </Col>
-          <Col md={3}>
+          <Col md={2} xs={6}>
             <p className="m-0">
               <b>Order Date : </b>
             </p>
             <p className="m-0">
-              {moment(order.createdAt).format("Do MMMM, YYYY")}
+              {moment(order.createdAt).format("Do MMM, YYYY")}
             </p>
           </Col>
-          <Col md={3}>
+          <Col md={2} xs={6}>
             <p className="m-0">
-              <b>Delivery Date: </b> :
+              <b>Delivery Date:</b>
             </p>
             <p className="m-0">
               {order.actualDeliveryDate ? (
@@ -34,7 +45,7 @@ const OrderCard = ({ order, ...props }) => {
               )}
             </p>
           </Col>
-          <Col md={3}>
+          <Col md={2} xs={6}>
             <p className="m-0">
               <b>Grand Total: </b>
             </p>
@@ -42,17 +53,40 @@ const OrderCard = ({ order, ...props }) => {
               ₹{getOrderTotal(order.items, order.deliveryAmount)}
             </p>
           </Col>
+          <Col md={2} xs={6}>
+            <p className="m-0">
+              <b>Order Status</b>
+            </p>
+            <p className="m-0">{order.orderStatus}</p>
+          </Col>
         </Row>
       </Card.Header>
       <Card.Body>
-        {order.items.map((item) => (
-          <OrderItem
-            key={item.id}
-            item={item}
-            refreshOrders={props.refreshOrders}
-            returnBook={(itemId) => props.returnBook(itemId)}
-          />
-        ))}
+        <Row className="mb-2">
+          <Col className="mb-2" md={3}>
+            <Button block>Track Order</Button>
+          </Col>
+          <Col className="mb-2" md={3}>
+            <Button block>Download Invoice</Button>
+          </Col>
+          {order.orderStatus === orderStatus.PROCESSING && (
+            <Col className="mb-2" md={3}>
+              <Button variant="danger" block>
+                Cancel Order
+              </Button>
+            </Col>
+          )}
+        </Row>
+        <Row>
+          {order.items.map((item) => (
+            <OrderItem
+              key={item.id}
+              item={item}
+              refreshOrders={props.refreshOrders}
+              returnBook={(itemId) => props.returnBook(itemId)}
+            />
+          ))}
+        </Row>
       </Card.Body>
     </Card>
   );

@@ -58,7 +58,6 @@ export const getOrderTotal = (items = [], deliveryCharges = 0) => {
 };
 
 export const getRefundAmount = (rent, deposit) => {
-  console.log(rent);
   return deposit - rent;
 };
 
