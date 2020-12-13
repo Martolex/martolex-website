@@ -10,7 +10,7 @@ jobs:
     
     strategy:
       matrix:
-        node-version: [10.x, 12.x]
+        node-version: [12.x]
         
     steps:
     - uses: actions/checkout@v1
@@ -21,9 +21,11 @@ jobs:
     - name: Yarn Install
       run: |
         yarn install
-    - name: Production Build
+    - name: Test Build
       run: |
         yarn build
+      env:
+        CI: false
     - name: Deploy to S3
       uses: jakejarvis/s3-sync-action@master
       with:
