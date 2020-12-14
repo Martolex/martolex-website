@@ -9,12 +9,13 @@ import {
 } from "../../../utils/enums";
 import OrderItem from "./OrderItem";
 import "./orderCard.scss";
+import RetryPayment from "./RetryPayment";
 const isPaymentSuccessful = (order) =>
   (order.paymentMode === paymentMethods.CASHFREE &&
     order.paymentStatus === paymentStatus.PAID) ||
   order.paymentMode === paymentMethods.COD;
 const OrderCard = ({ order, ...props }) => {
-  console.log(order);
+  const orderPaid = isPaymentSuccessful(order);
   return (
     <Card className=" mx-0 my-3">
       <Card.Header className="">
@@ -69,6 +70,11 @@ const OrderCard = ({ order, ...props }) => {
           <Col className="mb-2" md={3}>
             <Button block>Download Invoice</Button>
           </Col>
+          {!orderPaid && (
+            <Col className="mb-2" md={3}>
+              {<RetryPayment block orderId={order.id} />}
+            </Col>
+          )}
           {order.orderStatus === orderStatus.PROCESSING && (
             <Col className="mb-2" md={3}>
               <Button variant="danger" block>
