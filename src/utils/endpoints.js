@@ -27,6 +27,7 @@ export const ordersApi = {
   getDeliveryCharges: `${cartApi}/deliveryCharge`,
   orderDetails: (orderId) => `${userApi}/order/${orderId}`,
   getOrders: `${userApi}/order/`,
+  retryPayment: `${userApi}/order/retryPayment`,
   getOrderAddress: `${userApi}/order/getDeliveryAddress`,
   returnItem: (itemId) => `${userApi}/order/return/${itemId}`,
   cancelReturn: (itemId) => `${userApi}/order/return/${itemId}/cancelRequest`,
