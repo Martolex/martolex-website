@@ -9,8 +9,24 @@ import UserOrders from "./Orders/UserOrders";
 import PrivateRoute from "../utils/PrivateRoute";
 import UserBooks from "./UserBooks/UserBooks";
 import BookOrders from "./UserBooks/BookOrders";
+import { useGoogleLogout } from "react-google-login";
+import { GOOGLE_CLIENT_ID } from "../../config";
 const UserDashboard = (props) => {
   const { url: currUrl } = props.match;
+  const googleLogout = useGoogleLogout({
+    clientId: GOOGLE_CLIENT_ID,
+    onLogoutSuccess: () => {
+      props.userLogout();
+    },
+    onFailure: () => console.log("could not logout"),
+  });
+  const logoutUser = () => {
+    if (props.type === "GOOGLE") {
+      googleLogout.signOut();
+    } else {
+      props.userLogout();
+    }
+  };
   return (
     <Container fluid>
       <Row className="px-2">
@@ -52,12 +68,7 @@ const UserDashboard = (props) => {
             </Link>
 
             <Link to={`/`}>
-              <ListGroup.Item
-                action
-                onClick={() => {
-                  props.userLogout();
-                }}
-              >
+              <ListGroup.Item action onClick={logoutUser}>
                 LOGOUT
               </ListGroup.Item>
             </Link>
@@ -98,5 +109,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   isSeller: state.user.profile.isSeller,
+  type: state.user.type,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(UserDashboard);
