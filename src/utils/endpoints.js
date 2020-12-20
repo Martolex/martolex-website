@@ -54,8 +54,9 @@ const authApiRoot = backendApi + "auth";
 
 export const authApi = {
   root: authApiRoot,
-  login: `${authApiRoot}/login`,
+  login: `${authApiRoot}/signIn`,
   signUp: `${authApiRoot}/signUp`,
+  googleLogin: `${authApiRoot}/googleSignIn`,
   forgotPassword: {
     sendRequest: `${authApiRoot}/forgot-password`,
     verifyRequest: `${authApiRoot}/forgot-password/verify-token`,

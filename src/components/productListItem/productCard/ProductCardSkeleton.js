@@ -1,6 +1,5 @@
 import React from "react";
 import Skeleton from "react-loading-skeleton";
-import ReactStars from "react-stars";
 import "./ProductCard.scss";
 const ProductCardSkeleton = ({ style }) => {
   return (
