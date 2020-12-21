@@ -1,5 +1,5 @@
 import { post } from "../../utils/requests";
-import { loginApi } from "../../utils/endpoints";
+import { authApi, loginApi } from "../../utils/endpoints";
 import { startLoading, finishLoading } from "./LoadingActions";
 import { emptyCart } from "./CartActions";
 
@@ -13,7 +13,7 @@ const login = (data) => ({
   payload: data,
 });
 
-const invalidLogin = (error) => ({
+export const invalidLogin = (error) => ({
   type: LOGIN_FAILED,
   payload: error,
 });
@@ -23,7 +23,18 @@ export const makeSeller = () => ({ type: MAKE_SELLER });
 export const loginUser = (email, password) => async (dispatch) => {
   dispatch(startLoading("auth"));
   try {
-    const [user] = await post(loginApi, false, { email, password });
+    const [user] = await post(authApi.login, false, { email, password });
+    dispatch(login(user));
+    dispatch(finishLoading("auth"));
+  } catch (err) {
+    console.error(err);
+    dispatch(invalidLogin(err));
+  }
+};
+
+export const googleLogin = (tokenId) => async (dispatch) => {
+  try {
+    const [user] = await post(authApi.googleLogin, false, { tokenId });
     dispatch(login(user));
     dispatch(finishLoading("auth"));
   } catch (err) {

@@ -7,16 +7,17 @@ import { loginUser } from "../../redux/actions/authActions";
 import { connect } from "react-redux";
 import { getCart } from "../../redux/actions/CartActions";
 import { Link } from "react-router-dom";
+import GoogleSignIn from "./GoogleSigIn";
 const Login = (props) => {
   const [validated] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
-
+  const { auth, closeLogin } = props;
   React.useEffect(() => {
-    if (props.auth === true) {
-      props.closeLogin();
+    if (auth === true) {
+      closeLogin();
     }
-  }, [props.auth]);
+  }, [auth, closeLogin]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -96,6 +97,11 @@ const Login = (props) => {
             <Link onClick={props.closeLogin} to="/forgot-password">
               forgot password?
             </Link>
+          </Col>
+        </Row>
+        <Row>
+          <Col className="mt-5">
+            <GoogleSignIn closeLogin={closeLogin} theme="dark" />
           </Col>
         </Row>
         <Row className="mt-2 text-center">

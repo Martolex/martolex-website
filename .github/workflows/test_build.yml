@@ -26,6 +26,7 @@ jobs:
           yarn build
         env:
           CI: false
+          REACT_APP_GOOGLE_CLIENT_ID: ${{secrets.REACT_APP_GOOGLE_CLIENT_ID}}
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@master
         with:

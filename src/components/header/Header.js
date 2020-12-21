@@ -20,7 +20,7 @@ const Header = (props) => {
   const [searchText, setSearchText] = useState("");
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [isMenuopen, setMenuOpen] = useState(false);
-  const [isLoginOpen, setLoginOpen] = useState(false);
+  const [isLoginOpen, setLoginOpen] = useState(true);
   const [isCartOpen, setCartOpen] = useState(false);
   const toggleSearch = () => {
     setSearchOpen(!isSearchOpen);
