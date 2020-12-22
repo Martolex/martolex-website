@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { GoogleLogin } from "react-google-login";
-import { useDispatch } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { GOOGLE_CLIENT_ID } from "../../config";
 import { googleLogin, invalidLogin } from "../../redux/actions/authActions";
 const GoogleSignIn = (props) => {
@@ -23,11 +23,13 @@ const GoogleSignIn = (props) => {
       className={`w-100 text-dark ${props.className}`}
       clientId={GOOGLE_CLIENT_ID}
       buttonText="LOGIN WITH GOOGLE"
-      isSignedIn
+      isSignedIn={!props.isLoggedIn}
       onSuccess={onSuccess}
       onFailure={onFailure}
     />
   );
 };
 
-export default GoogleSignIn;
+const mapStateToProps = ({ user }) => ({ isLoggedIn: user.auth });
+
+export default connect(mapStateToProps)(GoogleSignIn);

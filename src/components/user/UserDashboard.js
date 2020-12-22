@@ -9,17 +9,11 @@ import UserOrders from "./Orders/UserOrders";
 import PrivateRoute from "../utils/PrivateRoute";
 import UserBooks from "./UserBooks/UserBooks";
 import BookOrders from "./UserBooks/BookOrders";
-import { useGoogleLogout } from "react-google-login";
-import { GOOGLE_CLIENT_ID } from "../../config";
+import useGoogleLogout from "../auth/GoogleLogout";
+
 const UserDashboard = (props) => {
   const { url: currUrl } = props.match;
-  const googleLogout = useGoogleLogout({
-    clientId: GOOGLE_CLIENT_ID,
-    onLogoutSuccess: () => {
-      props.userLogout();
-    },
-    onFailure: () => console.log("could not logout"),
-  });
+  const googleLogout = useGoogleLogout(props.userLogout);
   const logoutUser = () => {
     if (props.type === "GOOGLE") {
       googleLogout.signOut();
