@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import { mapPlanToText } from "../../utils/produtUtils";
 
 const CartItem = ({ item, ...props }) => {
+  console.log(item.bookId);
   return (
     <Row className="item-container w-100 m-0">
       <Col className="imgDiv" xs={4}>
@@ -40,13 +41,13 @@ const CartItem = ({ item, ...props }) => {
               maxQuantity={item.book.quantity}
               currentQuantity={item.qty}
               onChange={(newQuantity) => {
-                props.updateQty(item.book.id, item.plan, newQuantity);
+                props.updateQty(item.bookId, item.plan, newQuantity);
               }}
             />
           </Col>
           <Col className="m-0 p-0 button" xs={4}>
             <Button
-              onClick={() => props.remove(item.BookId)}
+              onClick={() => props.remove(item.bookId)}
               className="remove-btn"
               variant="danger"
             >

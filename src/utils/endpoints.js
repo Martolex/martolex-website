@@ -32,21 +32,19 @@ export const ordersApi = {
   returnItem: (itemId) => `${userApi}/order/return/${itemId}`,
   cancelReturn: (itemId) => `${userApi}/order/return/${itemId}/cancelRequest`,
   multipleOrderDetails: async (orderIds) => {
-    try {
-      var orders = [];
-      if (typeof orderIds == "string") {
-        orders = [orderIds];
-      } else {
-        orders = orderIds;
-      }
-      console.log(orders);
+    var orders = [];
+    if (typeof orderIds == "string") {
+      orders = [orderIds];
+    } else {
+      orders = orderIds;
+    }
+    console.log(orders);
 
-      const promises = orders.map((orderId) =>
-        get(`${userApi}/order/${orderId}`)
-      );
-      const ordersDet = (await Promise.all(promises)).map((order) => order[0]);
-      return ordersDet;
-    } catch (err) {}
+    const promises = orders.map((orderId) =>
+      get(`${userApi}/order/${orderId}`)
+    );
+    const ordersDet = (await Promise.all(promises)).map((order) => order[0]);
+    return ordersDet;
   },
 };
 

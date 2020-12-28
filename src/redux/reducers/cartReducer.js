@@ -3,7 +3,7 @@ import { EMPTY_CART } from "../actions/CartActions";
 const initialState = { loading: false, items: [], hydrated: false };
 
 const updateItem = (items, bookId, qty) => {
-  const item = items.find((item) => item.book.id === bookId);
+  const item = items.find((item) => item.bookId === bookId);
   if (item) {
     item.qty = qty;
   }
@@ -12,7 +12,7 @@ const updateItem = (items, bookId, qty) => {
 };
 
 const removeItem = (bookId, items) => {
-  return items.filter((item) => item.BookId !== bookId);
+  return items.filter((item) => item.bookId !== bookId);
 };
 
 const cartReducer = (state = initialState, action) => {
