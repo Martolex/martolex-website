@@ -10,6 +10,8 @@ import { Link } from "react-router-dom";
 import { buildCatUrl } from "../../utils/buildUrl";
 import ProductCardSkeleton from "../productListItem/productCard/ProductCardSkeleton";
 import Skeleton from "react-loading-skeleton";
+
+const ITEMS_IN_ROW = { desktop: 5, mobile: 1, smallDektop: 3, tablet: 2 };
 const ProductCarousel = ({ catId, label, ...props }) => {
   const [products, setProducts] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
@@ -29,13 +31,13 @@ const ProductCarousel = ({ catId, label, ...props }) => {
   }, [catId]);
 
   return (
-    <Container className="prod-carousel my-3" fluid>
+    <Container className="prod-carousel my-3 mt-2" fluid>
       <Row>
-        <Col className="text-center">
-          <h2>
+        <Col className="text-center header-container">
+          <h2 className="heading">
             {catId ? (
               <Link className="btn-link text-dark" to={buildCatUrl(catId)}>
-                <u>{label.toUpperCase()}</u>
+                <b>{label.toUpperCase()}</b>
               </Link>
             ) : (
               <Row>
@@ -71,7 +73,7 @@ const ProductCarousel = ({ catId, label, ...props }) => {
                   max: 3000,
                   min: 1024,
                 },
-                items: 4,
+                items: ITEMS_IN_ROW.desktop,
                 partialVisibilityGutter: 40,
               },
               smallDesktop: {
@@ -79,7 +81,7 @@ const ProductCarousel = ({ catId, label, ...props }) => {
                   max: 1024,
                   min: 768,
                 },
-                items: 3,
+                items: ITEMS_IN_ROW.smallDektop,
                 partialVisibilityGutter: 40,
               },
               mobile: {
@@ -87,7 +89,7 @@ const ProductCarousel = ({ catId, label, ...props }) => {
                   max: 464,
                   min: 0,
                 },
-                items: 1,
+                items: ITEMS_IN_ROW.mobile,
                 partialVisibilityGutter: 30,
               },
               tablet: {
@@ -95,7 +97,7 @@ const ProductCarousel = ({ catId, label, ...props }) => {
                   max: 768,
                   min: 464,
                 },
-                items: 2,
+                items: ITEMS_IN_ROW.tablet,
                 partialVisibilityGutter: 30,
               },
             }}
@@ -109,7 +111,7 @@ const ProductCarousel = ({ catId, label, ...props }) => {
                 products.map((product) => (
                   <ProductCard product={product} style={{ width: "100%" }} />
                 ))
-              : [...Array(4).keys()].map((item) => (
+              : [...Array(ITEMS_IN_ROW.desktop).keys()].map((item) => (
                   <ProductCardSkeleton style={{ width: "100%" }} />
                 ))}
           </Carousel>

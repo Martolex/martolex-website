@@ -232,7 +232,7 @@ const ProductDetails = (props) => {
       </Row>
       {product.description && (
         <Row className="mb-3">
-          <Row className="w-100 pb-2 row-header-box">
+          <Row className="w-100 row-header-box">
             <h2 className="row-header">DESCRIPTION</h2>
           </Row>
           <Col className="px-4">{product.description}</Col>
@@ -241,7 +241,7 @@ const ProductDetails = (props) => {
 
       <ReviewList reviews={product.reviews} />
       <Row>
-        <Row className="w-100 pb-2 row-header-box">
+        <Row className="w-100 row-header-box">
           <h2 className="row-header">RELATED PRODUCTS</h2>
         </Row>
 
