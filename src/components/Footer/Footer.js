@@ -18,18 +18,18 @@ const Footer = (props) => {
   }
   return (
     <div>
-      <Row className="bg-primary text-dark social py-4">
+      <Row className="bg-primary text-dark social py-3">
         <Col className="justify-content-center " md={10}>
-          <h2>Connect with us on Social Networks</h2>
+          <h3>Connect with us on Social Networks</h3>
         </Col>
-        <Col className="">
+        <Col className="icons">
           <a
             className="text-dark"
             target="_blank"
             rel="noopener noreferrer"
             href="https://www.facebook.com/MartolexIndia/"
           >
-            <FaFacebook size={40} className="mr-1" />
+            <FaFacebook size={30} className="mr-1" />
           </a>
           <a
             className="text-dark"
@@ -37,7 +37,7 @@ const Footer = (props) => {
             rel="noopener noreferrer"
             href="https://twitter.com/martolexindia"
           >
-            <FaTwitter size={40} className="mr-1" />
+            <FaTwitter size={30} className="mr-1" />
           </a>
 
           <a
@@ -46,7 +46,7 @@ const Footer = (props) => {
             rel="noopener noreferrer"
             href="https://www.instagram.com/martolex/"
           >
-            <FaInstagram size={40} className="mr-1" />
+            <FaInstagram size={30} className="mr-1" />
           </a>
           <a
             className="text-dark"
@@ -54,7 +54,7 @@ const Footer = (props) => {
             rel="noopener noreferrer"
             href="https://www.linkedin.com/company/martolex/"
           >
-            <FaLinkedin size={40} className="mr-1" />
+            <FaLinkedin size={30} className="mr-1" />
           </a>
         </Col>
       </Row>

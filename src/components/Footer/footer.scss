@@ -13,8 +13,8 @@
 }
 .social {
   width: 100%;
-  h2 {
-    font-size: 2.4em;
+  h3 {
+    font-size: 1.8em;
   }
   margin-left: 0;
 }
@@ -26,8 +26,13 @@
 
 @media only screen and (max-width: $breakpoint-desktop) {
   .social {
-    h2 {
+    h3 {
       font-size: 1.4em;
+      text-align: center;
+    }
+    .icons {
+      display: flex;
+      justify-content: center;
     }
   }
 }
