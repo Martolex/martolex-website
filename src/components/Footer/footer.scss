@@ -24,6 +24,12 @@
   color: lightgray !important;
 }
 
+.citations {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
 @media only screen and (max-width: $breakpoint-desktop) {
   .social {
     h3 {
@@ -34,5 +40,8 @@
       display: flex;
       justify-content: center;
     }
+  }
+  .citations {
+    padding-bottom: 0;
   }
 }
