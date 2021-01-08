@@ -12,7 +12,7 @@ const Navbar = (props) => {
     <div>
       <ul className="navbar">
         <li>
-          <Link className="btn-link hover-link" to="/">
+          <Link className="btn-link hover-link bold" to="/">
             home
           </Link>
         </li>
@@ -25,12 +25,12 @@ const Navbar = (props) => {
         <li>About us</li>
 
         <li>
-          <Link className="btn-link hover-link" to="/notFound">
+          <Link className="btn-link hover-link bold" to="/notFound">
             didn't find your book
           </Link>
         </li>
         <li>
-          <Link className="btn-link hover-link" to="/upload-book">
+          <Link className="btn-link hover-link bold" to="/upload-book">
             Sell your book
           </Link>
         </li>
