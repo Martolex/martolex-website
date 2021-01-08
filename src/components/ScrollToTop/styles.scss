@@ -1,0 +1,14 @@
+.scrollToTop {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  opacity: 0;
+  z-index: 1;
+  transition: 0.3s;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.scroll-btn-visible {
+  opacity: 1;
+}
