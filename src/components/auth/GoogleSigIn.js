@@ -7,7 +7,6 @@ const GoogleSignIn = (props) => {
   const dispatch = useDispatch();
   const onSuccess = useCallback(
     (res) => {
-      console.log(res.tokenId);
       dispatch(googleLogin(res.tokenId));
     },
     [dispatch]
