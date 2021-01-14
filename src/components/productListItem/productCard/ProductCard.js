@@ -20,7 +20,10 @@ const ProductCard = ({ product, ...props }) => {
         ></img>
       </div>
       <div className="product-info">
-        <a href={buildBookDetailsUrl(product.id)} className="prod-name">
+        <a
+          href={buildBookDetailsUrl(product.id)}
+          className="prod-name btn-link"
+        >
           {product.name}
         </a>
         <p className="prod-author">Author: {product.author}</p>
@@ -33,6 +36,7 @@ const ProductCard = ({ product, ...props }) => {
         )}
 
         <ReactStars
+          className="rating"
           count={5}
           value={product.rating}
           edit={false}

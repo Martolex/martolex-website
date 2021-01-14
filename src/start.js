@@ -23,6 +23,7 @@ import StaticRouter from "./components/staticPages/StaticRouter";
 import ForgotPassword from "./components/auth/ForgotPassword";
 import PasswordReset from "./components/auth/PasswordReset";
 import OrderFailure from "./components/Cart/OrderFailure";
+import ScrollToTop from "./components/ScrollToTop";
 
 function Start(props) {
   const [cartToastShow, setCarToastShow] = React.useState(false);
@@ -43,6 +44,7 @@ function Start(props) {
           header="added"
           body="Item Added To cart"
         />
+        <ScrollToTop />
 
         <Header />
         <Switch>
