@@ -1,9 +1,8 @@
-name: Test Build
+name: Prod Build
 on:
-  pull_request:
   push:
     branches:
-      - test
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -32,7 +31,7 @@ jobs:
         with:
           args: --acl public-read
         env:
-          AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          AWS_S3_BUCKET: ${{ secrets.PROD_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.REACT_DEPLOY_AWS_ACCESS_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.REACT_DEPLOY_AWS_SECRET }}
           AWS_REGION: ${{ secrets.S3_BUCKET_REGION }}
