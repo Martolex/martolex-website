@@ -75,11 +75,6 @@ const OrderItem = ({ item, ...props }) => {
               RETURN
             </Button>
           )}
-          {item.isReturned === returnStateSetters.RETURN_REQUESTED && (
-            <Button variant="danger" onClick={cancelReturn} className="" block>
-              CANCEL RETURN
-            </Button>
-          )}
         </Col>
       </Row>
     </Col>

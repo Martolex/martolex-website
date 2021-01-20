@@ -77,6 +77,12 @@ const BookNotFound = (props) => {
                 you to process your order. Also as a token of love, we will give
                 you an <b>ADDITIONAL DISCOUNT</b> on your order.
               </p>
+              <p className="text-center font-size lead">
+                Or Contact on{" "}
+                <a href="https://wa.me/8779639797">
+                  <b>WHATSAPP</b>
+                </a>
+              </p>
             </Col>
           </Row>
         </Col>
