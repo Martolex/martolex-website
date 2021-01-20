@@ -22,6 +22,7 @@
     "react-google-login": "^5.1.25",
     "react-icons": "^3.10.0",
     "react-loading-skeleton": "^2.1.1",
+    "react-meta-tags": "^1.0.1",
     "react-multi-carousel": "^2.5.5",
     "react-redux": "^7.2.1",
     "react-responsive-carousel": "^3.2.9",
@@ -39,7 +40,8 @@
     "start": "SET PORT=3001 && react-scripts start",
     "build": "react-scripts build",
     "deploy": "npm run build && aws s3 sync build/ s3://test.martolex.com",
-    "invalidate-cloudfront": "aws cloudfront create-invalidation --distribution-id E2OXT7ULGJ5BQE --paths /* ",
+    "invalidate-test-cloudfront": "aws cloudfront create-invalidation --distribution-id E2OXT7ULGJ5BQE --paths /* ",
+    "invalidate-prod-cloudfront": "aws cloudfront create-invalidation --distribution-id EUXCYYQBXPVC0 --paths /* ",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
