@@ -1466,6 +1466,18 @@
     "@emotion/utils" "0.11.3"
     "@emotion/weak-memoize" "0.2.5"
 
+"@emotion/core@^10.0.22":
+  version "10.1.1"
+  resolved "https://registry.yarnpkg.com/@emotion/core/-/core-10.1.1.tgz#c956c1365f2f2481960064bcb8c4732e5fb612c3"
+  integrity sha512-ZMLG6qpXR8x031NXD8HJqugy/AZSkAuMxxqB46pmAR7ze47MhNJ56cdoX243QPZdGctrdfo+s08yZTiwaUcRKA==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    "@emotion/cache" "^10.0.27"
+    "@emotion/css" "^10.0.27"
+    "@emotion/serialize" "^0.11.15"
+    "@emotion/sheet" "0.9.4"
+    "@emotion/utils" "0.11.3"
+
 "@emotion/core@^10.0.9":
   version "10.0.35"
   resolved "https://registry.yarnpkg.com/@emotion/core/-/core-10.0.35.tgz#513fcf2e22cd4dfe9d3894ed138c9d7a859af9b3"
@@ -9646,6 +9658,14 @@ react-error-overlay@^6.0.7:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.7.tgz#1dcfb459ab671d53f660a991513cb2f0a0553108"
   integrity sha512-TAv1KJFh3RhqxNvhzxj6LeT5NWklP6rDr2a0jaTfsZ5wSZWHOGeqQyejUp3xxLfPt2UpyJEcVQB/zyPcmonNFA==
 
+react-google-login@^5.1.25:
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/react-google-login/-/react-google-login-5.2.2.tgz#a20b46440c6c1610175ef75baf427118ff0e9859"
+  integrity sha512-JUngfvaSMcOuV0lFff7+SzJ2qviuNMQdqlsDJkUM145xkGPVIfqWXq9Ui+2Dr6jdJWH5KYdynz9+4CzKjI5u6g==
+  dependencies:
+    "@types/react" "*"
+    prop-types "^15.6.0"
+
 react-icons@^3.10.0:
   version "3.10.0"
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-3.10.0.tgz#6c217a2dde2e8fa8d293210023914b123f317297"
@@ -9674,6 +9694,23 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
+
+react-loading-skeleton@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/react-loading-skeleton/-/react-loading-skeleton-2.1.1.tgz#2c075ea9683587c163408c8eec0703047c4203b1"
+  integrity sha512-+fGvgG9ieUw4D5QVgpqJkJ75jhzUdz96GRsA0HjTlR0Mpj9DJUEFc0AKELs7ZkqWVH8/DiroaaufSrOPld1kGA==
+  dependencies:
+    "@emotion/core" "^10.0.22"
+
+react-meta-tags@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-meta-tags/-/react-meta-tags-1.0.1.tgz#be18e88adafca280d6bd12839b530f9cfb7edbab"
+  integrity sha512-uylBI9UOI0QCGDsl6PlZaHnp+MxEpwslTlicPjnlcD68I8Kl2hdbuAZBRih+yU5StArSMB6T0jBrgst6rAuDYQ==
+
+react-multi-carousel@^2.5.5:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/react-multi-carousel/-/react-multi-carousel-2.6.1.tgz#43871c8c50aab96f64769d59e2e3b88a77e0ea8b"
+  integrity sha512-N0YfKqEYc9ElyGMrvukyVDMkYae76GDY4+1pXXPLvRj9uLFuaa4rCj31RWbNP8VEE2A2Sp3TSLV2yXVoLUUD8w==
 
 react-overlays@^4.1.0:
   version "4.1.0"

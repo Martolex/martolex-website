@@ -1,9 +1,16 @@
 import React from "react";
 import { Col, Container, Image, Row } from "react-bootstrap";
-
+import MetaTags from "react-meta-tags";
 const TermsAndConditions = (props) => {
   return (
-    <Container fluid className="p-0 mb-5">
+    <Container fluid className="p-0 m b-5">
+      <MetaTags>
+        <title>Terms & Conditions - Martolex.com </title>
+        <meta
+          name="description"
+          content="Terms & Conditions helps the user to know about all agreements between them and martolex.com. "
+        />
+      </MetaTags>
       <Row className="w-100 m-0">
         <Col md={12} className="w-100 m-0 p-0">
           <Image className="w-100" src="/banners/tc.jpg" />

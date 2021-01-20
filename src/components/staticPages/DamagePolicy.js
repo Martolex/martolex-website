@@ -1,9 +1,16 @@
 import React from "react";
 import { Col, Container, Image, Row } from "react-bootstrap";
-
+import MetaTags from "react-meta-tags";
 const DamagePolicy = (props) => {
   return (
     <Container fluid className="p-0 mb-5">
+      <MetaTags>
+        <title>Damage Policy - Martolex.com </title>
+        <meta
+          name="description"
+          content="Over the course of time, a book will be rented multiple times on martolex.com. Therefore, it is essential to not damage the book and respect the policy."
+        />
+      </MetaTags>
       <Row className="w-100 m-0 mt-3">
         <Col md={12} className="w-100 m-0 p-0 mb-2">
           <h2 className="h1 text-primary text-center">DAMAGE POLICY</h2>

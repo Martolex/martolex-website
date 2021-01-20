@@ -5,6 +5,7 @@ import OverLay from "../utils/overLay";
 import OverlayLoader from "../utils/OverlayLoader";
 import { post } from "../../utils/requests";
 import { notFoundBookApi } from "../../utils/endpoints";
+import MetaTags from "react-meta-tags";
 const BookNotFound = (props) => {
   const [details, setDetails] = useState({});
   const [validated, setValidated] = useState(false);
@@ -43,6 +44,13 @@ const BookNotFound = (props) => {
   };
   return (
     <Container fluid className="p-0">
+      <MetaTags>
+        <title>Didn’t find your book- Martolex.com </title>
+        <meta
+          name="description"
+          content="Didn’t find your book? Fill the form or contact us to request for the book you required. We’ll provide you with extra discount on your order."
+        />
+      </MetaTags>
       {isLoading && (
         <OverLay style={{ position: "fixed", top: 0, left: 0 }}>
           <OverlayLoader />
