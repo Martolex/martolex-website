@@ -190,9 +190,11 @@ const ProductDetails = (props) => {
               <span>₹{getRefundAmount(product.rent, plan)}</span>
             </p>
           )}
-          <p className="amount">
-            book MRP : <span>₹{product.rent.mrp}</span>
-          </p>
+          {product.isBuyBackEnabled && plan.plan !== plans.SELL && (
+            <p className="amount">
+              Rental Amount : <span>₹{plan.rent}</span>
+            </p>
+          )}
           <p className="amount">
             Your Savings:
             <span>
@@ -219,12 +221,6 @@ const ProductDetails = (props) => {
               >
                 <FaShoppingCart className="mr-2" size={20} />
                 {props.isPresentInCart ? "ITEM IN CART" : "ADD TO CART"}
-              </Button>
-            </Col>
-            <Col md={4} className="py-2">
-              <Button block size="lg" variant="warning">
-                <FaRegHeart className="mr-2" size={20} />
-                ADD TO WISHLIST
               </Button>
             </Col>
           </Row>

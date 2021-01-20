@@ -1,5 +1,6 @@
 import React from "react";
 import { Row, Container, Col } from "react-bootstrap";
+import { connect } from "react-redux";
 import "./Dashboardstyles.scss";
 const DashboardHome = (props) => {
   return (
@@ -13,7 +14,7 @@ const DashboardHome = (props) => {
       <Row>
         <Col>
           <p className="text">
-            Hello, <b>Deepanshu</b>
+            Hello, <b>{props.userName}</b>
           </p>
           <p>
             From your account dashboard. you can easily check & view your recent
@@ -26,4 +27,6 @@ const DashboardHome = (props) => {
   );
 };
 
-export default DashboardHome;
+const mapStateToProps = ({ user }) => ({ userName: user?.profile.name });
+
+export default connect(mapStateToProps)(DashboardHome);

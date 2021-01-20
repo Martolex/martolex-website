@@ -25,7 +25,8 @@ const NoProducts = (props) => {
       <Row>
         <Col className="text-center">
           <p>
-            You can put in your book request and we will get back to you soon
+            You can put in your book request and we will get back to you soon.
+            Or Contact on <a href="https://wa.me/8779639797">WHATSAPP</a>
           </p>
         </Col>
       </Row>
