@@ -7,8 +7,8 @@ export const loginApi = backendApi + "auth/signIn";
 
 export const categorySearchApi = (catId) =>
   backendApi + `books/cat/${catId}?limit=12`;
-export const subCategorySearchApi = (catId, subCatId) =>
-  `${backendApi}books/cat/${catId}/subCat/${subCatId}?limit=12`;
+export const subCategorySearchApi = (catId, subCatId, limit = 12) =>
+  `${backendApi}books/cat/${catId}/subCat/${subCatId}?limit=${limit}`;
 export const searchApi = (query) => `${backendApi}books/search${query}`;
 
 export const productDetailsApi = (bookId) => `${backendApi}books/${bookId}`;

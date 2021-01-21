@@ -60,7 +60,7 @@ const BookNotFound = (props) => {
         <Col md={12} className="w-100 m-0 p-0">
           <Image
             className="w-100"
-            src="https://www.martolex.com/image/bg-images/did_not_find_book.jpg"
+            src="https://martolex-static-web-content.s3.ap-south-1.amazonaws.com/did_not_find_book.jpg"
           />
         </Col>
       </Row>

@@ -21,7 +21,11 @@ const Navbar = (props) => {
           Books
         </li>
 
-        <li>how it works</li>
+        <li>
+          <Link className="btn-link hover-link bold" to="/static/how_it_works">
+            how it works
+          </Link>
+        </li>
         <li>About us</li>
 
         <li>

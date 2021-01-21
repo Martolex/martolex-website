@@ -52,7 +52,11 @@ const ProductDetails = (props) => {
           setPlan({ plan: minPlan, rent: product.rent[minPlan], qty: 1 });
           setLoading(false);
           const [similarproducts] = await get(
-            subCategorySearchApi(product.subCat.category.id, product.subCat.id)
+            subCategorySearchApi(
+              product.subCat.category.id,
+              product.subCat.id,
+              viewPortWidth < desktopRes ? 4 : 12
+            )
           );
 
           setsimilarproducts(similarproducts.books);
@@ -249,8 +253,8 @@ const ProductDetails = (props) => {
         </Row>
 
         <ProductListing
-          style={{ padding: viewPortWidth < desktopRes ? "0 20px" : "0 10%" }}
-          displayType={viewPortWidth < desktopRes ? "grid" : "list"}
+          style={{ padding: "0 20px" }}
+          displayType={"grid"}
           isLoading={similarLoading}
           products={similarproducts}
         />
