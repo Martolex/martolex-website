@@ -4,6 +4,7 @@ import "./checkoutScreen.scss";
 import OverLay from "../utils/overLay";
 import OverLayLoader from "../utils/OverlayLoader";
 import { connect } from "react-redux";
+import MetaTags from "react-meta-tags";
 import cartStats, { itemPrice } from "../../utils/cartStats";
 import { fetchAddresses } from "../../redux/actions/addressActions";
 import { getDeliveryDate, getDeliveryCost } from "./checkoutUtils";
@@ -136,6 +137,13 @@ const CheckoutScreen = ({ cart, user, ...props }) => {
 
   return (
     <Container className="checkout-page p-0" fluid>
+      <MetaTags>
+        <title>Checkout - Martolex.com</title>
+        <meta
+          name="description"
+          content="Order your books by renting or buying all your College, Entrance Exam and School Books online at cheap price on Martolex.com. "
+        />
+      </MetaTags>
       {(props.isLoading || orderLoading) && (
         <OverLay>
           <OverLayLoader style={{ position: "absolute", top: "45vh" }} />

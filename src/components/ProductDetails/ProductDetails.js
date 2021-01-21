@@ -11,6 +11,7 @@ import {
   Breadcrumb,
 } from "react-bootstrap";
 import { FaRegHeart, FaShoppingCart } from "react-icons/fa";
+import MetaTags from "react-meta-tags";
 import QuantityChooser from "../utils/QuantityChooser";
 import ProductListing from "../productListing/productListing";
 import { get } from "../../utils/requests";
@@ -30,7 +31,6 @@ import {
   getRefundAmount,
 } from "../../utils/produtUtils";
 import ReviewList from "./ReviewList";
-
 const ProductDetails = (props) => {
   const { width: viewPortWidth } = useViewportHook();
   const [product, setProduct] = React.useState({});
@@ -81,6 +81,13 @@ const ProductDetails = (props) => {
     </OverLay>
   ) : (
     <Container fluid>
+      <MetaTags>
+        <title>{`Buy or Rent a Textbook of ${product.name} by ${product.author} of ${product.publisher} online at cheap price on Martolex.com`}</title>
+        <meta
+          name="description"
+          content={`Buy or Rent a Textbook of ${product.name} by ${product.author} of ${product.publisher} online at cheap price on Martolex.com.`}
+        />
+      </MetaTags>
       <Row>
         <Col
           className="p-4 carouselContainer d-flex justify-content-center"

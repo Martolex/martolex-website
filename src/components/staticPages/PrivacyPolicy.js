@@ -1,9 +1,16 @@
 import React from "react";
 import { Col, Container, Image, Row } from "react-bootstrap";
-
+import MetaTags from "react-meta-tags";
 const PrivacyPolicy = (props) => {
   return (
     <Container fluid className="p-0 mb-5">
+      <MetaTags>
+        <title>Privacy Policy - Martolex.com </title>
+        <meta
+          name="description"
+          content="Martolex is strongly committed to protecting the privacy of the users. Privacy policy contains the terms involved in registering to your service. "
+        />
+      </MetaTags>
       <Row className="w-100 m-0">
         <Col md={12} className="w-100 m-0 p-0 mb-2">
           <h2 className="h1 text-primary text-center">PRIVACY POLICY</h2>

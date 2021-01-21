@@ -27,6 +27,8 @@ const DashboardHome = (props) => {
   );
 };
 
+
 const mapStateToProps = ({ user }) => ({ userName: user?.profile.name });
+
 
 export default connect(mapStateToProps)(DashboardHome);

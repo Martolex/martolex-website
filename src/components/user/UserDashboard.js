@@ -10,7 +10,7 @@ import PrivateRoute from "../utils/PrivateRoute";
 import UserBooks from "./UserBooks/UserBooks";
 import BookOrders from "./UserBooks/BookOrders";
 import useGoogleLogout from "../auth/GoogleLogout";
-
+import MetaTags from "react-meta-tags";
 const UserDashboard = (props) => {
   const { url: currUrl } = props.match;
   const googleLogout = useGoogleLogout(props.userLogout);
@@ -23,6 +23,13 @@ const UserDashboard = (props) => {
   };
   return (
     <Container fluid>
+      <MetaTags>
+        <title>My Account - Martolex.com </title>
+        <meta
+          name="description"
+          content="Find all your orders and basic information on your my account dashboard of Martolex.com. "
+        />
+      </MetaTags>
       <Row className="px-2">
         <Col md={2} className="py-2">
           <ListGroup>
