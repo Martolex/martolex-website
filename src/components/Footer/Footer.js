@@ -142,7 +142,7 @@ const Footer = (props) => {
                       }}
                       type="text"
                       required
-                      placeholder="your Name"
+                      placeholder="Your Name"
                     />
                   </Row>
                   <Row>
@@ -156,7 +156,7 @@ const Footer = (props) => {
                       }
                       type="email"
                       required
-                      placeholder="your email"
+                      placeholder="Your E-mail"
                     />
                   </Row>
                   <Row className="my-2">
