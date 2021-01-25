@@ -108,7 +108,7 @@ const Footer = (props) => {
                   </a>
                 </Row>
                 <Row>
-                  <a href="/" className="footer-link">
+                  <a href="/static/faq" className="footer-link">
                     FAQ
                   </a>
                 </Row>
