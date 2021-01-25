@@ -26,7 +26,11 @@ const Navbar = (props) => {
             how it works
           </Link>
         </li>
-        <li>About us</li>
+        <li>
+          <Link className="btn-link hover-link bold" to="/static/about_us">
+            About us
+          </Link>
+        </li>
 
         <li>
           <Link className="btn-link hover-link bold" to="/notFound">
