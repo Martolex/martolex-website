@@ -60,7 +60,7 @@ const BookNotFound = (props) => {
         <Col md={12} className="w-100 m-0 p-0">
           <Image
             className="w-100"
-            src="https://www.martolex.com/image/bg-images/did_not_find_book.jpg"
+            src="https://martolex-static-web-content.s3.ap-south-1.amazonaws.com/did_not_find_book.jpg"
           />
         </Col>
       </Row>
@@ -76,6 +76,12 @@ const BookNotFound = (props) => {
                 Just fill out this form and our executive will get in touch with
                 you to process your order. Also as a token of love, we will give
                 you an <b>ADDITIONAL DISCOUNT</b> on your order.
+              </p>
+              <p className="text-center font-size lead">
+                Or Contact on{" "}
+                <a href="https://wa.me/8779639797">
+                  <b>WHATSAPP</b>
+                </a>
               </p>
             </Col>
           </Row>

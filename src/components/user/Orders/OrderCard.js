@@ -75,13 +75,6 @@ const OrderCard = ({ order, ...props }) => {
               {<RetryPayment block orderId={order.id} />}
             </Col>
           )}
-          {order.orderStatus === orderStatus.PROCESSING && (
-            <Col className="mb-2" md={3}>
-              <Button variant="danger" block>
-                Cancel Order
-              </Button>
-            </Col>
-          )}
         </Row>
         <Row>
           {order.items.map((item) => (

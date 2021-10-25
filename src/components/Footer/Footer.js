@@ -108,7 +108,7 @@ const Footer = (props) => {
                   </a>
                 </Row>
                 <Row>
-                  <a href="/" className="footer-link">
+                  <a href="/static/faq" className="footer-link">
                     FAQ
                   </a>
                 </Row>
@@ -142,7 +142,7 @@ const Footer = (props) => {
                       }}
                       type="text"
                       required
-                      placeholder="your Name"
+                      placeholder="Your Name"
                     />
                   </Row>
                   <Row>
@@ -156,7 +156,7 @@ const Footer = (props) => {
                       }
                       type="email"
                       required
-                      placeholder="your email"
+                      placeholder="Your E-mail"
                     />
                   </Row>
                   <Row className="my-2">

@@ -59,14 +59,6 @@ const UserDashboard = (props) => {
                 </ListGroup.Item>
               </Link>
             )}
-            <Link to={`${currUrl}/edit`}>
-              <ListGroup.Item
-                active={props.location.pathname.includes("/edit")}
-                action
-              >
-                PROFILE
-              </ListGroup.Item>
-            </Link>
 
             <Link to={`/`}>
               <ListGroup.Item action onClick={logoutUser}>
@@ -93,11 +85,6 @@ const UserDashboard = (props) => {
                 <BookOrders />
               </PrivateRoute>
             )}
-            <Route
-              exact
-              path="/profile/edit"
-              component={(props) => <h1>Edit profile</h1>}
-            />
           </Switch>
         </Col>
       </Row>

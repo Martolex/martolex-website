@@ -75,6 +75,18 @@ const Home = ({ categories, ...props }) => {
             />
           </Col>
         </Row>
+        <Row className="why">
+          <Col className="header" xs={12}>
+            <h2>WHY MARTOLEX</h2>
+          </Col>
+          <Col className="video" xs={12}>
+            <iframe
+              src="https://drive.google.com/file/d/15GZNLh750fx5S7y27kV5cR5bhjY5pTo6/preview"
+              width="640"
+              height="480"
+            ></iframe>
+          </Col>
+        </Row>
       </Container>
     </div>
   );

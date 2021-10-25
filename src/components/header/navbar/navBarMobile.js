@@ -85,13 +85,10 @@ const NavBarMobile = ({ categories, ...props }) => {
                 </ListGroup>
               </Accordion.Collapse>
             </Accordion>
-            <ListGroup.Item href="/how" action>
-              HOW WE WOK
+            <ListGroup.Item href="/static/how_it_works" action>
+              HOW WE WORK
             </ListGroup.Item>
-            <ListGroup.Item href="/contactUs" action>
-              CONTACT US
-            </ListGroup.Item>
-            <ListGroup.Item href="/aboutUs" action>
+            <ListGroup.Item href="/static/about_us" action>
               ABOUT US
             </ListGroup.Item>
             <ListGroup.Item href="/notFound" action>
